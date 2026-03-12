@@ -33,8 +33,8 @@ const HeroSection = () => {
       <ParticleBackground />
 
       {/* Ambient glow behind phone area */}
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/15 blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 right-1/3 w-[400px] h-[400px] rounded-full bg-accent/10 blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/8 blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/3 w-[300px] h-[300px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 min-h-screen flex items-center">
@@ -42,14 +42,14 @@ const HeroSection = () => {
           {/* Left — Text */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <h1
-              className="font-satoshi font-black tracking-tight text-foreground leading-[0.95]"
+              className="font-grotesk font-bold tracking-tight text-foreground leading-[0.95]"
               style={{
                 fontSize: "clamp(3rem, 8vw, 6.5rem)",
                 animation: "fade-in-up 0.8s ease-out backwards",
               }}
             >
               Turn Every Step Into{" "}
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="text-primary">
                 Competition
               </span>
             </h1>
@@ -72,7 +72,7 @@ const HeroSection = () => {
               }}
             >
               {/* Primary CTA */}
-              <button className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-primary to-accent text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(21,8,217,0.5)]">
+              <button className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(21,8,217,0.4)]">
                 <Apple className="w-5 h-5" />
                 Download on App Store
               </button>
