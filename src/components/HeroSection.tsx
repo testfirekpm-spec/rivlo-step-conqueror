@@ -43,14 +43,36 @@ const HeroSection = () => {
           <div className="lg:col-span-5 flex flex-col gap-6">
             <h1
               className="font-grotesk font-bold tracking-tight text-foreground leading-[0.95]"
-              style={{
-                fontSize: "clamp(3rem, 8vw, 6.5rem)",
-                animation: "fade-in-up 0.8s ease-out backwards",
-              }}
+              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)" }}
             >
-              Turn Every Step Into{" "}
-              <span className="text-primary">
-                Competition
+              {["Turn", "Every", "Step", "Into"].map((word, i) => (
+                <span key={word} className="inline-block overflow-hidden mr-[0.25em]">
+                  <span
+                    className="inline-block"
+                    style={{
+                      animation: `fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.08}s backwards`,
+                    }}
+                  >
+                    {word}
+                  </span>
+                </span>
+              ))}
+              <br />
+              <span className="inline-block overflow-hidden">
+                <span
+                  className="inline-block text-primary relative"
+                  style={{
+                    animation: "fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards",
+                  }}
+                >
+                  Competition
+                  <span
+                    className="absolute -bottom-1 left-0 h-[3px] bg-primary rounded-full w-full"
+                    style={{
+                      animation: "underline-grow 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards",
+                    }}
+                  />
+                </span>
               </span>
             </h1>
 
