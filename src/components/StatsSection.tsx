@@ -1,9 +1,9 @@
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const stats = [
-  { value: "500K+", label: "Steps Tracked Daily" },
+  { value: "1.5M+", label: "Steps Tracked Daily" },
   { value: "50K+", label: "Active Users" },
-  { value: "120+", label: "Countries" },
+  { value: "150+", label: "Countries" },
   { value: "4.9★", label: "App Store Rating" },
 ];
 
