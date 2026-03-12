@@ -5,6 +5,7 @@ import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
 import StepCounterRing from "./StepCounterRing";
 import FloatingTrophy from "./FloatingTrophy";
 import HomeScreenImg from "@/assets/Home.PNG";
+import { redirectToStore } from "@/lib/store-redirect";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -44,14 +45,11 @@ const HeroSection = () => {
     >
       <ParticleBackground />
 
-      {/* Ambient glow behind phone area */}
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/8 blur-[150px] pointer-events-none" />
       <div className="absolute top-1/3 right-1/3 w-[300px] h-[300px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
 
-      {/* Content */}
       <div className="relative z-10 container mx-auto px-6 min-h-screen flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full py-20 lg:py-0">
-          {/* Left — Text */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <h1
               className="font-grotesk font-bold tracking-tight text-foreground leading-[0.95]"
@@ -99,19 +97,29 @@ const HeroSection = () => {
               and runs, and unlock achievements.
             </p>
 
+            <p
+              className="text-sm text-muted-foreground"
+              style={{
+                animation: "fade-in-up 0.8s ease-out 0.2s backwards",
+              }}
+            >
+              Available on iOS & Android — free to download
+            </p>
+
             <div
               className="flex flex-wrap gap-4 mt-2"
               style={{
                 animation: "fade-in-up 0.8s ease-out 0.3s backwards",
               }}
             >
-              {/* Primary CTA */}
-              <button className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(79,106,255,0.4)]">
+              <button
+                onClick={redirectToStore}
+                className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gold text-gold-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_hsl(43_96%_56%/0.4)]"
+              >
                 <Trophy className="w-5 h-5" />
                 Start Your Journey
               </button>
 
-              {/* Secondary CTA */}
               <button
                 onClick={() => document.querySelector("#how-it-works")?.scrollIntoView({ behavior: "smooth" })}
                 className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-foreground font-semibold text-sm transition-all duration-300 hover:bg-white/5 hover:border-white/25 hover:scale-105"
@@ -122,7 +130,6 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right — Phone + Floating elements */}
           <div className="lg:col-span-7 flex justify-center lg:justify-center xl:justify-end lg:pr-10 xl:pr-4 overflow-visible">
             <div
               ref={phoneRef}
@@ -132,17 +139,13 @@ const HeroSection = () => {
                 animation: "fade-in-up 1s ease-out 0.2s backwards",
               }}
             >
-              {/* Phone mockup */}
               <div
                 className="relative w-[260px] h-[520px] xl:w-[280px] xl:h-[560px] rounded-[3rem] border-2 border-white/10 bg-gradient-to-b from-card to-background overflow-hidden shadow-2xl"
                 style={{
                   boxShadow: "0 0 80px rgba(79, 106, 255, 0.15), 0 25px 60px rgba(0,0,0,0.5)",
                 }}
               >
-                {/* Notch */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-7 bg-background rounded-b-2xl z-10" />
-
-                {/* Real app screenshot */}
                 <img
                   src={HomeScreenImg}
                   alt="Rivlo app home screen"
@@ -150,19 +153,13 @@ const HeroSection = () => {
                 />
               </div>
 
-              {/* Floating elements */}
               <div ref={cardsRef} className="absolute inset-0 pointer-events-none">
-                {/* Leaderboard card — top left */}
                 <div className="absolute -top-4 -left-36 lg:-left-44 xl:-left-52">
                   <FloatingLeaderboardCard />
                 </div>
-
-                {/* Step ring — bottom right */}
                 <div className="absolute -bottom-2 right-0 lg:right-2 xl:-right-8">
                   <StepCounterRing />
                 </div>
-
-                {/* Trophy — top right */}
                 <div className="absolute top-20 right-1 lg:right-2 xl:-right-6">
                   <FloatingTrophy />
                 </div>
