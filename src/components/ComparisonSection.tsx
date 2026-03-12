@@ -1,5 +1,6 @@
 import { Check, X, Crown, Zap, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
+import rivloLogo from "@/assets/logo-rivlo.png";
 import stravaLogo from "@/assets/logo-strava.png";
 import nikeLogo from "@/assets/logo-nike.png";
 import runnaLogo from "@/assets/logo-runna.png";
@@ -136,14 +137,14 @@ const ComparisonSection = () => {
                       <th key={app.key} className="py-6 px-4 text-center min-w-[120px]">
                         <div className="flex flex-col items-center gap-2.5">
                           {app.key === "rivlo" ? (
-                            <div
-                              className="w-12 h-12 rounded-2xl flex items-center justify-center text-lg font-black text-primary-foreground bg-primary shadow-lg"
+                            <img
+                              src={rivloLogo}
+                              alt="Rivlo logo"
+                              className="w-12 h-12 rounded-2xl object-cover shadow-lg"
                               style={{
                                 boxShadow: "0 0 20px hsl(var(--primary) / 0.4)",
                               }}
-                            >
-                              R
-                            </div>
+                            />
                           ) : (
                             <img
                               src={app.logo!}
