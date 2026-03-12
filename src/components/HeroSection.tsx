@@ -35,7 +35,7 @@ const HeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-visible bg-background"
+      className="relative min-h-screen overflow-hidden bg-background"
     >
       <ParticleBackground />
 
@@ -118,15 +118,20 @@ const HeroSection = () => {
           </div>
 
           {/* Right — Phone + Floating elements */}
-          <div className="lg:col-span-7 flex justify-center lg:justify-end">
-            <div className="relative" style={{ perspective: "1200px" }}>
+          <div className="lg:col-span-7 flex justify-center lg:justify-end overflow-visible">
+            <div
+              ref={phoneRef}
+              className="relative"
+              style={{
+                perspective: "1200px",
+                animation: "fade-in-up 1s ease-out 0.2s backwards",
+              }}
+            >
               {/* Phone mockup */}
               <div
-                ref={phoneRef}
-                className="relative w-[280px] h-[560px] rounded-[3rem] border-2 border-white/10 bg-gradient-to-b from-card to-background overflow-hidden shadow-2xl"
+                className="relative w-[260px] h-[520px] xl:w-[280px] xl:h-[560px] rounded-[3rem] border-2 border-white/10 bg-gradient-to-b from-card to-background overflow-hidden shadow-2xl"
                 style={{
                   boxShadow: "0 0 80px rgba(79, 106, 255, 0.15), 0 25px 60px rgba(0,0,0,0.5)",
-                  animation: "fade-in-up 1s ease-out 0.2s backwards",
                 }}
               >
                 {/* Notch */}
@@ -143,17 +148,17 @@ const HeroSection = () => {
               {/* Floating elements */}
               <div ref={cardsRef} className="absolute inset-0 pointer-events-none">
                 {/* Leaderboard card — top left */}
-                <div className="absolute -top-4 -left-44 lg:-left-52">
+                <div className="absolute -top-4 -left-36 lg:-left-44 xl:-left-52">
                   <FloatingLeaderboardCard />
                 </div>
 
                 {/* Step ring — bottom right */}
-                <div className="absolute -bottom-2 -right-28 lg:-right-36">
+                <div className="absolute -bottom-2 -right-16 lg:-right-20 xl:-right-28">
                   <StepCounterRing />
                 </div>
 
                 {/* Trophy — top right */}
-                <div className="absolute top-20 -right-20 lg:-right-28">
+                <div className="absolute top-20 -right-10 lg:-right-16 xl:-right-24">
                   <FloatingTrophy />
                 </div>
               </div>
