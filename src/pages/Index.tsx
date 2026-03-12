@@ -3,10 +3,14 @@ import HeroSection from "@/components/HeroSection";
 import LogoMarquee from "@/components/LogoMarquee";
 import StatsSection from "@/components/StatsSection";
 import FeaturesSection from "@/components/FeaturesSection";
+import AchievementsSection from "@/components/AchievementsSection";
+import PricingSection from "@/components/PricingSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import SectionDivider from "@/components/SectionDivider";
 
 const Index = () => {
   return (
@@ -15,9 +19,18 @@ const Index = () => {
       <HeroSection />
       <LogoMarquee />
       <StatsSection />
+      <SectionDivider />
       <FeaturesSection />
+      <SectionDivider />
+      <AchievementsSection />
+      <SectionDivider />
+      <PricingSection />
+      <SectionDivider />
       <HowItWorksSection />
+      <SectionDivider />
       <TestimonialsSection />
+      <SectionDivider />
+      <FAQSection />
       <CTASection />
       <Footer />
     </main>
