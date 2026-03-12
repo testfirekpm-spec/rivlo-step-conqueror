@@ -1,3 +1,5 @@
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+
 const testimonials = [
   {
     quote:
@@ -23,38 +25,67 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal();
+
   return (
-    <section id="testimonials" className="relative py-24 lg:py-32 bg-background">
+    <section id="testimonials" className="relative py-32 lg:py-40 bg-background">
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-sm font-semibold text-primary uppercase tracking-widest mb-3">
-            Testimonials
+        {/* Featured quote — Jitter-style big quote */}
+        <div
+          ref={headerRef}
+          className="max-w-4xl mx-auto text-center mb-24"
+          style={{
+            opacity: headerVisible ? 1 : 0,
+            transform: headerVisible ? "translateY(0)" : "translateY(30px)",
+            transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+          }}
+        >
+          <p className="text-3xl lg:text-5xl xl:text-6xl font-bold text-foreground font-grotesk tracking-tight leading-[1.15]">
+            "Rivlo gives you{" "}
+            <span className="text-primary">no excuse to skip walking</span>.
+            It's that addictive."
           </p>
-          <h2 className="text-3xl lg:text-5xl font-bold text-foreground font-grotesk tracking-tight">
-            Loved by walkers everywhere
-          </h2>
+          <div className="mt-10 flex items-center justify-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-primary/15 flex items-center justify-center text-sm font-bold text-primary">
+              SK
+            </div>
+            <div className="text-left">
+              <p className="text-sm font-semibold text-foreground">Sarah K.</p>
+              <p className="text-xs text-muted-foreground">Marketing Manager</p>
+            </div>
+          </div>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
-            <div
-              key={t.name}
-              className="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between"
-            >
-              <p className="text-foreground leading-relaxed mb-6">"{t.quote}"</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-xs font-bold text-primary">
-                  {t.initials}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.role}</p>
+        {/* Supporting quotes */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {testimonials.slice(1).map((t, i) => {
+            const { ref, isVisible } = useScrollReveal(0.1);
+            return (
+              <div
+                key={t.name}
+                ref={ref}
+                className="rounded-3xl border border-border bg-card p-8 flex flex-col justify-between"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateY(0)" : "translateY(30px)",
+                  transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1}s`,
+                }}
+              >
+                <p className="text-foreground leading-relaxed text-lg mb-6">
+                  "{t.quote}"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center text-xs font-bold text-primary">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
