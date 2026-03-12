@@ -129,7 +129,7 @@ const HeroSection = () => {
                           strokeWidth="5" strokeLinecap="round"
                           strokeDasharray={2 * Math.PI * 42}
                           strokeDashoffset={2 * Math.PI * 42 * 0.35}
-                          style={{ filter: "drop-shadow(0 0 4px rgba(21,8,217,0.5))" }}
+                          style={{ filter: "drop-shadow(0 0 4px rgba(79,106,255,0.5))" }}
                         />
                         <defs>
                           <linearGradient id="phoneRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">

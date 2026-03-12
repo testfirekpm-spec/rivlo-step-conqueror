@@ -29,7 +29,7 @@ const StepCounterRing = () => {
             strokeLinecap="round"
             strokeDasharray={circumference}
             strokeDashoffset={offset}
-            style={{ filter: "drop-shadow(0 0 6px rgba(21, 8, 217, 0.6))" }}
+            style={{ filter: "drop-shadow(0 0 6px rgba(79, 106, 255, 0.6))" }}
           />
           <defs>
             <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">

@@ -47,7 +47,7 @@ const Navbar = () => {
         {/* CTA */}
         <a
           href="#download"
-          className="hidden sm:flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(21,8,217,0.35)]"
+          className="hidden sm:flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(79,106,255,0.35)]"
         >
           <Apple className="w-4 h-4" />
           Download
