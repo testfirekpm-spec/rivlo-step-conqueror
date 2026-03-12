@@ -35,7 +35,7 @@ const HeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-background"
+      className="relative min-h-screen overflow-visible bg-background"
     >
       <ParticleBackground />
 
