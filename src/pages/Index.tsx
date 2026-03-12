@@ -23,6 +23,8 @@ const Index = () => {
       <SectionDivider />
       <FeaturesSection />
       <SectionDivider />
+      <AppShowcaseSection />
+      <SectionDivider />
       <AchievementsSection />
       <SectionDivider />
       <PricingSection />
