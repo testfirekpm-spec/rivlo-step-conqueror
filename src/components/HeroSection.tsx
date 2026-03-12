@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Apple, ChevronRight } from "lucide-react";
+import { Trophy, ChevronRight } from "lucide-react";
 import ParticleBackground from "./ParticleBackground";
 import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
 import StepCounterRing from "./StepCounterRing";
