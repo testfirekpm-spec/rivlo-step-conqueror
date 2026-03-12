@@ -100,7 +100,10 @@ const HeroSection = () => {
               </button>
 
               {/* Secondary CTA */}
-              <button className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-foreground font-semibold text-sm transition-all duration-300 hover:bg-white/5 hover:border-white/25 hover:scale-105">
+              <button
+                onClick={() => document.querySelector("#how-it-works")?.scrollIntoView({ behavior: "smooth" })}
+                className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-foreground font-semibold text-sm transition-all duration-300 hover:bg-white/5 hover:border-white/25 hover:scale-105"
+              >
                 See How It Works
                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </button>
