@@ -4,6 +4,7 @@ import LogoMarquee from "@/components/LogoMarquee";
 import StatsSection from "@/components/StatsSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import AppShowcaseSection from "@/components/AppShowcaseSection";
+import VideoShowcaseSection from "@/components/VideoShowcaseSection";
 import AchievementsSection from "@/components/AchievementsSection";
 import PricingSection from "@/components/PricingSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
