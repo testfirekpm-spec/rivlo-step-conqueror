@@ -59,15 +59,15 @@
 @layer utilities {
   .glass {
     @apply bg-white/5 backdrop-blur-xl border border-white/10;
-    box-shadow: 0 0 30px rgba(21, 8, 217, 0.1);
+    box-shadow: 0 0 30px rgba(79, 106, 255, 0.1);
   }
 
   .glow-primary {
-    box-shadow: 0 0 40px rgba(21, 8, 217, 0.4);
+    box-shadow: 0 0 40px rgba(79, 106, 255, 0.4);
   }
 
   .glow-primary-sm {
-    box-shadow: 0 0 20px rgba(21, 8, 217, 0.25);
+    box-shadow: 0 0 20px rgba(79, 106, 255, 0.25);
   }
 }
 
