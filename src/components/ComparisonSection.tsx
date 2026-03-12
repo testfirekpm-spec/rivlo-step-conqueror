@@ -14,7 +14,7 @@ const features = [
   { name: "Clubs & Teams", rivlo: "free", strava: "free", nike: "no", runna: "no" },
   { name: "Achievements & Badges", rivlo: "free", strava: "partial", nike: "free", runna: "no" },
   { name: "Season Challenges", rivlo: "free", strava: "no", nike: "no", runna: "no" },
-  { name: "Premium Themes & Widgets", rivlo: "paid", strava: "no", nike: "no", runna: "no" },
+  { name: "Premium Themes & Widgets", rivlo: "free", strava: "no", nike: "no", runna: "no" },
   { name: "Detailed Analytics & Insights", rivlo: "paid", strava: "paid", nike: "free", runna: "paid" },
   { name: "Adventures & Exploration", rivlo: "paid", strava: "no", nike: "no", runna: "no" },
   { name: "No Subscription Required", rivlo: "yes", strava: "no", nike: "yes", runna: "no" },
