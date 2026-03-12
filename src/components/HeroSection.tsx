@@ -108,7 +108,7 @@ const HeroSection = () => {
               {/* Primary CTA */}
               <button className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(79,106,255,0.4)]">
                 <Apple className="w-5 h-5" />
-                Download on App Store
+                Start Your Journey
               </button>
 
               {/* Secondary CTA */}
