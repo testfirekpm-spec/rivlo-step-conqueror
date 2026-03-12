@@ -1,3 +1,5 @@
+import rivloLogo from "@/assets/logo-rivlo.png";
+
 const footerLinks = {
   Product: ["Features", "How It Works", "Pricing", "Download"],
   Company: ["About", "Blog", "Careers", "Press"],
