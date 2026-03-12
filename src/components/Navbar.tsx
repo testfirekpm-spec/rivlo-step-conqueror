@@ -135,7 +135,7 @@ const Navbar = () => {
               transition: `opacity 0.3s ease 0.35s, transform 0.3s ease 0.35s`,
             }}
           >
-            <Apple className="w-4 h-4" />
+            <Trophy className="w-4 h-4" />
             Download App
           </a>
         </div>
