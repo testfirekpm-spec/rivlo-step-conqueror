@@ -1,5 +1,6 @@
 import { Check, X, Crown, Zap, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
+import rivloLogo from "@/assets/logo-rivlo.png";
 import stravaLogo from "@/assets/logo-strava.png";
 import nikeLogo from "@/assets/logo-nike.png";
 import runnaLogo from "@/assets/logo-runna.png";
