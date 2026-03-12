@@ -41,6 +41,10 @@ html {
 
     --radius: 0.75rem;
 
+    --shadow-gold-sm: 0 0 20px hsla(43, 96%, 56%, 0.35);
+    --shadow-gold: 0 0 30px hsla(43, 96%, 56%, 0.35);
+    --shadow-gold-lg: 0 0 30px hsla(43, 96%, 56%, 0.4);
+
     --sidebar-background: 230 25% 10%;
     --sidebar-foreground: 220 20% 85%;
     --sidebar-primary: 230 75% 52%;

@@ -67,7 +67,7 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={redirectToStore}
-              className="hidden sm:flex items-center px-5 py-2 rounded-full bg-gold text-gold-foreground text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(43_96%_56%/0.35)]"
+              className="hidden sm:flex items-center px-5 py-2 rounded-full bg-gold text-gold-foreground text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold-sm)]"
             >
               Join Now
             </button>
