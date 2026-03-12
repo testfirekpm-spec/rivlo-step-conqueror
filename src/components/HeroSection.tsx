@@ -72,7 +72,7 @@ const HeroSection = () => {
               }}
             >
               {/* Primary CTA */}
-              <button className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(21,8,217,0.4)]">
+              <button className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(79,106,255,0.4)]">
                 <Apple className="w-5 h-5" />
                 Download on App Store
               </button>
@@ -93,7 +93,7 @@ const HeroSection = () => {
                 ref={phoneRef}
                 className="relative w-[280px] h-[560px] rounded-[3rem] border-2 border-white/10 bg-gradient-to-b from-card to-background overflow-hidden shadow-2xl"
                 style={{
-                  boxShadow: "0 0 80px rgba(21, 8, 217, 0.2), 0 25px 60px rgba(0,0,0,0.5)",
+                  boxShadow: "0 0 80px rgba(79, 106, 255, 0.15), 0 25px 60px rgba(0,0,0,0.5)",
                   animation: "fade-in-up 1s ease-out 0.2s backwards",
                 }}
               >
@@ -129,12 +129,12 @@ const HeroSection = () => {
                           strokeWidth="5" strokeLinecap="round"
                           strokeDasharray={2 * Math.PI * 42}
                           strokeDashoffset={2 * Math.PI * 42 * 0.35}
-                          style={{ filter: "drop-shadow(0 0 4px rgba(21,8,217,0.5))" }}
+                          style={{ filter: "drop-shadow(0 0 4px rgba(79,106,255,0.5))" }}
                         />
                         <defs>
                           <linearGradient id="phoneRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="hsl(243, 89%, 44%)" />
-                            <stop offset="100%" stopColor="hsl(270, 60%, 50%)" />
+                            <stop offset="0%" stopColor="hsl(230, 80%, 60%)" />
+                            <stop offset="100%" stopColor="hsl(250, 70%, 65%)" />
                           </linearGradient>
                         </defs>
                       </svg>
