@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Trophy, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import rivloLogo from "@/assets/logo-rivlo.png";
+import { redirectToStore } from "@/lib/store-redirect";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -20,7 +21,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -43,13 +43,11 @@ const Navbar = () => {
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
-          {/* Logo */}
           <a href="#" className="flex items-center gap-2">
             <img src={rivloLogo} alt="Rivlo" className="w-8 h-8 rounded-lg" />
             <span className="text-xl font-bold text-foreground font-grotesk tracking-tight">Rivlo</span>
           </a>
 
-          {/* Nav Links — desktop */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -67,16 +65,13 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* CTA — desktop */}
-            <a
-              href="#download"
-              className="hidden sm:flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-primary-foreground text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(79,106,255,0.35)]"
+            <button
+              onClick={redirectToStore}
+              className="hidden sm:flex items-center px-5 py-2 rounded-full bg-gold text-gold-foreground text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_hsl(43_96%_56%/0.35)]"
             >
-              <Trophy className="w-4 h-4" />
-              Download
-            </a>
+              Join Now
+            </button>
 
-            {/* Hamburger — mobile */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl text-foreground hover:bg-muted/50 transition-colors"
@@ -88,7 +83,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile drawer overlay */}
       <div
         className={`fixed inset-0 z-40 bg-background/60 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -96,7 +90,6 @@ const Navbar = () => {
         onClick={() => setMobileOpen(false)}
       />
 
-      {/* Mobile drawer */}
       <div
         className={`fixed top-0 right-0 z-40 h-full w-72 bg-card border-l border-border shadow-2xl transition-transform duration-300 ease-out md:hidden ${
           mobileOpen ? "translate-x-0" : "translate-x-full"
@@ -122,22 +115,20 @@ const Navbar = () => {
             </a>
           ))}
 
-          <a
-            href="#download"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick("#download");
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              redirectToStore();
             }}
-            className="mt-6 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground text-sm font-semibold transition-all duration-300 hover:scale-105"
+            className="mt-6 flex items-center justify-center px-5 py-3 rounded-full bg-gold text-gold-foreground text-sm font-semibold transition-all duration-300 hover:scale-105"
             style={{
               opacity: mobileOpen ? 1 : 0,
               transform: mobileOpen ? "translateY(0)" : "translateY(10px)",
               transition: `opacity 0.3s ease 0.35s, transform 0.3s ease 0.35s`,
             }}
           >
-            <Trophy className="w-4 h-4" />
-            Download App
-          </a>
+            Join Now
+          </button>
         </div>
       </div>
     </>

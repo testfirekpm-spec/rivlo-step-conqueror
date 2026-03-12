@@ -29,6 +29,9 @@ html {
     --accent: 270 60% 50%;
     --accent-foreground: 220 20% 95%;
 
+    --gold: 43 96% 56%;
+    --gold-foreground: 0 0% 8%;
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 

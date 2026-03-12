@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Check, X, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { redirectToStore } from "@/lib/store-redirect";
 
 const features = [
   { name: "Step Tracking & Goals", free: true, pro: true },
@@ -25,7 +26,6 @@ const PricingSection = () => {
   return (
     <section id="pricing" className="relative py-32 lg:py-40 bg-background">
       <div className="container mx-auto px-6">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -42,7 +42,6 @@ const PricingSection = () => {
             Rivlo is fun for everyone. The free plan already gives you a lot — Pro just takes it to the next level.
           </p>
 
-          {/* Toggle */}
           <div className="flex items-center justify-center gap-4 mt-10">
             <span className={`text-sm font-medium transition-colors ${!yearly ? "text-foreground" : "text-muted-foreground"}`}>
               Monthly
@@ -66,7 +65,6 @@ const PricingSection = () => {
           </div>
         </motion.div>
 
-        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Free Plan */}
           <motion.div
@@ -99,7 +97,10 @@ const PricingSection = () => {
               ))}
             </ul>
 
-            <button className="w-full py-3.5 rounded-full text-sm font-bold border border-border text-foreground hover:bg-muted transition-all duration-300 hover:scale-105">
+            <button
+              onClick={redirectToStore}
+              className="w-full py-3.5 rounded-full text-sm font-bold border border-border text-foreground hover:bg-muted transition-all duration-300 hover:scale-105"
+            >
               Get Started Free
             </button>
           </motion.div>
@@ -148,11 +149,18 @@ const PricingSection = () => {
               ))}
             </ul>
 
-            <button className="w-full py-3.5 rounded-full text-sm font-bold bg-primary text-primary-foreground hover:shadow-[0_0_30px_rgba(79,106,255,0.4)] transition-all duration-300 hover:scale-105">
+            <button
+              onClick={redirectToStore}
+              className="w-full py-3.5 rounded-full text-sm font-bold bg-gold text-gold-foreground hover:shadow-[0_0_30px_hsl(43_96%_56%/0.4)] transition-all duration-300 hover:scale-105"
+            >
               Start 7-Day Free Trial
             </button>
           </motion.div>
         </div>
+
+        <p className="text-center text-sm text-muted-foreground mt-8">
+          Available on iOS & Android
+        </p>
       </div>
     </section>
   );
