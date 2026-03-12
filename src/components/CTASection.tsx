@@ -29,7 +29,7 @@ const CTASection = () => {
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
           <button className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-primary text-primary-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(79,106,255,0.3)]">
             <Apple className="w-5 h-5" />
-            Download on App Store
+            Start Your Journey
           </button>
           <p className="text-sm text-muted-foreground">
             Free to download · No credit card required
