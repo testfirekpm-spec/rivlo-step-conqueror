@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Apple, ChevronRight } from "lucide-react";
 import ParticleBackground from "./ParticleBackground";
 import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
