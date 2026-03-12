@@ -114,7 +114,7 @@ const HeroSection = () => {
             >
               <button
                 onClick={redirectToStore}
-                className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gold text-gold-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_hsl(43_96%_56%/0.4)]"
+                className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gold text-gold-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold-lg)]"
               >
                 <Trophy className="w-5 h-5" />
                 Start Your Journey

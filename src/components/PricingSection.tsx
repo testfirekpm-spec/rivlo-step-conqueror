@@ -151,7 +151,7 @@ const PricingSection = () => {
 
             <button
               onClick={redirectToStore}
-              className="w-full py-3.5 rounded-full text-sm font-bold bg-gold text-gold-foreground hover:shadow-[0_0_30px_hsl(43_96%_56%/0.4)] transition-all duration-300 hover:scale-105"
+              className="w-full py-3.5 rounded-full text-sm font-bold bg-gold text-gold-foreground hover:shadow-[var(--shadow-gold-lg)] transition-all duration-300 hover:scale-105"
             >
               Start 7-Day Free Trial
             </button>

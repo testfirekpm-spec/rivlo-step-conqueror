@@ -32,7 +32,7 @@ const CTASection = () => {
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
           <button
             onClick={redirectToStore}
-            className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_hsl(43_96%_56%/0.3)]"
+            className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
           >
             <Trophy className="w-5 h-5" />
             Start Your Journey
