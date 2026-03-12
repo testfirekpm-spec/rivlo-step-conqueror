@@ -14,11 +14,17 @@ const HeroSection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      const maxScroll = 300;
+      const clamped = Math.min(scrollY, maxScroll);
       if (phoneRef.current) {
-        phoneRef.current.style.transform = `translateY(${scrollY * 0.15}px)`;
+        const opacity = 1 - (clamped / maxScroll) * 0.6;
+        phoneRef.current.style.transform = `translateY(${clamped * 0.08}px) scale(${1 - clamped * 0.0003})`;
+        phoneRef.current.style.opacity = `${opacity}`;
       }
       if (cardsRef.current) {
-        cardsRef.current.style.transform = `translateY(${scrollY * 0.25}px)`;
+        const opacity = 1 - (clamped / maxScroll) * 0.8;
+        cardsRef.current.style.transform = `translateY(${clamped * 0.12}px)`;
+        cardsRef.current.style.opacity = `${opacity}`;
       }
     };
 
