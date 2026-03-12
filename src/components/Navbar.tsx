@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Apple, Menu, X } from "lucide-react";
+import { Trophy, Menu, X } from "lucide-react";
 import rivloLogo from "@/assets/logo-rivlo.png";
 
 const navLinks = [
