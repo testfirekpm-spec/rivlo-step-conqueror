@@ -1,4 +1,4 @@
-import { Apple } from "lucide-react";
+import { Trophy } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const CTASection = () => {
