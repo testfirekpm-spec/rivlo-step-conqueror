@@ -1,11 +1,48 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Play, Pause } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const VideoShowcaseSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showControls, setShowControls] = useState(true);
+  const hideTimerRef = useRef<number>();
   const { ref: sectionRef, isVisible } = useScrollReveal();
+
+  // Autoplay on scroll into view, pause when out
+  useEffect(() => {
+    const container = videoContainerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          videoRef.current?.play();
+          setIsPlaying(true);
+        } else {
+          videoRef.current?.pause();
+          setIsPlaying(false);
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-hide controls after 2s when playing
+  useEffect(() => {
+    if (isPlaying) {
+      setShowControls(true);
+      hideTimerRef.current = window.setTimeout(() => setShowControls(false), 2000);
+    } else {
+      setShowControls(true);
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    }
+    return () => { if (hideTimerRef.current) clearTimeout(hideTimerRef.current); };
+  }, [isPlaying]);
 
   const togglePlay = () => {
     if (!videoRef.current) return;
@@ -16,6 +53,13 @@ const VideoShowcaseSection = () => {
       videoRef.current.pause();
       setIsPlaying(false);
     }
+  };
+
+  const handleMouseMove = () => {
+    if (!isPlaying) return;
+    setShowControls(true);
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
+    hideTimerRef.current = window.setTimeout(() => setShowControls(false), 2000);
   };
 
   return (
@@ -49,8 +93,10 @@ const VideoShowcaseSection = () => {
           }}
         >
           <div
-            className="relative rounded-3xl overflow-hidden border-2 border-border bg-card group cursor-pointer"
+            ref={videoContainerRef}
+            className="relative rounded-3xl overflow-hidden border-2 border-border bg-card cursor-pointer"
             onClick={togglePlay}
+            onMouseMove={handleMouseMove}
             style={{
               boxShadow:
                 "0 0 80px hsl(var(--primary) / 0.1), 0 25px 60px rgba(0,0,0,0.4)",
@@ -60,6 +106,7 @@ const VideoShowcaseSection = () => {
               ref={videoRef}
               className="w-full aspect-video object-cover"
               playsInline
+              muted
               onEnded={() => setIsPlaying(false)}
             >
               <source src="/videos/RIVLO_trailer_Beta1.mp4" type="video/mp4" />
@@ -67,9 +114,8 @@ const VideoShowcaseSection = () => {
 
             {/* Play/Pause overlay */}
             <div
-              className={`absolute inset-0 flex items-center justify-center bg-background/30 transition-opacity duration-300 ${
-                isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
-              }`}
+              className="absolute inset-0 flex items-center justify-center bg-background/30 transition-opacity duration-500"
+              style={{ opacity: showControls ? 1 : 0, pointerEvents: showControls ? "auto" : "none" }}
             >
               <div className="w-20 h-20 rounded-full bg-primary/90 backdrop-blur-sm flex items-center justify-center shadow-xl transition-transform duration-300 hover:scale-110">
                 {isPlaying ? (
