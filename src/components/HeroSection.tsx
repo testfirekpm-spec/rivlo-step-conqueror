@@ -4,6 +4,7 @@ import ParticleBackground from "./ParticleBackground";
 import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
 import StepCounterRing from "./StepCounterRing";
 import FloatingTrophy from "./FloatingTrophy";
+import HomeScreenImg from "@/assets/Home.PNG";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -125,84 +126,12 @@ const HeroSection = () => {
                 {/* Notch */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-7 bg-background rounded-b-2xl z-10" />
 
-                {/* App UI mockup */}
-                <div className="absolute inset-0 pt-12 px-4 flex flex-col gap-3">
-                  {/* Status bar */}
-                  <div className="flex justify-between items-center px-1">
-                    <span className="text-[10px] font-bold text-foreground">9:41</span>
-                    <div className="flex gap-1">
-                      <div className="w-4 h-2 rounded-sm bg-foreground/30" />
-                      <div className="w-4 h-2 rounded-sm bg-foreground/30" />
-                      <div className="w-6 h-2.5 rounded-sm bg-foreground/40" />
-                    </div>
-                  </div>
-
-                  {/* Header */}
-                  <div className="mt-2">
-                    <p className="text-[10px] text-muted-foreground">Good morning</p>
-                    <p className="text-sm font-black text-foreground">Alex Johnson</p>
-                  </div>
-
-                  {/* Step circle */}
-                  <div className="flex justify-center my-4">
-                    <div className="relative w-32 h-32">
-                      <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-                        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="5" />
-                        <circle
-                          cx="50" cy="50" r="42" fill="none"
-                          stroke="url(#phoneRingGrad)"
-                          strokeWidth="5" strokeLinecap="round"
-                          strokeDasharray={2 * Math.PI * 42}
-                          strokeDashoffset={2 * Math.PI * 42 * 0.35}
-                          style={{ filter: "drop-shadow(0 0 4px rgba(79,106,255,0.5))" }}
-                        />
-                        <defs>
-                          <linearGradient id="phoneRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="hsl(230, 80%, 60%)" />
-                            <stop offset="100%" stopColor="hsl(250, 70%, 65%)" />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="text-2xl font-black text-foreground">8,432</span>
-                        <span className="text-[8px] text-muted-foreground">steps today</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Stats row */}
-                  <div className="grid grid-cols-3 gap-2">
-                    {[
-                      { label: "Calories", value: "342" },
-                      { label: "Distance", value: "3.2km" },
-                      { label: "Rank", value: "#7" },
-                    ].map((stat) => (
-                      <div key={stat.label} className="rounded-xl bg-white/5 p-2 text-center">
-                        <p className="text-xs font-bold text-foreground">{stat.value}</p>
-                        <p className="text-[8px] text-muted-foreground">{stat.label}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Leaderboard preview */}
-                  <div className="mt-2 rounded-xl bg-white/5 p-3">
-                    <p className="text-[9px] font-bold text-foreground mb-2">Friends Leaderboard</p>
-                    {[
-                      { name: "Mike R.", steps: "14.2k", pos: 1 },
-                      { name: "You", steps: "8.4k", pos: 2 },
-                      { name: "Anna L.", steps: "6.1k", pos: 3 },
-                    ].map((u) => (
-                      <div key={u.pos} className="flex items-center justify-between py-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[8px] font-bold text-muted-foreground w-3">{u.pos}</span>
-                          <div className="w-4 h-4 rounded-full bg-gradient-to-br from-primary/40 to-accent/40" />
-                          <span className="text-[9px] font-semibold text-foreground">{u.name}</span>
-                        </div>
-                        <span className="text-[9px] text-muted-foreground">{u.steps}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                {/* Real app screenshot */}
+                <img
+                  src={HomeScreenImg}
+                  alt="Rivlo app home screen"
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                />
               </div>
 
               {/* Floating elements */}

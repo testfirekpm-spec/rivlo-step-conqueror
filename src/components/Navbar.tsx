@@ -3,6 +3,7 @@ import { Apple, Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#pricing" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "FAQ", href: "#faq" },
