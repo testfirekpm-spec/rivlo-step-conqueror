@@ -13,9 +13,12 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <p className="text-2xl font-bold text-foreground font-grotesk tracking-tight">
-              Rivlo
-            </p>
+            <div className="flex items-center gap-2.5">
+              <img src={rivloLogo} alt="Rivlo" className="w-9 h-9 rounded-xl" />
+              <span className="text-2xl font-bold text-foreground font-grotesk tracking-tight">
+                Rivlo
+              </span>
+            </div>
             <p className="mt-4 text-sm text-muted-foreground max-w-[28ch] leading-relaxed">
               Turn every step into competition. Walk more, compete harder, win bigger.
             </p>

@@ -44,8 +44,9 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="text-xl font-bold text-foreground font-grotesk tracking-tight">
-            Rivlo
+          <a href="#" className="flex items-center gap-2">
+            <img src={rivloLogo} alt="Rivlo" className="w-8 h-8 rounded-lg" />
+            <span className="text-xl font-bold text-foreground font-grotesk tracking-tight">Rivlo</span>
           </a>
 
           {/* Nav Links — desktop */}
