@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Apple, ChevronRight } from "lucide-react";
 import ParticleBackground from "./ParticleBackground";
 import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
@@ -14,17 +14,22 @@ const HeroSection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const maxScroll = 300;
+      const maxScroll = 240;
       const clamped = Math.min(scrollY, maxScroll);
+      const isWideDesktop = window.innerWidth >= 1280;
+
       if (phoneRef.current) {
-        const opacity = 1 - (clamped / maxScroll) * 0.6;
-        phoneRef.current.style.transform = `translateY(${clamped * 0.08}px) scale(${1 - clamped * 0.0003})`;
-        phoneRef.current.style.opacity = `${opacity}`;
+        phoneRef.current.style.transform = isWideDesktop
+          ? `translateY(${clamped * 0.05}px)`
+          : "translateY(0px)";
+        phoneRef.current.style.opacity = "1";
       }
+
       if (cardsRef.current) {
-        const opacity = 1 - (clamped / maxScroll) * 0.8;
-        cardsRef.current.style.transform = `translateY(${clamped * 0.12}px)`;
-        cardsRef.current.style.opacity = `${opacity}`;
+        cardsRef.current.style.transform = isWideDesktop
+          ? `translateY(${clamped * 0.07}px)`
+          : "translateY(0px)";
+        cardsRef.current.style.opacity = "1";
       }
     };
 
@@ -118,7 +123,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right — Phone + Floating elements */}
-          <div className="lg:col-span-7 flex justify-center lg:justify-end overflow-visible">
+          <div className="lg:col-span-7 flex justify-center lg:justify-center xl:justify-end lg:pr-10 xl:pr-4 overflow-visible">
             <div
               ref={phoneRef}
               className="relative"
@@ -153,12 +158,12 @@ const HeroSection = () => {
                 </div>
 
                 {/* Step ring — bottom right */}
-                <div className="absolute -bottom-2 -right-16 lg:-right-20 xl:-right-28">
+                <div className="absolute -bottom-2 right-0 lg:right-2 xl:-right-8">
                   <StepCounterRing />
                 </div>
 
                 {/* Trophy — top right */}
-                <div className="absolute top-20 -right-10 lg:-right-16 xl:-right-24">
+                <div className="absolute top-20 right-1 lg:right-2 xl:-right-6">
                   <FloatingTrophy />
                 </div>
               </div>
