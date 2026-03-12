@@ -93,7 +93,7 @@ const HeroSection = () => {
                 ref={phoneRef}
                 className="relative w-[280px] h-[560px] rounded-[3rem] border-2 border-white/10 bg-gradient-to-b from-card to-background overflow-hidden shadow-2xl"
                 style={{
-                  boxShadow: "0 0 80px rgba(21, 8, 217, 0.2), 0 25px 60px rgba(0,0,0,0.5)",
+                  boxShadow: "0 0 80px rgba(79, 106, 255, 0.15), 0 25px 60px rgba(0,0,0,0.5)",
                   animation: "fade-in-up 1s ease-out 0.2s backwards",
                 }}
               >
