@@ -4,6 +4,7 @@ import ParticleBackground from "./ParticleBackground";
 import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
 import StepCounterRing from "./StepCounterRing";
 import FloatingTrophy from "./FloatingTrophy";
+import HomeScreenImg from "@/assets/Home.PNG";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
