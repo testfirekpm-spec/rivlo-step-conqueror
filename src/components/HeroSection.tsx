@@ -33,8 +33,8 @@ const HeroSection = () => {
       <ParticleBackground />
 
       {/* Ambient glow behind phone area */}
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/15 blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 right-1/3 w-[400px] h-[400px] rounded-full bg-accent/10 blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/8 blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/3 w-[300px] h-[300px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 min-h-screen flex items-center">
