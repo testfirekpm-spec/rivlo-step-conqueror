@@ -12,6 +12,7 @@ import ComparisonSection from "@/components/ComparisonSection";
 import PricingSection from "@/components/PricingSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import BlogSection from "@/components/BlogSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
@@ -44,6 +45,8 @@ const Index = () => {
       <TestimonialsSection />
       <SectionDivider />
       <FAQSection />
+      <SectionDivider />
+      <BlogSection />
       <CTASection />
       <Footer />
     </main>
