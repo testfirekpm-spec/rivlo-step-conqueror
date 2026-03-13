@@ -1,9 +1,22 @@
+import { Link } from "react-router-dom";
 import rivloLogo from "@/assets/logo-rivlo.png";
 
 const footerLinks = {
-  Product: ["Features", "How It Works", "Pricing", "Download"],
-  Company: ["About", "Blog", "Careers", "Press"],
-  Legal: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
+  Product: [
+    { label: "Features", href: "#features" },
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Download", href: "https://apps.apple.com/app/rivlo-steps-runs-hikes/id6756506796", external: true },
+  ],
+  Company: [
+    { label: "About", href: "/about" },
+    { label: "Blog", href: "#blog" },
+    { label: "Contact", href: "/contact" },
+  ],
+  Legal: [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms of Service", href: "/terms" },
+  ],
 };
 
 const Footer = () => {
@@ -13,12 +26,12 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2.5">
+            <Link to="/" className="flex items-center gap-2.5">
               <img src={rivloLogo} alt="Rivlo" className="w-9 h-9 rounded-xl" />
               <span className="text-2xl font-bold text-foreground font-grotesk tracking-tight">
                 Rivlo
               </span>
-            </div>
+            </Link>
             <p className="mt-4 text-sm text-muted-foreground max-w-[28ch] leading-relaxed">
               Turn every step into competition. Walk more, compete harder, win bigger.
             </p>
@@ -30,13 +43,31 @@ const Footer = () => {
               <p className="text-sm font-semibold text-foreground mb-4">{heading}</p>
               <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      {link}
-                    </a>
+                  <li key={link.label}>
+                    {link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    ) : link.href.startsWith("/") ? (
+                      <Link
+                        to={link.href}
+                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
