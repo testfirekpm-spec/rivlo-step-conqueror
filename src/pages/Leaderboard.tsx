@@ -1,36 +1,70 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Share2, Trophy, Crown } from "lucide-react";
+import { ArrowLeft, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toPng } from "html-to-image";
 import rivloLogo from "@/assets/logo-rivlo.png";
 
 const leaderboardData = [
-  { rank: 1, name: "walking", club: "DailyWalkers 🍃", flag: "🇷🇴", steps: 11426 },
-  { rank: 2, name: "luffy", club: "Top pickers", flag: "🇨🇦", steps: 10622 },
-  { rank: 3, name: "saumya_obsidi…", club: "DailyWalkers 🍃", flag: "🇮🇳", steps: 10324 },
-  { rank: 4, name: "paceby harsh", club: "DailyWalkers 🍃", flag: "🇮🇳", steps: 10317 },
-  { rank: 5, name: "top", club: "Top club", flag: "🇺🇸", steps: 10278 },
-  { rank: 6, name: "shubhu_vasani", club: "Gujarat Kesari", flag: "🇮🇳", steps: 9464 },
-  { rank: 7, name: "i11mmu", club: "", flag: "🇬🇧", steps: 9317 },
-  { rank: 8, name: "dpranali064", club: "", flag: "🇺🇸", steps: 9222 },
+  { rank: 1, name: "walking", club: "DailyWalkers 🍃", flag: "RO", steps: 11426 },
+  { rank: 2, name: "luffy", club: "Top pickers", flag: "CA", steps: 10622 },
+  { rank: 3, name: "saumya_obsidi…", club: "DailyWalkers 🍃", flag: "IN", steps: 10324 },
+  { rank: 4, name: "paceby harsh", club: "DailyWalkers 🍃", flag: "IN", steps: 10317 },
+  { rank: 5, name: "top", club: "Top club", flag: "US", steps: 10278 },
+  { rank: 6, name: "shubhu_vasani", club: "Gujarat Kesari", flag: "IN", steps: 9464 },
+  { rank: 7, name: "i11mmu", club: "", flag: "GB", steps: 9317 },
+  { rank: 8, name: "dpranali064", club: "", flag: "US", steps: 9222 },
 ];
 
 const top3 = leaderboardData.slice(0, 3);
 const rest = leaderboardData.slice(3);
+const podiumOrder = [top3[1], top3[0], top3[2]];
 
-const podiumOrder = [top3[1], top3[0], top3[2]]; // 2nd, 1st, 3rd
+const FlagBadge = ({ code }: { code: string }) => (
+  <img
+    src={`https://flagcdn.com/w80/${code.toLowerCase()}.png`}
+    alt={code}
+    className="w-7 h-5 rounded-sm object-cover"
+    loading="lazy"
+  />
+);
 
-const podiumConfig: Record<number, { height: string; gradient: string; ring: string; crown: boolean; size: string }> = {
-  1: { height: "h-32", gradient: "from-yellow-500/30 to-yellow-600/10", ring: "ring-2 ring-yellow-500/60", crown: true, size: "w-20 h-20" },
-  2: { height: "h-24", gradient: "from-slate-300/20 to-slate-400/5", ring: "ring-2 ring-slate-400/50", crown: false, size: "w-16 h-16" },
-  3: { height: "h-20", gradient: "from-amber-600/20 to-amber-700/5", ring: "ring-2 ring-amber-600/50", crown: false, size: "w-16 h-16" },
-};
-
-const rankBadgeColors: Record<number, string> = {
-  1: "bg-yellow-500 text-yellow-950",
-  2: "bg-slate-300 text-slate-900",
-  3: "bg-amber-600 text-amber-950",
+const podiumStyles: Record<number, {
+  barH: string;
+  avatarSize: string;
+  glow: string;
+  border: string;
+  badgeBg: string;
+  badgeText: string;
+  nameSize: string;
+}> = {
+  1: {
+    barH: "h-36",
+    avatarSize: "w-[72px] h-[72px]",
+    glow: "shadow-[0_0_40px_rgba(234,179,8,0.3)]",
+    border: "border-yellow-500/50",
+    badgeBg: "bg-yellow-500",
+    badgeText: "text-yellow-950",
+    nameSize: "text-base",
+  },
+  2: {
+    barH: "h-24",
+    avatarSize: "w-14 h-14",
+    glow: "shadow-[0_0_30px_rgba(148,163,184,0.2)]",
+    border: "border-slate-400/40",
+    badgeBg: "bg-slate-300",
+    badgeText: "text-slate-900",
+    nameSize: "text-sm",
+  },
+  3: {
+    barH: "h-20",
+    avatarSize: "w-14 h-14",
+    glow: "shadow-[0_0_30px_rgba(217,119,6,0.2)]",
+    border: "border-amber-600/40",
+    badgeBg: "bg-amber-700",
+    badgeText: "text-amber-50",
+    nameSize: "text-sm",
+  },
 };
 
 const Leaderboard = () => {
@@ -51,7 +85,7 @@ const Leaderboard = () => {
         const file = new File([blob], "rivlo-winter-arc-leaderboard.png", { type: "image/png" });
         await navigator.share({
           title: "Rivlo – The Winter Arc Leaderboard",
-          text: "Check out The Winter Arc leaderboard on Rivlo! 🏔️❄️",
+          text: "Check out The Winter Arc final leaderboard on Rivlo! 🏔️❄️",
           files: [file],
         });
       } else {
@@ -69,6 +103,7 @@ const Leaderboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Nav */}
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
@@ -82,82 +117,104 @@ const Leaderboard = () => {
         </div>
       </nav>
 
-      <div ref={captureRef} className="pb-16">
-        {/* Header */}
-        <div className="relative overflow-hidden pt-12 pb-6">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-background to-background pointer-events-none" />
-          <div className="relative container mx-auto px-6 text-center">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Trophy className="w-8 h-8 text-yellow-400" />
-              <img src={rivloLogo} alt="Rivlo" className="w-9 h-9 rounded-xl" />
-              <Trophy className="w-8 h-8 text-yellow-400" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-2">
-              The Winter Arc
-            </h1>
-            <p className="text-muted-foreground text-lg">Final Leaderboard</p>
-          </div>
+      {/* Capturable poster */}
+      <div ref={captureRef} className="relative overflow-hidden">
+        {/* Background effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Radial glow top center */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-[120px]" />
+          {/* Gold accent glow */}
+          <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[300px] h-[200px] rounded-full blur-[100px]" style={{ background: "rgba(234,179,8,0.06)" }} />
+          {/* Grid overlay */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{
+            backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }} />
         </div>
 
-        {/* Podium */}
-        <div className="container mx-auto px-6 max-w-lg mb-10">
-          <div className="flex items-end justify-center gap-3">
-            {podiumOrder.map((player) => {
-              const cfg = podiumConfig[player.rank];
-              return (
-                <div key={player.rank} className="flex flex-col items-center flex-1">
-                  {/* Avatar area */}
-                  <div className="relative mb-2">
-                    {cfg.crown && (
-                      <Crown className="w-6 h-6 text-yellow-400 absolute -top-5 left-1/2 -translate-x-1/2" />
+        <div className="relative pt-14 pb-16 px-6">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-6">
+              <img src={rivloLogo} alt="Rivlo" className="w-10 h-10 rounded-xl" />
+            </div>
+            <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-3">Season 1 · Final Results</p>
+            <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter leading-none mb-2">
+              THE WINTER
+            </h1>
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              ARC
+            </h1>
+            <div className="mt-4 mx-auto w-16 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+          </div>
+
+          {/* Podium */}
+          <div className="max-w-md mx-auto mb-14">
+            <div className="flex items-end justify-center gap-2 sm:gap-4">
+              {podiumOrder.map((player) => {
+                const s = podiumStyles[player.rank];
+                return (
+                  <div key={player.rank} className="flex flex-col items-center flex-1 max-w-[140px]">
+                    {/* Crown for #1 */}
+                    {player.rank === 1 && (
+                      <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7 mb-1 text-yellow-400">
+                        <path d="M2 18L4 8L8.5 12L12 4L15.5 12L20 8L22 18H2Z" fill="currentColor" opacity="0.9" />
+                      </svg>
                     )}
-                    <div className={`${cfg.size} rounded-full ${cfg.ring} bg-gradient-to-br ${cfg.gradient} flex items-center justify-center text-3xl`}>
-                      {player.flag}
+                    {/* Avatar circle */}
+                    <div className={`${s.avatarSize} rounded-full border-2 ${s.border} ${s.glow} bg-card flex items-center justify-center mb-2 relative`}>
+                      <FlagBadge code={player.flag} />
+                      {/* Rank pip */}
+                      <span className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full ${s.badgeBg} ${s.badgeText} text-xs font-black flex items-center justify-center ring-2 ring-background`}>
+                        {player.rank}
+                      </span>
+                    </div>
+
+                    <p className={`text-foreground font-bold ${s.nameSize} truncate max-w-full mt-1`}>{player.name}</p>
+                    <p className="text-foreground/90 text-xs font-semibold tabular-nums">{player.steps.toLocaleString()}</p>
+                    {player.club && (
+                      <p className="text-primary/60 text-[10px] truncate max-w-full">{player.club}</p>
+                    )}
+
+                    {/* Podium bar */}
+                    <div className={`mt-3 w-full ${s.barH} rounded-t-xl border border-b-0 border-border/30 relative overflow-hidden`}>
+                      <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-card/30 backdrop-blur-sm" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent" />
                     </div>
                   </div>
-                  <p className="text-foreground font-bold text-sm truncate max-w-[90px] text-center">{player.name}</p>
-                  <p className="text-muted-foreground text-xs tabular-nums">{player.steps.toLocaleString()}</p>
-                  {player.club && <p className="text-[10px] text-primary/70 truncate max-w-[90px]">{player.club}</p>}
-
-                  {/* Podium bar */}
-                  <div className={`mt-2 w-full ${cfg.height} rounded-t-xl bg-gradient-to-t ${cfg.gradient} border border-b-0 border-border/40 flex items-center justify-center`}>
-                    <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black ${rankBadgeColors[player.rank]}`}>
-                      {player.rank}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          {/* Podium base */}
-          <div className="h-1 w-full bg-border/30 rounded-b-lg" />
-        </div>
-
-        {/* Remaining players */}
-        <div className="container mx-auto px-6 max-w-2xl space-y-3">
-          {rest.map((player) => (
-            <div
-              key={player.rank}
-              className="flex items-center gap-4 rounded-2xl border border-border/50 bg-card/60 p-4 backdrop-blur-sm transition-all hover:scale-[1.01]"
-            >
-              <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-black shrink-0 bg-muted text-muted-foreground">
-                {player.rank}
-              </div>
-              <span className="text-2xl shrink-0">{player.flag}</span>
-              <div className="flex-1 min-w-0">
-                <p className="text-foreground font-bold truncate">{player.name}</p>
-                {player.club && <p className="text-xs text-primary/80 truncate">{player.club}</p>}
-              </div>
-              <div className="text-right shrink-0">
-                <p className="text-foreground font-black text-lg tabular-nums">{player.steps.toLocaleString()}</p>
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">steps</p>
-              </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
+            <div className="h-px w-full bg-border/40" />
+          </div>
 
-        <div className="container mx-auto px-6 mt-10 text-center">
-          <p className="text-xs text-muted-foreground/60">rivlo.app • Download on the App Store</p>
+          {/* Rest of players */}
+          <div className="max-w-xl mx-auto space-y-2.5">
+            {rest.map((player) => (
+              <div
+                key={player.rank}
+                className="flex items-center gap-3.5 rounded-xl border border-border/30 bg-card/40 backdrop-blur-sm px-4 py-3.5 transition-all hover:bg-card/60"
+              >
+                <span className="w-8 h-8 rounded-lg bg-muted/60 flex items-center justify-center text-xs font-bold text-muted-foreground shrink-0">
+                  {player.rank}
+                </span>
+                <FlagBadge code={player.flag} />
+                <div className="flex-1 min-w-0">
+                  <p className="text-foreground font-semibold text-sm truncate">{player.name}</p>
+                  {player.club && <p className="text-xs text-primary/60 truncate">{player.club}</p>}
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="text-foreground font-black tabular-nums">{player.steps.toLocaleString()}</p>
+                  <p className="text-[9px] text-muted-foreground uppercase tracking-widest">steps</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Watermark */}
+          <div className="mt-12 text-center">
+            <p className="text-[10px] text-muted-foreground/40 tracking-wide">rivlo.app · Download on the App Store</p>
+          </div>
         </div>
       </div>
     </div>
