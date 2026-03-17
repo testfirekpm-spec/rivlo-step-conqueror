@@ -146,6 +146,13 @@ const Leaderboard = () => {
       clone.style.minHeight = "auto";
       clone.style.overflow = "hidden";
 
+      // Reset framer-motion inline styles on cloned elements so they're visible
+      clone.querySelectorAll("[style]").forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        htmlEl.style.opacity = "";
+        htmlEl.style.transform = "";
+      });
+
       wrapper.appendChild(clone);
       document.body.appendChild(wrapper);
 
