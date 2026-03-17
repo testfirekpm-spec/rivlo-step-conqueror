@@ -4,6 +4,7 @@ import { ArrowLeft, Share2, Download, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toPng } from "html-to-image";
 import rivloLogo from "@/assets/logo-rivlo.png";
+import winterBanner from "@/assets/winter-arc-banner.png";
 
 const leaderboardData = [
   { rank: 1, name: "walking", club: "DailyWalkers 🍃", flag: "RO", steps: 11426 },
