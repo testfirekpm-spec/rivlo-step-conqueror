@@ -50,7 +50,9 @@ const podiumStyles: Record<number, {
   badgeText: string;
   nameSize: string;
   shimmerColor: string;
-  innerGlow: string;
+  barGradient: string;
+  barBorder: string;
+  barShadow: string;
 }> = {
   1: {
     barH: "h-36",
@@ -60,8 +62,10 @@ const podiumStyles: Record<number, {
     badgeBg: "bg-yellow-500",
     badgeText: "text-yellow-950",
     nameSize: "text-base",
-    shimmerColor: "rgba(234, 179, 8, 0.08)",
-    innerGlow: "shadow-[inset_0_-20px_40px_rgba(234,179,8,0.06)]",
+    shimmerColor: "rgba(234, 179, 8, 0.1)",
+    barGradient: "linear-gradient(to top, hsl(43 96% 40% / 0.35), hsl(43 96% 56% / 0.12) 60%, transparent)",
+    barBorder: "border-yellow-500/20",
+    barShadow: "shadow-[inset_0_0_30px_rgba(234,179,8,0.08),0_-4px_20px_rgba(234,179,8,0.1)]",
   },
   2: {
     barH: "h-24",
@@ -71,8 +75,10 @@ const podiumStyles: Record<number, {
     badgeBg: "bg-slate-300",
     badgeText: "text-slate-900",
     nameSize: "text-sm",
-    shimmerColor: "rgba(148, 163, 184, 0.08)",
-    innerGlow: "shadow-[inset_0_-20px_40px_rgba(148,163,184,0.04)]",
+    shimmerColor: "rgba(148, 163, 184, 0.1)",
+    barGradient: "linear-gradient(to top, hsl(215 20% 50% / 0.3), hsl(215 20% 65% / 0.1) 60%, transparent)",
+    barBorder: "border-slate-400/20",
+    barShadow: "shadow-[inset_0_0_30px_rgba(148,163,184,0.06),0_-4px_20px_rgba(148,163,184,0.08)]",
   },
   3: {
     barH: "h-20",
@@ -82,8 +88,10 @@ const podiumStyles: Record<number, {
     badgeBg: "bg-amber-700",
     badgeText: "text-amber-50",
     nameSize: "text-sm",
-    shimmerColor: "rgba(217, 119, 6, 0.06)",
-    innerGlow: "shadow-[inset_0_-20px_40px_rgba(217,119,6,0.04)]",
+    shimmerColor: "rgba(217, 119, 6, 0.08)",
+    barGradient: "linear-gradient(to top, hsl(26 90% 40% / 0.3), hsl(26 90% 50% / 0.1) 60%, transparent)",
+    barBorder: "border-amber-600/20",
+    barShadow: "shadow-[inset_0_0_30px_rgba(217,119,6,0.06),0_-4px_20px_rgba(217,119,6,0.08)]",
   },
 };
 
@@ -336,19 +344,27 @@ const Leaderboard = () => {
                       <p className="text-primary/60 text-[10px] truncate max-w-full">{player.club}</p>
                     )}
 
-                    {/* Glassmorphic podium bar with shimmer */}
-                    <div className={`mt-3 w-full ${s.barH} rounded-t-xl border border-b-0 border-border/30 relative overflow-hidden ${s.innerGlow}`}>
-                      <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-card/30 backdrop-blur-sm" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent" />
+                    {/* Podium bar — rank-colored gradient */}
+                    <div className={`mt-3 w-full ${s.barH} rounded-t-xl ${s.barBorder} border border-b-0 relative overflow-hidden ${s.barShadow}`}>
+                      {/* Solid colored gradient fill */}
+                      <div className="absolute inset-0" style={{ background: s.barGradient }} />
+                      {/* Subtle glass overlay */}
+                      <div className="absolute inset-0 bg-card/40 backdrop-blur-[2px]" />
                       {/* Shimmer sweep */}
                       <div
-                        className="absolute inset-0 opacity-60"
+                        className="absolute inset-0"
                         style={{
                           background: `linear-gradient(110deg, transparent 30%, ${s.shimmerColor} 45%, transparent 60%)`,
                           backgroundSize: '200% 100%',
                           animation: 'shimmer-sweep 4s ease-in-out infinite',
                         }}
                       />
+                      {/* Rank number watermark */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-4xl font-black text-foreground/[0.04] select-none">
+                          {player.rank}
+                        </span>
+                      </div>
                     </div>
                   </motion.div>
                 );
