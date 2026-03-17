@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Share2 } from "lucide-react";
+import { ArrowLeft, Share2, Download, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toPng } from "html-to-image";
 import rivloLogo from "@/assets/logo-rivlo.png";
@@ -20,12 +20,12 @@ const top3 = leaderboardData.slice(0, 3);
 const rest = leaderboardData.slice(3);
 const podiumOrder = [top3[1], top3[0], top3[2]];
 
-const FlagBadge = ({ code }: { code: string }) => (
+const FlagBadge = ({ code, size = "normal" }: { code: string; size?: "normal" | "small" }) => (
   <img
     src={`https://flagcdn.com/w80/${code.toLowerCase()}.png`}
     alt={code}
-    className="w-7 h-5 rounded-sm object-cover"
-    loading="lazy"
+    className={`${size === "small" ? "w-6 h-4" : "w-7 h-5"} rounded-[3px] object-cover`}
+    crossOrigin="anonymous"
   />
 );
 
@@ -67,35 +67,95 @@ const podiumStyles: Record<number, {
   },
 };
 
+type ShareFormat = "story" | "square" | "post";
+
+const formatConfig: Record<ShareFormat, { label: string; icon: string; width: number; height: number }> = {
+  story: { label: "Story / Status", icon: "📱", width: 1080, height: 1920 },
+  square: { label: "Square Post", icon: "🟦", width: 1080, height: 1080 },
+  post: { label: "Landscape Post", icon: "🖼️", width: 1200, height: 675 },
+};
+
 const Leaderboard = () => {
   const captureRef = useRef<HTMLDivElement>(null);
   const [sharing, setSharing] = useState(false);
+  const [showFormats, setShowFormats] = useState(false);
 
-  const handleShare = async () => {
+  const generateImage = async (format: ShareFormat) => {
     if (!captureRef.current) return;
     setSharing(true);
+    setShowFormats(false);
+
+    const { width, height } = formatConfig[format];
+
     try {
-      const dataUrl = await toPng(captureRef.current, {
+      // Clone the capture element into a fixed-size offscreen container
+      const clone = captureRef.current.cloneNode(true) as HTMLElement;
+      const wrapper = document.createElement("div");
+
+      // Fixed render size — this ensures consistent output regardless of viewport
+      wrapper.style.cssText = `
+        position: fixed; left: -9999px; top: 0;
+        width: ${width / 2}px;
+        height: ${height / 2}px;
+        overflow: hidden;
+        background: hsl(230, 25%, 8%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      `;
+
+      clone.style.width = "100%";
+      clone.style.minHeight = "auto";
+      clone.style.overflow = "hidden";
+
+      wrapper.appendChild(clone);
+      document.body.appendChild(wrapper);
+
+      // Wait for flag images to load
+      const images = wrapper.querySelectorAll("img");
+      await Promise.all(
+        Array.from(images).map(
+          (img) =>
+            new Promise<void>((resolve) => {
+              if (img.complete) return resolve();
+              img.onload = () => resolve();
+              img.onerror = () => resolve();
+            })
+        )
+      );
+
+      const dataUrl = await toPng(wrapper, {
         quality: 1,
-        pixelRatio: 3,
+        pixelRatio: 2,
+        width: width / 2,
+        height: height / 2,
         backgroundColor: "hsl(230, 25%, 8%)",
+        cacheBust: true,
       });
-      if (navigator.share) {
-        const blob = await (await fetch(dataUrl)).blob();
-        const file = new File([blob], "rivlo-winter-arc-leaderboard.png", { type: "image/png" });
+
+      document.body.removeChild(wrapper);
+
+      const blob = await (await fetch(dataUrl)).blob();
+      const file = new File([blob], `rivlo-winter-arc-${format}.png`, { type: "image/png" });
+
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
         await navigator.share({
-          title: "Rivlo – The Winter Arc Leaderboard",
+          title: "Rivlo – The Winter Arc",
           text: "Check out The Winter Arc final leaderboard on Rivlo! 🏔️❄️",
           files: [file],
         });
       } else {
         const link = document.createElement("a");
-        link.download = "rivlo-winter-arc-leaderboard.png";
-        link.href = dataUrl;
+        link.download = file.name;
+        link.href = URL.createObjectURL(blob);
         link.click();
+        URL.revokeObjectURL(link.href);
       }
     } catch (err) {
-      console.error("Share failed:", err);
+      // User cancelled share or error
+      if ((err as Error)?.name !== "AbortError") {
+        console.error("Share failed:", err);
+      }
     } finally {
       setSharing(false);
     }
@@ -110,22 +170,55 @@ const Leaderboard = () => {
             <ArrowLeft className="w-5 h-5" />
             <span className="text-sm font-medium">Back</span>
           </Link>
-          <Button onClick={handleShare} disabled={sharing} size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">
-            <Share2 className="w-4 h-4" />
-            {sharing ? "Generating…" : "Share"}
-          </Button>
+
+          <div className="relative">
+            <Button
+              onClick={() => setShowFormats(!showFormats)}
+              disabled={sharing}
+              size="sm"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
+            >
+              <Share2 className="w-4 h-4" />
+              {sharing ? "Generating…" : "Share"}
+            </Button>
+
+            {/* Format picker dropdown */}
+            {showFormats && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setShowFormats(false)} />
+                <div className="absolute right-0 top-full mt-2 z-50 w-56 rounded-xl border border-border bg-card shadow-xl overflow-hidden">
+                  <div className="px-3 py-2 border-b border-border">
+                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Choose format</p>
+                  </div>
+                  {(Object.keys(formatConfig) as ShareFormat[]).map((key) => {
+                    const f = formatConfig[key];
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => generateImage(key)}
+                        className="w-full flex items-center gap-3 px-3 py-3 hover:bg-muted/50 transition-colors text-left"
+                      >
+                        <span className="text-lg">{f.icon}</span>
+                        <div>
+                          <p className="text-sm font-medium text-foreground">{f.label}</p>
+                          <p className="text-[10px] text-muted-foreground">{f.width}×{f.height}px</p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </nav>
 
-      {/* Capturable poster */}
+      {/* Capturable poster — visible on page, also used as source for share */}
       <div ref={captureRef} className="relative overflow-hidden">
         {/* Background effects */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Radial glow top center */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-[120px]" />
-          {/* Gold accent glow */}
           <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[300px] h-[200px] rounded-full blur-[100px]" style={{ background: "rgba(234,179,8,0.06)" }} />
-          {/* Grid overlay */}
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
             backgroundSize: "60px 60px",
@@ -136,7 +229,7 @@ const Leaderboard = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <div className="flex items-center justify-center mb-6">
-              <img src={rivloLogo} alt="Rivlo" className="w-10 h-10 rounded-xl" />
+              <img src={rivloLogo} alt="Rivlo" className="w-10 h-10 rounded-xl" crossOrigin="anonymous" />
             </div>
             <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-3">Season 1 · Final Results</p>
             <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter leading-none mb-2">
@@ -155,16 +248,13 @@ const Leaderboard = () => {
                 const s = podiumStyles[player.rank];
                 return (
                   <div key={player.rank} className="flex flex-col items-center flex-1 max-w-[140px]">
-                    {/* Crown for #1 */}
                     {player.rank === 1 && (
                       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7 mb-1 text-yellow-400">
                         <path d="M2 18L4 8L8.5 12L12 4L15.5 12L20 8L22 18H2Z" fill="currentColor" opacity="0.9" />
                       </svg>
                     )}
-                    {/* Avatar circle */}
                     <div className={`${s.avatarSize} rounded-full border-2 ${s.border} ${s.glow} bg-card flex items-center justify-center mb-2 relative`}>
                       <FlagBadge code={player.flag} />
-                      {/* Rank pip */}
                       <span className={`absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full ${s.badgeBg} ${s.badgeText} text-xs font-black flex items-center justify-center ring-2 ring-background`}>
                         {player.rank}
                       </span>
@@ -176,7 +266,6 @@ const Leaderboard = () => {
                       <p className="text-primary/60 text-[10px] truncate max-w-full">{player.club}</p>
                     )}
 
-                    {/* Podium bar */}
                     <div className={`mt-3 w-full ${s.barH} rounded-t-xl border border-b-0 border-border/30 relative overflow-hidden`}>
                       <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-card/30 backdrop-blur-sm" />
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent" />
@@ -198,7 +287,7 @@ const Leaderboard = () => {
                 <span className="w-8 h-8 rounded-lg bg-muted/60 flex items-center justify-center text-xs font-bold text-muted-foreground shrink-0">
                   {player.rank}
                 </span>
-                <FlagBadge code={player.flag} />
+                <FlagBadge code={player.flag} size="small" />
                 <div className="flex-1 min-w-0">
                   <p className="text-foreground font-semibold text-sm truncate">{player.name}</p>
                   {player.club && <p className="text-xs text-primary/60 truncate">{player.club}</p>}
