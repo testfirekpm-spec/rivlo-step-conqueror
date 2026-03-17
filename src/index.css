@@ -111,3 +111,9 @@ html {
   0% { transform: scaleX(0); transform-origin: left; }
   100% { transform: scaleX(1); transform-origin: left; }
 }
+
+@keyframes shimmer-sweep {
+  0% { background-position: 200% 0; }
+  50% { background-position: -200% 0; }
+  100% { background-position: -200% 0; }
+}

@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Share2, Download, Image } from "lucide-react";
+import { ArrowLeft, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toPng } from "html-to-image";
+import { motion } from "framer-motion";
+import { useCountUp } from "@/hooks/use-count-up";
 import rivloLogo from "@/assets/logo-rivlo.png";
 import winterBanner from "@/assets/winter-arc-banner.png";
 
@@ -21,6 +23,8 @@ const top3 = leaderboardData.slice(0, 3);
 const rest = leaderboardData.slice(3);
 const podiumOrder = [top3[1], top3[0], top3[2]];
 
+const totalSteps = leaderboardData.reduce((sum, p) => sum + p.steps, 0);
+
 const FlagBadge = ({ code, size = "normal" }: { code: string; size?: "normal" | "small" }) => (
   <img
     src={`https://flagcdn.com/w80/${code.toLowerCase()}.png`}
@@ -30,6 +34,13 @@ const FlagBadge = ({ code, size = "normal" }: { code: string; size?: "normal" | 
   />
 );
 
+const AnimatedSteps = ({ steps, rank }: { steps: number; rank: number }) => {
+  const duration = rank === 1 ? 1800 : rank <= 3 ? 1400 : 1000;
+  const delay = rank === 1 ? 800 : rank === 2 ? 500 : rank === 3 ? 600 : 0;
+  const value = useCountUp(steps, duration, delay);
+  return <>{value.toLocaleString()}</>;
+};
+
 const podiumStyles: Record<number, {
   barH: string;
   avatarSize: string;
@@ -38,6 +49,8 @@ const podiumStyles: Record<number, {
   badgeBg: string;
   badgeText: string;
   nameSize: string;
+  shimmerColor: string;
+  innerGlow: string;
 }> = {
   1: {
     barH: "h-36",
@@ -47,6 +60,8 @@ const podiumStyles: Record<number, {
     badgeBg: "bg-yellow-500",
     badgeText: "text-yellow-950",
     nameSize: "text-base",
+    shimmerColor: "rgba(234, 179, 8, 0.08)",
+    innerGlow: "shadow-[inset_0_-20px_40px_rgba(234,179,8,0.06)]",
   },
   2: {
     barH: "h-24",
@@ -56,6 +71,8 @@ const podiumStyles: Record<number, {
     badgeBg: "bg-slate-300",
     badgeText: "text-slate-900",
     nameSize: "text-sm",
+    shimmerColor: "rgba(148, 163, 184, 0.08)",
+    innerGlow: "shadow-[inset_0_-20px_40px_rgba(148,163,184,0.04)]",
   },
   3: {
     barH: "h-20",
@@ -65,7 +82,18 @@ const podiumStyles: Record<number, {
     badgeBg: "bg-amber-700",
     badgeText: "text-amber-50",
     nameSize: "text-sm",
+    shimmerColor: "rgba(217, 119, 6, 0.06)",
+    innerGlow: "shadow-[inset_0_-20px_40px_rgba(217,119,6,0.04)]",
   },
+};
+
+// Rank accent colors for rows 4-8 (fading opacity)
+const rankAccentColors: Record<number, string> = {
+  4: "bg-primary/40",
+  5: "bg-primary/30",
+  6: "bg-primary/20",
+  7: "bg-primary/15",
+  8: "bg-primary/10",
 };
 
 type ShareFormat = "story" | "square" | "post";
@@ -75,6 +103,9 @@ const formatConfig: Record<ShareFormat, { label: string; icon: string; width: nu
   square: { label: "Square Post", icon: "🟦", width: 1080, height: 1080 },
   post: { label: "Landscape Post", icon: "🖼️", width: 1200, height: 675 },
 };
+
+// Podium entrance order: #2 (left), #3 (right), then #1 (center) last for drama
+const podiumAnimOrder = [0, 2, 1];
 
 const Leaderboard = () => {
   const captureRef = useRef<HTMLDivElement>(null);
@@ -89,11 +120,9 @@ const Leaderboard = () => {
     const { width, height } = formatConfig[format];
 
     try {
-      // Clone the capture element into a fixed-size offscreen container
       const clone = captureRef.current.cloneNode(true) as HTMLElement;
       const wrapper = document.createElement("div");
 
-      // Fixed render size — this ensures consistent output regardless of viewport
       wrapper.style.cssText = `
         position: fixed; left: -9999px; top: 0;
         width: ${width / 2}px;
@@ -112,7 +141,6 @@ const Leaderboard = () => {
       wrapper.appendChild(clone);
       document.body.appendChild(wrapper);
 
-      // Wait for flag images to load
       const images = wrapper.querySelectorAll("img");
       await Promise.all(
         Array.from(images).map(
@@ -153,7 +181,6 @@ const Leaderboard = () => {
         URL.revokeObjectURL(link.href);
       }
     } catch (err) {
-      // User cancelled share or error
       if ((err as Error)?.name !== "AbortError") {
         console.error("Share failed:", err);
       }
@@ -183,7 +210,6 @@ const Leaderboard = () => {
               {sharing ? "Generating…" : "Share"}
             </Button>
 
-            {/* Format picker dropdown */}
             {showFormats && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setShowFormats(false)} />
@@ -214,22 +240,16 @@ const Leaderboard = () => {
         </div>
       </nav>
 
-      {/* Capturable poster — visible on page, also used as source for share */}
+      {/* Capturable poster */}
       <div ref={captureRef} className="relative overflow-hidden">
         {/* Cinematic background layers */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Banner image — higher opacity for depth */}
           <img src={winterBanner} alt="" className="absolute inset-0 w-full h-[480px] object-cover opacity-40" crossOrigin="anonymous" />
-          {/* Multi-stop gradient overlay */}
           <div className="absolute inset-0 h-[480px] bg-gradient-to-b from-background/10 via-background/60 to-background" />
-          {/* Primary radial glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full blur-[140px]" style={{ background: 'radial-gradient(circle, hsl(230 75% 52% / 0.12) 0%, transparent 70%)' }} />
-          {/* Icy cyan secondary glow */}
           <div className="absolute top-[60px] left-1/3 w-[500px] h-[400px] rounded-full blur-[120px]" style={{ background: 'radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, transparent 70%)' }} />
-          {/* Aurora light streaks */}
           <div className="absolute top-[100px] left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent 5%, hsl(230 75% 52% / 0.15) 30%, rgba(56, 189, 248, 0.1) 50%, hsl(270 60% 50% / 0.12) 70%, transparent 95%)' }} />
           <div className="absolute top-[160px] left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent 15%, rgba(56, 189, 248, 0.08) 40%, hsl(230 75% 52% / 0.1) 60%, transparent 85%)' }} />
-          {/* Noise grain overlay */}
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '128px 128px' }} />
         </div>
 
@@ -239,44 +259,63 @@ const Leaderboard = () => {
         <div className="absolute top-[200px] left-[28%] w-1 h-1 bg-accent/20 rounded-full" style={{ animation: 'pulse-glow 3.5s ease-in-out infinite 0.5s' }} />
 
         <div className="relative pt-14 pb-16 px-6">
-          {/* Header */}
-          <div className="text-center mb-12">
+          {/* Header with staggered entrance */}
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
             <div className="flex items-center justify-center mb-6">
               <img src={rivloLogo} alt="Rivlo" className="w-10 h-10 rounded-xl" crossOrigin="anonymous" />
             </div>
 
-            {/* Season label with decorative lines */}
             <div className="flex items-center justify-center gap-4 mb-5">
               <div className="w-12 h-px bg-gradient-to-r from-transparent to-primary/40" />
               <p className="text-[10px] uppercase tracking-[0.35em] text-primary font-semibold">Season 1 · Final Results</p>
               <div className="w-12 h-px bg-gradient-to-l from-transparent to-primary/40" />
             </div>
 
-            {/* Mountain silhouette icon */}
             <div className="flex items-center justify-center mb-4">
               <svg viewBox="0 0 64 28" fill="none" className="w-16 h-7 text-primary/25">
                 <path d="M0 28L16 6L24 16L32 2L40 16L48 8L64 28H0Z" fill="currentColor" />
               </svg>
             </div>
 
-            <h1 className="text-6xl md:text-8xl font-black text-foreground leading-none" style={{ letterSpacing: '-0.04em' }}>
+            <motion.h1
+              className="text-6xl md:text-8xl font-black text-foreground leading-none"
+              style={{ letterSpacing: '-0.04em' }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            >
               THE WINTER ARC
-            </h1>
+            </motion.h1>
 
-            {/* Frost line divider with glow */}
             <div className="mt-6 mx-auto w-32 relative">
               <div className="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
               <div className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent blur-[4px]" />
             </div>
-          </div>
+          </motion.div>
 
-          {/* Podium */}
-          <div className="max-w-md mx-auto mb-14">
+          {/* Podium with staggered pop-in */}
+          <div className="max-w-md mx-auto mb-4">
             <div className="flex items-end justify-center gap-2 sm:gap-4">
-              {podiumOrder.map((player) => {
+              {podiumOrder.map((player, visualIdx) => {
                 const s = podiumStyles[player.rank];
+                const animIdx = podiumAnimOrder[visualIdx];
                 return (
-                  <div key={player.rank} className="flex flex-col items-center flex-1 max-w-[140px]">
+                  <motion.div
+                    key={player.rank}
+                    className="flex flex-col items-center flex-1 max-w-[140px]"
+                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.4 + animIdx * 0.2,
+                      ease: "easeOut",
+                    }}
+                  >
                     {player.rank === 1 && (
                       <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7 mb-1 text-yellow-400">
                         <path d="M2 18L4 8L8.5 12L12 4L15.5 12L20 8L22 18H2Z" fill="currentColor" opacity="0.9" />
@@ -290,29 +329,87 @@ const Leaderboard = () => {
                     </div>
 
                     <p className={`text-foreground font-bold ${s.nameSize} truncate max-w-full mt-1`}>{player.name}</p>
-                    <p className="text-foreground/90 text-xs font-semibold tabular-nums">{player.steps.toLocaleString()}</p>
+                    <p className="text-foreground/90 text-xs font-semibold tabular-nums">
+                      <AnimatedSteps steps={player.steps} rank={player.rank} />
+                    </p>
                     {player.club && (
                       <p className="text-primary/60 text-[10px] truncate max-w-full">{player.club}</p>
                     )}
 
-                    <div className={`mt-3 w-full ${s.barH} rounded-t-xl border border-b-0 border-border/30 relative overflow-hidden`}>
+                    {/* Glassmorphic podium bar with shimmer */}
+                    <div className={`mt-3 w-full ${s.barH} rounded-t-xl border border-b-0 border-border/30 relative overflow-hidden ${s.innerGlow}`}>
                       <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-card/30 backdrop-blur-sm" />
                       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent" />
+                      {/* Shimmer sweep */}
+                      <div
+                        className="absolute inset-0 opacity-60"
+                        style={{
+                          background: `linear-gradient(110deg, transparent 30%, ${s.shimmerColor} 45%, transparent 60%)`,
+                          backgroundSize: '200% 100%',
+                          animation: 'shimmer-sweep 4s ease-in-out infinite',
+                        }}
+                      />
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
-            <div className="h-px w-full bg-border/40" />
+
+            {/* Stage floor — glowing platform line */}
+            <div className="relative h-4">
+              <div
+                className="absolute inset-x-0 top-0 h-px"
+                style={{
+                  background: 'linear-gradient(90deg, transparent 5%, hsl(230 75% 52% / 0.25) 30%, hsl(230 75% 52% / 0.5) 50%, hsl(230 75% 52% / 0.25) 70%, transparent 95%)',
+                }}
+              />
+              <div
+                className="absolute inset-x-0 top-0 h-3 blur-[8px] opacity-40"
+                style={{
+                  background: 'linear-gradient(90deg, transparent 10%, hsl(230 75% 52% / 0.2) 30%, hsl(230 75% 52% / 0.35) 50%, hsl(230 75% 52% / 0.2) 70%, transparent 90%)',
+                }}
+              />
+            </div>
           </div>
 
-          {/* Rest of players */}
+          {/* Total season stats bar */}
+          <motion.div
+            className="max-w-xl mx-auto mb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
+            <div className="flex items-center justify-center gap-4 py-3 px-6 rounded-lg border border-border/20 bg-card/20 backdrop-blur-sm">
+              <div className="text-center">
+                <p className="text-foreground font-bold tabular-nums text-sm">{leaderboardData.length}</p>
+                <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Players</p>
+              </div>
+              <div className="w-px h-6 bg-border/30" />
+              <div className="text-center">
+                <p className="text-foreground font-bold tabular-nums text-sm">{totalSteps.toLocaleString()}</p>
+                <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Total Steps</p>
+              </div>
+              <div className="w-px h-6 bg-border/30" />
+              <div className="text-center">
+                <p className="text-foreground font-bold tabular-nums text-sm">30</p>
+                <p className="text-[9px] text-muted-foreground uppercase tracking-widest">Days</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Rest of players — staggered fade-in with rank accent */}
           <div className="max-w-xl mx-auto space-y-2.5">
-            {rest.map((player) => (
-              <div
+            {rest.map((player, i) => (
+              <motion.div
                 key={player.rank}
-                className="flex items-center gap-3.5 rounded-xl border border-border/30 bg-card/40 backdrop-blur-sm px-4 py-3.5 transition-all hover:bg-card/60"
+                className="flex items-center gap-3.5 rounded-xl border border-border/30 bg-card/40 backdrop-blur-sm px-4 py-3.5 transition-all hover:bg-card/60 relative overflow-hidden"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 1.0 + i * 0.1, ease: "easeOut" }}
               >
+                {/* Rank accent bar */}
+                <div className={`absolute left-0 top-0 bottom-0 w-[2px] rounded-l-xl ${rankAccentColors[player.rank] || "bg-primary/10"}`} />
+
                 <span className="w-8 h-8 rounded-lg bg-muted/60 flex items-center justify-center text-xs font-bold text-muted-foreground shrink-0">
                   {player.rank}
                 </span>
@@ -322,10 +419,12 @@ const Leaderboard = () => {
                   {player.club && <p className="text-xs text-primary/60 truncate">{player.club}</p>}
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-foreground font-black tabular-nums">{player.steps.toLocaleString()}</p>
+                  <p className="text-foreground font-black tabular-nums">
+                    <AnimatedSteps steps={player.steps} rank={player.rank} />
+                  </p>
                   <p className="text-[9px] text-muted-foreground uppercase tracking-widest">steps</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
