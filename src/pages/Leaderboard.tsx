@@ -88,8 +88,10 @@ const podiumStyles: Record<number, {
     badgeBg: "bg-amber-700",
     badgeText: "text-amber-50",
     nameSize: "text-sm",
-    shimmerColor: "rgba(217, 119, 6, 0.06)",
-    innerGlow: "shadow-[inset_0_-20px_40px_rgba(217,119,6,0.04)]",
+    shimmerColor: "rgba(217, 119, 6, 0.08)",
+    barGradient: "linear-gradient(to top, hsl(26 90% 40% / 0.3), hsl(26 90% 50% / 0.1) 60%, transparent)",
+    barBorder: "border-amber-600/20",
+    barShadow: "shadow-[inset_0_0_30px_rgba(217,119,6,0.06),0_-4px_20px_rgba(217,119,6,0.08)]",
   },
 };
 
