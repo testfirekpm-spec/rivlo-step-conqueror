@@ -46,30 +46,55 @@ const Leaderboard = () => {
     setShowFormats(false);
 
     const exportNode = exportRef.current;
-    const { width } = formatConfig[format];
-    const scaledWidth = Math.round(width / 2);
+    const { width: targetW, height: targetH } = formatConfig[format];
 
-    // Set width for the target format, let height be auto so all content fits
-    exportNode.style.width = `${scaledWidth}px`;
+    // Render at a consistent width, auto height to capture all content
+    const renderWidth = 540;
+    exportNode.style.width = `${renderWidth}px`;
     exportNode.style.height = "auto";
 
     try {
       await document.fonts.ready;
       await waitForImages(exportNode);
-      await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+      await new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
 
-      const actualHeight = exportNode.scrollHeight;
+      const renderHeight = exportNode.scrollHeight;
 
-      const dataUrl = await toPng(exportNode, {
+      // Capture the full-height poster at 2x
+      const fullDataUrl = await toPng(exportNode, {
         quality: 1,
         pixelRatio: 2,
-        width: scaledWidth,
-        height: actualHeight,
+        width: renderWidth,
+        height: renderHeight,
         backgroundColor: EXPORT_BACKGROUND,
         cacheBust: true,
       });
 
-      const blob = await (await fetch(dataUrl)).blob();
+      // Draw the captured poster onto a canvas at the exact target dimensions
+      const canvas = document.createElement("canvas");
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext("2d")!;
+
+      // Fill background
+      ctx.fillStyle = EXPORT_BACKGROUND;
+      ctx.fillRect(0, 0, targetW, targetH);
+
+      const img = new Image();
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error("Failed to load captured image"));
+        img.src = fullDataUrl;
+      });
+
+      // Scale poster to fill width, align to top, crop overflow at bottom
+      const scale = targetW / img.naturalWidth;
+      const drawH = img.naturalHeight * scale;
+      ctx.drawImage(img, 0, 0, targetW, Math.min(drawH, targetH));
+
+      const blob = await new Promise<Blob>((resolve) =>
+        canvas.toBlob((b) => resolve(b!), "image/png", 1)
+      );
       const file = new File([blob], `rivlo-winter-arc-${format}.png`, { type: "image/png" });
 
       if (navigator.share && navigator.canShare?.({ files: [file] })) {
