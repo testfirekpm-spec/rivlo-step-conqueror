@@ -152,8 +152,8 @@ const Leaderboard = () => {
         <LeaderboardPoster animated />
       </div>
 
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div ref={exportRef} className="overflow-hidden" style={{ width: "540px", height: "960px", background: EXPORT_BACKGROUND }}>
+      <div className="pointer-events-none fixed -left-[9999px] top-0 -z-10" aria-hidden="true">
+        <div ref={exportRef} style={{ width: "540px", background: EXPORT_BACKGROUND }}>
           <LeaderboardPoster animated={false} exportMode />
         </div>
       </div>
