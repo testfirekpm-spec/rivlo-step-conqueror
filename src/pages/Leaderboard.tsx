@@ -216,14 +216,11 @@ const Leaderboard = () => {
 
       {/* Capturable poster — visible on page, also used as source for share */}
       <div ref={captureRef} className="relative overflow-hidden">
-        {/* Background effects */}
+        {/* Banner background */}
         <div className="absolute inset-0 pointer-events-none">
+          <img src={winterBanner} alt="" className="absolute inset-0 w-full h-[360px] object-cover opacity-25" crossOrigin="anonymous" />
+          <div className="absolute inset-0 h-[360px] bg-gradient-to-b from-background/30 via-background/70 to-background" />
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-[120px]" />
-          <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[300px] h-[200px] rounded-full blur-[100px]" style={{ background: "rgba(234,179,8,0.06)" }} />
-          <div className="absolute inset-0 opacity-[0.03]" style={{
-            backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }} />
         </div>
 
         <div className="relative pt-14 pb-16 px-6">
