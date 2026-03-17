@@ -50,7 +50,9 @@ const podiumStyles: Record<number, {
   badgeText: string;
   nameSize: string;
   shimmerColor: string;
-  innerGlow: string;
+  barGradient: string;
+  barBorder: string;
+  barShadow: string;
 }> = {
   1: {
     barH: "h-36",
