@@ -344,19 +344,27 @@ const Leaderboard = () => {
                       <p className="text-primary/60 text-[10px] truncate max-w-full">{player.club}</p>
                     )}
 
-                    {/* Glassmorphic podium bar with shimmer */}
-                    <div className={`mt-3 w-full ${s.barH} rounded-t-xl border border-b-0 border-border/30 relative overflow-hidden ${s.innerGlow}`}>
-                      <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-card/30 backdrop-blur-sm" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent" />
+                    {/* Podium bar — rank-colored gradient */}
+                    <div className={`mt-3 w-full ${s.barH} rounded-t-xl ${s.barBorder} border border-b-0 relative overflow-hidden ${s.barShadow}`}>
+                      {/* Solid colored gradient fill */}
+                      <div className="absolute inset-0" style={{ background: s.barGradient }} />
+                      {/* Subtle glass overlay */}
+                      <div className="absolute inset-0 bg-card/40 backdrop-blur-[2px]" />
                       {/* Shimmer sweep */}
                       <div
-                        className="absolute inset-0 opacity-60"
+                        className="absolute inset-0"
                         style={{
                           background: `linear-gradient(110deg, transparent 30%, ${s.shimmerColor} 45%, transparent 60%)`,
                           backgroundSize: '200% 100%',
                           animation: 'shimmer-sweep 4s ease-in-out infinite',
                         }}
                       />
+                      {/* Rank number watermark */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-4xl font-black text-foreground/[0.04] select-none">
+                          {player.rank}
+                        </span>
+                      </div>
                     </div>
                   </motion.div>
                 );
