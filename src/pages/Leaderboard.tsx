@@ -46,23 +46,25 @@ const Leaderboard = () => {
     setShowFormats(false);
 
     const exportNode = exportRef.current;
-    const { width, height } = formatConfig[format];
+    const { width } = formatConfig[format];
     const scaledWidth = Math.round(width / 2);
-    const scaledHeight = Math.round(height / 2);
 
+    // Set width for the target format, let height be auto so all content fits
     exportNode.style.width = `${scaledWidth}px`;
-    exportNode.style.height = `${scaledHeight}px`;
+    exportNode.style.height = "auto";
 
     try {
       await document.fonts.ready;
       await waitForImages(exportNode);
       await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
 
+      const actualHeight = exportNode.scrollHeight;
+
       const dataUrl = await toPng(exportNode, {
         quality: 1,
         pixelRatio: 2,
         width: scaledWidth,
-        height: scaledHeight,
+        height: actualHeight,
         backgroundColor: EXPORT_BACKGROUND,
         cacheBust: true,
       });
@@ -89,7 +91,7 @@ const Leaderboard = () => {
       }
     } finally {
       exportNode.style.width = "540px";
-      exportNode.style.height = "960px";
+      exportNode.style.height = "auto";
       setSharing(false);
     }
   };
