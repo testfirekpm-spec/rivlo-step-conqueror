@@ -259,28 +259,9 @@ const Leaderboard = () => {
               </svg>
             </div>
 
-            {/* THE WINTER — large, tight tracking */}
-            <h1 className="text-6xl md:text-8xl font-black text-foreground leading-none mb-1" style={{ letterSpacing: '-0.04em' }}>
-              THE WINTER
+            <h1 className="text-6xl md:text-8xl font-black text-foreground leading-none" style={{ letterSpacing: '-0.04em' }}>
+              THE WINTER ARC
             </h1>
-
-            {/* ARC — oversized with glow shadow layer */}
-            <div className="relative inline-block">
-              {/* Glow duplicate behind */}
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 text-7xl md:text-9xl font-black leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent blur-[6px] opacity-40"
-                style={{ letterSpacing: '-0.04em' }}
-              >
-                ARC
-              </span>
-              <h1
-                className="relative text-7xl md:text-9xl font-black leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
-                style={{ letterSpacing: '-0.04em' }}
-              >
-                ARC
-              </h1>
-            </div>
 
             {/* Frost line divider with glow */}
             <div className="mt-6 mx-auto w-32 relative">
