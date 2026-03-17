@@ -216,12 +216,27 @@ const Leaderboard = () => {
 
       {/* Capturable poster — visible on page, also used as source for share */}
       <div ref={captureRef} className="relative overflow-hidden">
-        {/* Banner background */}
+        {/* Cinematic background layers */}
         <div className="absolute inset-0 pointer-events-none">
-          <img src={winterBanner} alt="" className="absolute inset-0 w-full h-[360px] object-cover opacity-25" crossOrigin="anonymous" />
-          <div className="absolute inset-0 h-[360px] bg-gradient-to-b from-background/30 via-background/70 to-background" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/8 rounded-full blur-[120px]" />
+          {/* Banner image — higher opacity for depth */}
+          <img src={winterBanner} alt="" className="absolute inset-0 w-full h-[480px] object-cover opacity-40" crossOrigin="anonymous" />
+          {/* Multi-stop gradient overlay */}
+          <div className="absolute inset-0 h-[480px] bg-gradient-to-b from-background/10 via-background/60 to-background" />
+          {/* Primary radial glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full blur-[140px]" style={{ background: 'radial-gradient(circle, hsl(230 75% 52% / 0.12) 0%, transparent 70%)' }} />
+          {/* Icy cyan secondary glow */}
+          <div className="absolute top-[60px] left-1/3 w-[500px] h-[400px] rounded-full blur-[120px]" style={{ background: 'radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, transparent 70%)' }} />
+          {/* Aurora light streaks */}
+          <div className="absolute top-[100px] left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent 5%, hsl(230 75% 52% / 0.15) 30%, rgba(56, 189, 248, 0.1) 50%, hsl(270 60% 50% / 0.12) 70%, transparent 95%)' }} />
+          <div className="absolute top-[160px] left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent 15%, rgba(56, 189, 248, 0.08) 40%, hsl(230 75% 52% / 0.1) 60%, transparent 85%)' }} />
+          {/* Noise grain overlay */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '128px 128px' }} />
         </div>
+
+        {/* Ambient sparkles */}
+        <div className="absolute top-[90px] left-[18%] w-1.5 h-1.5 bg-primary/30 rounded-full" style={{ animation: 'pulse-glow 3s ease-in-out infinite' }} />
+        <div className="absolute top-[130px] right-[22%] w-1 h-1 rounded-full" style={{ background: 'rgba(56, 189, 248, 0.25)', animation: 'pulse-glow 4s ease-in-out infinite 1s' }} />
+        <div className="absolute top-[200px] left-[28%] w-1 h-1 bg-accent/20 rounded-full" style={{ animation: 'pulse-glow 3.5s ease-in-out infinite 0.5s' }} />
 
         <div className="relative pt-14 pb-16 px-6">
           {/* Header */}
@@ -229,14 +244,49 @@ const Leaderboard = () => {
             <div className="flex items-center justify-center mb-6">
               <img src={rivloLogo} alt="Rivlo" className="w-10 h-10 rounded-xl" crossOrigin="anonymous" />
             </div>
-            <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-3">Season 1 · Final Results</p>
-            <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter leading-none mb-2">
+
+            {/* Season label with decorative lines */}
+            <div className="flex items-center justify-center gap-4 mb-5">
+              <div className="w-12 h-px bg-gradient-to-r from-transparent to-primary/40" />
+              <p className="text-[10px] uppercase tracking-[0.35em] text-primary font-semibold">Season 1 · Final Results</p>
+              <div className="w-12 h-px bg-gradient-to-l from-transparent to-primary/40" />
+            </div>
+
+            {/* Mountain silhouette icon */}
+            <div className="flex items-center justify-center mb-4">
+              <svg viewBox="0 0 64 28" fill="none" className="w-16 h-7 text-primary/25">
+                <path d="M0 28L16 6L24 16L32 2L40 16L48 8L64 28H0Z" fill="currentColor" />
+              </svg>
+            </div>
+
+            {/* THE WINTER — large, tight tracking */}
+            <h1 className="text-6xl md:text-8xl font-black text-foreground leading-none mb-1" style={{ letterSpacing: '-0.04em' }}>
               THE WINTER
             </h1>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              ARC
-            </h1>
-            <div className="mt-4 mx-auto w-16 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+
+            {/* ARC — oversized with glow shadow layer */}
+            <div className="relative inline-block">
+              {/* Glow duplicate behind */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 text-7xl md:text-9xl font-black leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent blur-[6px] opacity-40"
+                style={{ letterSpacing: '-0.04em' }}
+              >
+                ARC
+              </span>
+              <h1
+                className="relative text-7xl md:text-9xl font-black leading-none bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent"
+                style={{ letterSpacing: '-0.04em' }}
+              >
+                ARC
+              </h1>
+            </div>
+
+            {/* Frost line divider with glow */}
+            <div className="mt-6 mx-auto w-32 relative">
+              <div className="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+              <div className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent blur-[4px]" />
+            </div>
           </div>
 
           {/* Podium */}
