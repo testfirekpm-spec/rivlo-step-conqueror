@@ -2,11 +2,16 @@ import { motion } from "framer-motion";
 import rivloLogo from "@/assets/logo-rivlo.png";
 import { useCountUp } from "@/hooks/use-count-up";
 import EsportsBackground from "./EsportsBackground";
+import MinimalDarkBackground from "./MinimalDarkBackground";
+import AuroraBackground from "./AuroraBackground";
 import { DiamondWarrior, HexShield, TriangleSentinel, EnergyOrb } from "./AbstractMascots";
+
+export type LeaderboardTheme = "esports" | "minimal" | "aurora";
 
 type LeaderboardPosterProps = {
   animated?: boolean;
   exportMode?: boolean;
+  theme?: LeaderboardTheme;
 };
 
 const leaderboardData = [
@@ -26,6 +31,7 @@ const podiumStyles: Record<number, {
   barH: string; avatarSize: string; glow: string; border: string;
   badgeBg: string; badgeText: string; nameSize: string;
   neonColor: string; barGradient: string; barBorder: string; barShadow: string;
+  glassBg: string; glassGlow: string;
 }> = {
   1: {
     barH: "h-28",
@@ -39,6 +45,8 @@ const podiumStyles: Record<number, {
     barGradient: "linear-gradient(to top, hsl(43 96% 40% / 0.4), hsl(43 96% 56% / 0.1) 70%, transparent)",
     barBorder: "border-yellow-500/30",
     barShadow: "shadow-[inset_0_0_30px_rgba(234,179,8,0.1),0_-4px_20px_rgba(234,179,8,0.15)]",
+    glassBg: "bg-yellow-500/[0.04]",
+    glassGlow: "shadow-[0_0_40px_rgba(234,179,8,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]",
   },
   2: {
     barH: "h-20",
@@ -52,6 +60,8 @@ const podiumStyles: Record<number, {
     barGradient: "linear-gradient(to top, hsl(215 20% 50% / 0.35), hsl(215 20% 65% / 0.1) 70%, transparent)",
     barBorder: "border-slate-400/25",
     barShadow: "shadow-[inset_0_0_30px_rgba(148,163,184,0.08),0_-4px_20px_rgba(148,163,184,0.1)]",
+    glassBg: "bg-slate-400/[0.03]",
+    glassGlow: "shadow-[0_0_30px_rgba(148,163,184,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]",
   },
   3: {
     barH: "h-16",
@@ -65,6 +75,8 @@ const podiumStyles: Record<number, {
     barGradient: "linear-gradient(to top, hsl(26 90% 40% / 0.35), hsl(26 90% 50% / 0.1) 70%, transparent)",
     barBorder: "border-amber-600/25",
     barShadow: "shadow-[inset_0_0_30px_rgba(217,119,6,0.08),0_-4px_20px_rgba(217,119,6,0.1)]",
+    glassBg: "bg-amber-600/[0.03]",
+    glassGlow: "shadow-[0_0_30px_rgba(217,119,6,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]",
   },
 };
 
@@ -87,12 +99,65 @@ const CountedSteps = ({ steps, rank }: { steps: number; rank: number }) => {
 
 const StaticSteps = ({ steps }: { steps: number }) => <>{steps.toLocaleString()}</>;
 
-export const LeaderboardPoster = ({ animated = true, exportMode = false }: LeaderboardPosterProps) => {
+/* Sparkle dots around the #1 crown */
+const SparkleParticles = ({ exportMode = false }: { exportMode?: boolean }) => {
+  if (exportMode) return null;
+  const particles = [
+    { left: "-8px", top: "-4px", size: 3, delay: "0s" },
+    { left: "20px", top: "-6px", size: 2.5, delay: "0.8s" },
+    { left: "-12px", top: "10px", size: 2, delay: "1.6s" },
+    { left: "24px", top: "8px", size: 2, delay: "2.4s" },
+  ];
+  return (
+    <>
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            left: p.left,
+            top: p.top,
+            width: p.size,
+            height: p.size,
+            background: "hsl(43 96% 70%)",
+            boxShadow: "0 0 4px hsl(43 96% 56% / 0.8)",
+            animation: `sparkle 2.5s ease-in-out ${p.delay} infinite`,
+          }}
+        />
+      ))}
+    </>
+  );
+};
+
+const BackgroundRenderer = ({ theme, exportMode }: { theme: LeaderboardTheme; exportMode: boolean }) => {
+  switch (theme) {
+    case "minimal":
+      return <MinimalDarkBackground exportMode={exportMode} />;
+    case "aurora":
+      return <AuroraBackground exportMode={exportMode} />;
+    default:
+      return <EsportsBackground exportMode={exportMode} />;
+  }
+};
+
+export const LeaderboardPoster = ({ animated = true, exportMode = false, theme = "esports" }: LeaderboardPosterProps) => {
   const Wrap = animated ? motion.div : "div";
 
   return (
     <div className={`relative overflow-hidden bg-background ${exportMode ? "mx-auto h-[960px] w-[540px]" : ""}`}>
-      <EsportsBackground exportMode={exportMode} />
+      <BackgroundRenderer theme={theme} exportMode={exportMode} />
+
+      {/* Spotlight beam on #1 — only for esports & aurora themes */}
+      {theme !== "minimal" && (
+        <div
+          className="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-none"
+          style={{
+            width: "200px",
+            height: "500px",
+            background: "radial-gradient(ellipse 100% 100% at 50% 0%, hsl(43 96% 56% / 0.06) 0%, transparent 70%)",
+          }}
+        />
+      )}
 
       {/* Abstract mascot shapes — positioned to not overlap content */}
       <DiamondWarrior className="absolute top-[3%] left-[3%] w-10 h-14 opacity-40" delay={0.3} />
@@ -156,50 +221,105 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
               const styles = podiumStyles[player.rank];
               const animIdx = podiumAnimOrder[visualIdx];
 
-              const content = (
-                <>
-                  {player.rank === 1 && (
-                    <svg viewBox="0 0 24 24" fill="none" className="mb-0.5 h-5 w-5 text-yellow-400" style={{ filter: "drop-shadow(0 0 6px rgba(234,179,8,0.6))" }}>
+              const crownElement = player.rank === 1 && (
+                <div className="relative mb-0.5">
+                  {animated ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0, rotate: 180 }}
+                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.6, delay: 0.8, type: "spring", stiffness: 200 }}
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-yellow-400" style={{ filter: "drop-shadow(0 0 6px rgba(234,179,8,0.6))" }}>
+                        <path d="M2 18L4 8L8.5 12L12 4L15.5 12L20 8L22 18H2Z" fill="currentColor" />
+                      </svg>
+                    </motion.div>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-yellow-400" style={{ filter: "drop-shadow(0 0 6px rgba(234,179,8,0.6))" }}>
                       <path d="M2 18L4 8L8.5 12L12 4L15.5 12L20 8L22 18H2Z" fill="currentColor" />
                     </svg>
                   )}
-                  <div
-                    className={`${styles.avatarSize} ${styles.border} ${styles.glow} relative mb-1 flex items-center justify-center rounded-full border-2 bg-card`}
-                  >
-                    <FlagBadge code={player.flag} />
-                    <span
-                      className={`absolute -bottom-1 left-1/2 inline-grid h-5 w-5 -translate-x-1/2 place-items-center rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] font-black leading-none ring-2 ring-background`}
-                    >
-                      <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
-                    </span>
+                  <SparkleParticles exportMode={exportMode} />
+                </div>
+              );
+
+              const avatarElement = (
+                <div className={`${styles.avatarSize} ${styles.border} ${styles.glow} relative mb-1 flex items-center justify-center rounded-full border-2 bg-card`}>
+                  <FlagBadge code={player.flag} />
+                  <span className={`absolute -bottom-1 left-1/2 inline-grid h-5 w-5 -translate-x-1/2 place-items-center rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] font-black leading-none ring-2 ring-background`}>
+                    <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
+                  </span>
+                </div>
+              );
+
+              const stepsElement = (
+                <p className="text-[11px] font-semibold tabular-nums text-foreground/90">
+                  {animated ? <CountedSteps steps={player.steps} rank={player.rank} /> : <StaticSteps steps={player.steps} />}
+                </p>
+              );
+
+              const barElement = (
+                <div className={`relative mt-2 w-full overflow-hidden rounded-t-lg border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`} style={{ transformOrigin: "bottom" }}>
+                  <div className="absolute inset-0" style={{ background: styles.barGradient }} />
+                  <div className="absolute inset-0 bg-card/30 backdrop-blur-[2px]" />
+                  <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.5), transparent)`, boxShadow: `0 0 8px hsl(${styles.neonColor} / 0.3)` }} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="select-none text-3xl font-black text-foreground/[0.04]">{player.rank}</span>
                   </div>
+                </div>
+              );
+
+              const content = (
+                <div className={`relative rounded-xl border border-white/[0.06] ${styles.glassBg} ${styles.glassGlow} backdrop-blur-md p-2 pt-3 flex flex-col items-center`}>
+                  {crownElement}
+
+                  {animated ? (
+                    <motion.div
+                      className="flex flex-col items-center"
+                      initial={{ opacity: 0, y: -30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 + animIdx * 0.15, type: "spring", stiffness: 300, damping: 20 }}
+                    >
+                      {avatarElement}
+                    </motion.div>
+                  ) : avatarElement}
+
                   <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
                     {player.name}
                   </p>
-                  <p className="text-[11px] font-semibold tabular-nums text-foreground/90">
-                    {animated ? <CountedSteps steps={player.steps} rank={player.rank} /> : <StaticSteps steps={player.steps} />}
-                  </p>
+
+                  {animated ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.9 + animIdx * 0.15, duration: 0.4, ease: "easeOut" }}
+                    >
+                      {stepsElement}
+                    </motion.div>
+                  ) : stepsElement}
+
                   {player.club && <p className="max-w-full px-1 text-center text-[9px] leading-tight text-primary/50">{player.club}</p>}
 
-                  <div className={`relative mt-2 w-full overflow-hidden rounded-t-lg border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`}>
-                    <div className="absolute inset-0" style={{ background: styles.barGradient }} />
-                    <div className="absolute inset-0 bg-card/30 backdrop-blur-[2px]" />
-                    {/* Neon edge glow */}
-                    <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.5), transparent)`, boxShadow: `0 0 8px hsl(${styles.neonColor} / 0.3)` }} />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="select-none text-3xl font-black text-foreground/[0.04]">{player.rank}</span>
-                    </div>
-                  </div>
-                </>
+                  {animated ? (
+                    <motion.div
+                      className="w-full"
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      transition={{ delay: 0.3 + animIdx * 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ transformOrigin: "bottom" }}
+                    >
+                      {barElement}
+                    </motion.div>
+                  ) : barElement}
+                </div>
               );
 
               return animated ? (
                 <motion.div
                   key={player.rank}
                   className="flex max-w-[130px] flex-1 flex-col items-center"
-                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.4 + animIdx * 0.2, ease: "easeOut" }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 + animIdx * 0.2, ease: "easeOut" }}
                 >
                   {content}
                 </motion.div>
@@ -218,9 +338,29 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
           </div>
         </div>
 
-        {/* Player rows — only ranks 4-5 */}
-        <div className={`mx-auto max-w-sm space-y-2 ${exportMode ? "mt-4" : ""}`}>
+        {/* Player rows — ranks 4-5 with gap indicators */}
+        <div className={`mx-auto max-w-sm space-y-1 ${exportMode ? "mt-4" : ""}`}>
           {rest.map((player, index) => {
+            const prevPlayer = index === 0 ? leaderboardData[2] : rest[index - 1];
+            const stepGap = prevPlayer.steps - player.steps;
+
+            const gapIndicator = (
+              <div className="flex items-center gap-2 px-4 py-0.5">
+                <div className="flex-1 h-[1px] rounded-full overflow-hidden bg-border/20">
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${Math.min(100, (stepGap / 200) * 100)}%`,
+                      background: "linear-gradient(90deg, hsl(196 80% 55% / 0.4), hsl(270 60% 55% / 0.3))",
+                    }}
+                  />
+                </div>
+                <span className="text-[8px] font-medium tabular-nums text-muted-foreground/60 shrink-0">
+                  {stepGap} steps apart
+                </span>
+              </div>
+            );
+
             const row = (
               <>
                 <div
@@ -256,22 +396,23 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
               </>
             );
 
-            return animated ? (
-              <motion.div
-                key={player.rank}
-                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 1 + index * 0.1, ease: "easeOut" }}
-              >
-                {row}
-              </motion.div>
-            ) : (
-              <div
-                key={player.rank}
-                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3"
-              >
-                {row}
+            return (
+              <div key={player.rank}>
+                {gapIndicator}
+                {animated ? (
+                  <motion.div
+                    className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1 + index * 0.15, type: "spring", stiffness: 200, damping: 25 }}
+                  >
+                    {row}
+                  </motion.div>
+                ) : (
+                  <div className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3">
+                    {row}
+                  </div>
+                )}
               </div>
             );
           })}
