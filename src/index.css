@@ -117,3 +117,13 @@ html {
   50% { background-position: -200% 0; }
   100% { background-position: -200% 0; }
 }
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5) translateY(0); }
+  50% { opacity: 1; transform: scale(1) translateY(-6px); }
+}
+
+@keyframes aurora-drift {
+  0% { transform: translateX(-8%) skewX(-2deg); }
+  100% { transform: translateX(8%) skewX(2deg); }
+}

@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Download } from "lucide-react";
+import { ArrowLeft, Download, Palette } from "lucide-react";
 import { useRef, useState, useCallback } from "react";
 import { createRoot } from "react-dom/client";
 import html2canvas from "html2canvas";
-import { LeaderboardPoster } from "@/components/leaderboard/LeaderboardPoster";
+import { LeaderboardPoster, type LeaderboardTheme } from "@/components/leaderboard/LeaderboardPoster";
 import { Button } from "@/components/ui/button";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const STORY_W = 1080;
 const STORY_H = 1920;
 const DESIGN_W = 540;
+
+const themeLabels: Record<LeaderboardTheme, string> = {
+  esports: "Esports",
+  minimal: "Minimal",
+  aurora: "Aurora",
+};
 
 const waitForAssets = async (container: HTMLElement) => {
   if (document.fonts?.ready) {
@@ -39,6 +46,7 @@ const waitForAssets = async (container: HTMLElement) => {
 const Leaderboard = () => {
   const posterRef = useRef<HTMLDivElement>(null);
   const [exporting, setExporting] = useState(false);
+  const [theme, setTheme] = useState<LeaderboardTheme>("esports");
 
   const handleDownload = useCallback(async () => {
     if (!posterRef.current || exporting) return;
@@ -58,7 +66,7 @@ const Leaderboard = () => {
       document.body.appendChild(exportHost);
 
       exportRoot = createRoot(exportHost);
-      exportRoot.render(<LeaderboardPoster animated={false} exportMode />);
+      exportRoot.render(<LeaderboardPoster animated={false} exportMode theme={theme} />);
 
       await waitForAssets(exportHost);
 
@@ -100,7 +108,7 @@ const Leaderboard = () => {
       exportHost?.remove();
       setExporting(false);
     }
-  }, [exporting]);
+  }, [exporting, theme]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -110,21 +118,44 @@ const Leaderboard = () => {
             <ArrowLeft className="h-5 w-5" />
             <span className="text-sm font-medium">Back</span>
           </Link>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleDownload}
-            disabled={exporting}
-            className="gap-2 border-primary/30 text-primary hover:bg-primary/10"
-          >
-            <Download className="h-4 w-4" />
-            {exporting ? "Exporting…" : "Story"}
-          </Button>
+
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 rounded-lg border border-border/30 bg-card/50 p-0.5">
+              <Palette className="ml-1.5 h-3.5 w-3.5 text-muted-foreground" />
+              <ToggleGroup
+                type="single"
+                value={theme}
+                onValueChange={(v) => v && setTheme(v as LeaderboardTheme)}
+                size="sm"
+              >
+                {(Object.keys(themeLabels) as LeaderboardTheme[]).map((t) => (
+                  <ToggleGroupItem
+                    key={t}
+                    value={t}
+                    className="h-7 px-2.5 text-[11px] font-medium data-[state=on]:bg-primary/20 data-[state=on]:text-primary"
+                  >
+                    {themeLabels[t]}
+                  </ToggleGroupItem>
+                ))}
+              </ToggleGroup>
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleDownload}
+              disabled={exporting}
+              className="gap-2 border-primary/30 text-primary hover:bg-primary/10"
+            >
+              <Download className="h-4 w-4" />
+              {exporting ? "Exporting…" : "Story"}
+            </Button>
+          </div>
         </div>
       </nav>
 
       <div ref={posterRef}>
-        <LeaderboardPoster animated />
+        <LeaderboardPoster animated theme={theme} />
       </div>
     </div>
   );
