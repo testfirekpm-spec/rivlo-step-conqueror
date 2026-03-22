@@ -87,6 +87,22 @@ const CountedSteps = ({ steps, rank }: { steps: number; rank: number }) => {
 
 const StaticSteps = ({ steps }: { steps: number }) => <>{steps.toLocaleString()}</>;
 
+const RankBadge = ({
+  rank,
+  className,
+  textClassName,
+}: {
+  rank: number;
+  className: string;
+  textClassName?: string;
+}) => (
+  <span className={`relative inline-grid place-items-center ${className}`}>
+    <span className={`absolute inset-0 grid place-items-center ${textClassName ?? ""}`}>
+      <span className="relative -translate-y-[1px] font-black leading-none">{rank}</span>
+    </span>
+  </span>
+);
+
 export const LeaderboardPoster = ({ animated = true, exportMode = false }: LeaderboardPosterProps) => {
   const Wrap = animated ? motion.div : "div";
 
@@ -167,11 +183,10 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                     className={`${styles.avatarSize} ${styles.border} ${styles.glow} relative mb-1 flex items-center justify-center rounded-full border-2 bg-card`}
                   >
                     <FlagBadge code={player.flag} />
-                    <span
-                      className={`absolute -bottom-1 left-1/2 inline-grid h-5 w-5 -translate-x-1/2 place-items-center rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] font-black leading-none ring-2 ring-background`}
-                    >
-                      <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
-                    </span>
+                    <RankBadge
+                      rank={player.rank}
+                      className={`absolute -bottom-1 left-1/2 h-5 w-5 -translate-x-1/2 rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] ring-2 ring-background`}
+                    />
                   </div>
                   <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
                     {player.name}
@@ -229,10 +244,12 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                     background: `linear-gradient(to bottom, hsl(196 80% 55% / ${0.4 - index * 0.1}), transparent)`,
                   }}
                 />
-                <span className="inline-grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted/60 text-[11px] font-bold leading-none text-muted-foreground">
-                  <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
-                </span>
-                <div className="grid h-7 w-5 shrink-0 place-items-center">
+                <RankBadge
+                  rank={player.rank}
+                  className="h-7 w-7 shrink-0 rounded-md bg-muted/60 text-[11px] text-muted-foreground"
+                  textClassName="text-[11px]"
+                />
+                <div className="grid h-7 w-5 shrink-0 place-items-start pt-[6px]">
                   <img
                     src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
                     alt={player.flag}
@@ -259,7 +276,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
             return animated ? (
               <motion.div
                 key={player.rank}
-                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
+                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-start gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 1 + index * 0.1, ease: "easeOut" }}
@@ -269,7 +286,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
             ) : (
               <div
                 key={player.rank}
-                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3"
+                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-start gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3"
               >
                 {row}
               </div>
