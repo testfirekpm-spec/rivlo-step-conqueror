@@ -173,11 +173,13 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                       {player.rank}
                     </span>
                   </div>
-                  <p className={`mt-0.5 max-w-full truncate font-bold text-foreground ${styles.nameSize}`}>{player.name}</p>
+                  <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
+                    {player.name}
+                  </p>
                   <p className="text-[11px] font-semibold tabular-nums text-foreground/90">
                     {animated ? <CountedSteps steps={player.steps} rank={player.rank} /> : <StaticSteps steps={player.steps} />}
                   </p>
-                  {player.club && <p className="max-w-full truncate text-[9px] text-primary/50">{player.club}</p>}
+                  {player.club && <p className="max-w-full px-1 text-center text-[9px] leading-tight text-primary/50">{player.club}</p>}
 
                   <div className={`relative mt-2 w-full overflow-hidden rounded-t-lg border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`}>
                     <div className="absolute inset-0" style={{ background: styles.barGradient }} />
