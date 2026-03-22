@@ -22,13 +22,17 @@ const rest = leaderboardData.slice(3);
 const podiumOrder = [top3[1], top3[0], top3[2]];
 const podiumAnimOrder = [0, 2, 1];
 
+/** Strip emoji characters for export mode (html2canvas can't render them) */
+const stripEmoji = (str: string) => str.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}\u{E0020}-\u{E007F}]/gu, "").trim();
+
 const podiumStyles: Record<number, {
-  barH: string; avatarSize: string; glow: string; border: string;
+  barH: string; exportBarH: string; avatarSize: string; glow: string; border: string;
   badgeBg: string; badgeText: string; nameSize: string;
   neonColor: string; barGradient: string; barBorder: string; barShadow: string;
 }> = {
   1: {
     barH: "h-28",
+    exportBarH: "h-40",
     avatarSize: "w-16 h-16",
     glow: "shadow-[0_0_30px_rgba(234,179,8,0.4)]",
     border: "border-yellow-500/60",
@@ -42,6 +46,7 @@ const podiumStyles: Record<number, {
   },
   2: {
     barH: "h-20",
+    exportBarH: "h-28",
     avatarSize: "w-12 h-12",
     glow: "shadow-[0_0_25px_rgba(148,163,184,0.25)]",
     border: "border-slate-400/50",
@@ -55,6 +60,7 @@ const podiumStyles: Record<number, {
   },
   3: {
     barH: "h-16",
+    exportBarH: "h-24",
     avatarSize: "w-12 h-12",
     glow: "shadow-[0_0_25px_rgba(217,119,6,0.25)]",
     border: "border-amber-600/50",
@@ -75,6 +81,7 @@ const FlagBadge = ({ code, size = "normal" }: { code: string; size?: "normal" | 
     className={`${size === "small" ? "w-5 h-3.5" : "w-6 h-4"} rounded-[2px] object-cover`}
     crossOrigin="anonymous"
     loading="eager"
+    style={{ verticalAlign: "middle" }}
   />
 );
 
@@ -87,24 +94,72 @@ const CountedSteps = ({ steps, rank }: { steps: number; rank: number }) => {
 
 const StaticSteps = ({ steps }: { steps: number }) => <>{steps.toLocaleString()}</>;
 
-export const LeaderboardPoster = ({ animated = true, exportMode = false }: LeaderboardPosterProps) => {
-  const Wrap = animated ? motion.div : "div";
+/** Rank badge with inline flex centering (html2canvas-safe) */
+const RankBadge = ({ rank, styles, isRow }: { rank: number; styles: typeof podiumStyles[1]; isRow?: boolean }) => {
+  if (isRow) {
+    return (
+      <span
+        className="rounded-md bg-muted/60 text-muted-foreground"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 28,
+          height: 28,
+          fontSize: 11,
+          fontWeight: 700,
+          lineHeight: 1,
+          flexShrink: 0,
+        }}
+      >
+        {rank}
+      </span>
+    );
+  }
 
   return (
-    <div className={`relative overflow-hidden bg-background ${exportMode ? "mx-auto h-[960px] w-[540px]" : ""}`}>
+    <span
+      className={`${styles.badgeBg} ${styles.badgeText} ring-2 ring-background`}
+      style={{
+        position: "absolute",
+        bottom: -4,
+        left: "50%",
+        transform: "translateX(-50%)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 20,
+        height: 20,
+        borderRadius: "50%",
+        fontSize: 10,
+        fontWeight: 900,
+        lineHeight: 1,
+      }}
+    >
+      {rank}
+    </span>
+  );
+};
+
+export const LeaderboardPoster = ({ animated = true, exportMode = false }: LeaderboardPosterProps) => {
+  const Wrap = animated ? motion.div : "div";
+  const clubName = (name: string) => exportMode ? stripEmoji(name) : name;
+
+  return (
+    <div className={`relative overflow-hidden bg-background ${exportMode ? "mx-auto w-[540px]" : ""}`} style={exportMode ? { height: 960 } : undefined}>
       <EsportsBackground exportMode={exportMode} />
 
-      {/* Abstract mascot shapes — positioned to not overlap content */}
+      {/* Abstract mascot shapes */}
       <DiamondWarrior className="absolute top-[3%] left-[3%] w-10 h-14 opacity-40" delay={0.3} />
       <HexShield className="absolute top-[2%] right-[3%] w-10 h-12 opacity-30" delay={0.5} />
       <TriangleSentinel className="absolute bottom-[8%] left-[4%] w-8 h-12 opacity-25" delay={0.7} />
       <EnergyOrb className="absolute top-[30%] right-[4%] w-6 h-6" color="270 60% 55%" delay={0.9} />
       <EnergyOrb className="absolute bottom-[15%] right-[6%] w-5 h-5" color="196 80% 55%" delay={1.1} />
 
-      <div className={`relative px-5 pt-8 ${exportMode ? "flex h-full flex-col pb-8" : "pb-10"}`}>
+      <div className={`relative ${exportMode ? "flex h-full flex-col px-5 pt-14 pb-10" : "px-5 pt-8 pb-10"}`}>
         {/* Header */}
         <Wrap
-          className="mb-6 text-center"
+          className={exportMode ? "mb-10 text-center" : "mb-6 text-center"}
           {...(animated && {
             initial: { opacity: 0, y: -20 },
             animate: { opacity: 1, y: 0 },
@@ -150,11 +205,12 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
         </Wrap>
 
         {/* Podium */}
-        <div className={`mx-auto max-w-sm ${exportMode ? "mb-0" : "mb-2"}`}>
+        <div className={`mx-auto max-w-sm ${exportMode ? "mb-6" : "mb-2"}`}>
           <div className="flex items-end justify-center gap-2 sm:gap-3">
             {podiumOrder.map((player, visualIdx) => {
               const styles = podiumStyles[player.rank];
               const animIdx = podiumAnimOrder[visualIdx];
+              const barHeight = exportMode ? styles.exportBarH : styles.barH;
 
               const content = (
                 <>
@@ -164,14 +220,11 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                     </svg>
                   )}
                   <div
-                    className={`${styles.avatarSize} ${styles.border} ${styles.glow} relative mb-1 flex items-center justify-center rounded-full border-2 bg-card`}
+                    className={`${styles.avatarSize} ${styles.border} ${styles.glow} relative mb-1 border-2 bg-card`}
+                    style={{ display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "50%" }}
                   >
                     <FlagBadge code={player.flag} />
-                    <span
-                      className={`absolute -bottom-1 left-1/2 inline-grid h-5 w-5 -translate-x-1/2 place-items-center rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] font-black leading-none ring-2 ring-background`}
-                    >
-                      <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
-                    </span>
+                    <RankBadge rank={player.rank} styles={styles} />
                   </div>
                   <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
                     {player.name}
@@ -179,14 +232,13 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                   <p className="text-[11px] font-semibold tabular-nums text-foreground/90">
                     {animated ? <CountedSteps steps={player.steps} rank={player.rank} /> : <StaticSteps steps={player.steps} />}
                   </p>
-                  {player.club && <p className="max-w-full px-1 text-center text-[9px] leading-tight text-primary/50">{player.club}</p>}
+                  {player.club && <p className="max-w-full px-1 text-center text-[9px] leading-tight text-primary/50">{clubName(player.club)}</p>}
 
-                  <div className={`relative mt-2 w-full overflow-hidden rounded-t-lg border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`}>
+                  <div className={`relative mt-2 w-full overflow-hidden rounded-t-lg border border-b-0 ${barHeight} ${styles.barBorder} ${styles.barShadow}`}>
                     <div className="absolute inset-0" style={{ background: styles.barGradient }} />
                     <div className="absolute inset-0 bg-card/30 backdrop-blur-[2px]" />
-                    {/* Neon edge glow */}
                     <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.5), transparent)`, boxShadow: `0 0 8px hsl(${styles.neonColor} / 0.3)` }} />
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="absolute inset-0" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <span className="select-none text-3xl font-black text-foreground/[0.04]">{player.rank}</span>
                     </div>
                   </div>
@@ -218,10 +270,10 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
           </div>
         </div>
 
-        {/* Player rows — only ranks 4-5 */}
-        <div className={`mx-auto max-w-sm space-y-2 ${exportMode ? "mt-4" : ""}`}>
+        {/* Player rows — ranks 4-5 */}
+        <div className={`mx-auto max-w-sm ${exportMode ? "space-y-4" : "space-y-2"}`}>
           {rest.map((player, index) => {
-            const row = (
+            const rowContent = (
               <>
                 <div
                   className="absolute bottom-0 left-0 top-0 w-[2px] rounded-l-lg"
@@ -229,23 +281,20 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                     background: `linear-gradient(to bottom, hsl(196 80% 55% / ${0.4 - index * 0.1}), transparent)`,
                   }}
                 />
-                <span className="inline-grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted/60 text-[11px] font-bold leading-none text-muted-foreground">
-                  <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
-                </span>
-                <div className="grid h-7 w-5 shrink-0 place-items-center">
-                  <img
-                    src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
-                    alt={player.flag}
-                    className="h-3.5 w-5 rounded-[2px] object-cover"
-                    crossOrigin="anonymous"
-                    loading="eager"
-                  />
-                </div>
+                <RankBadge rank={player.rank} styles={podiumStyles[1]} isRow />
+                <img
+                  src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
+                  alt={player.flag}
+                  className="h-3.5 w-5 rounded-[2px] object-cover"
+                  crossOrigin="anonymous"
+                  loading="eager"
+                  style={{ verticalAlign: "middle", flexShrink: 0 }}
+                />
                 <div className="min-w-0 flex-1 pr-2">
                   <p className="text-sm font-semibold leading-tight text-foreground break-words">
                     {player.name}
                   </p>
-                  {player.club && <p className="text-[10px] leading-tight text-primary/50 break-words">{player.club}</p>}
+                  {player.club && <p className="text-[10px] leading-tight text-primary/50 break-words">{clubName(player.club)}</p>}
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="text-sm font-black tabular-nums text-foreground">
@@ -256,29 +305,33 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
               </>
             );
 
+            const rowClasses = `relative overflow-hidden rounded-lg border border-border/20 bg-card/30 ${exportMode ? "px-4 py-4" : "px-3.5 py-3"}`;
+
             return animated ? (
               <motion.div
                 key={player.rank}
-                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
+                className={rowClasses}
+                style={{ display: "flex", alignItems: "center", gap: 12 }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 1 + index * 0.1, ease: "easeOut" }}
               >
-                {row}
+                {rowContent}
               </motion.div>
             ) : (
               <div
                 key={player.rank}
-                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3"
+                className={rowClasses}
+                style={{ display: "flex", alignItems: "center", gap: 12 }}
               >
-                {row}
+                {rowContent}
               </div>
             );
           })}
         </div>
 
         {/* Footer */}
-        <div className={`text-center ${exportMode ? "mt-auto pt-6" : "mt-6"}`}>
+        <div className={`text-center ${exportMode ? "mt-auto pt-8" : "mt-6"}`}>
           <p className="text-[9px] tracking-wider text-muted-foreground/30">rivlo.app · Download on the App Store</p>
         </div>
       </div>
