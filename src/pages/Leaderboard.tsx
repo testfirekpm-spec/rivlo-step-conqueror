@@ -4,6 +4,7 @@ import { useRef, useState, useCallback } from "react";
 import { createRoot } from "react-dom/client";
 import html2canvas from "html2canvas";
 import { LeaderboardPoster } from "@/components/leaderboard/LeaderboardPoster";
+import { LeaderboardPosterExport } from "@/components/leaderboard/LeaderboardPosterExport";
 import { Button } from "@/components/ui/button";
 
 const STORY_W = 1080;
