@@ -168,9 +168,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                   >
                     <FlagBadge code={player.flag} />
                     <span
-                      className={`absolute -bottom-1 left-1/2 flex h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full ${styles.badgeBg} ${styles.badgeText} ring-2 ring-background`}
+                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 grid h-5 w-5 place-items-center rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] font-black ring-2 ring-background`}
                     >
-                      <span className="block text-[10px] font-black leading-none">{player.rank}</span>
+                      {player.rank}
                     </span>
                   </div>
                   <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
@@ -229,10 +229,16 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                     background: `linear-gradient(to bottom, hsl(196 80% 55% / ${0.4 - index * 0.1}), transparent)`,
                   }}
                 />
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted/60 text-muted-foreground">
-                  <span className="block text-[11px] font-bold leading-none">{player.rank}</span>
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted/60 text-[11px] font-bold text-muted-foreground">
+                  {player.rank}
                 </span>
-                <FlagBadge code={player.flag} size="small" />
+                <img
+                  src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
+                  alt={player.flag}
+                  className="w-5 h-3.5 shrink-0 self-center rounded-[2px] object-cover"
+                  crossOrigin="anonymous"
+                  loading="eager"
+                />
                 <div className="min-w-0 flex-1 pr-2">
                   <p className="text-sm font-semibold leading-tight text-foreground break-words">
                     {player.name}
