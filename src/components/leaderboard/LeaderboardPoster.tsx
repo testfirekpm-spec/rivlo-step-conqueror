@@ -168,9 +168,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                   >
                     <FlagBadge code={player.flag} />
                     <span
-                      className={`absolute -bottom-1 left-1/2 flex h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] font-black ring-2 ring-background`}
+                      className={`absolute -bottom-1 left-1/2 flex h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full ${styles.badgeBg} ${styles.badgeText} ring-2 ring-background`}
                     >
-                      {player.rank}
+                      <span className="block text-[10px] font-black leading-none">{player.rank}</span>
                     </span>
                   </div>
                   <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
@@ -229,13 +229,15 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                     background: `linear-gradient(to bottom, hsl(196 80% 55% / ${0.4 - index * 0.1}), transparent)`,
                   }}
                 />
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted/60 text-[11px] font-bold text-muted-foreground">
-                  {player.rank}
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted/60 text-muted-foreground">
+                  <span className="block text-[11px] font-bold leading-none">{player.rank}</span>
                 </span>
                 <FlagBadge code={player.flag} size="small" />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-foreground">{player.name}</p>
-                  {player.club && <p className="truncate text-[10px] text-primary/50">{player.club}</p>}
+                <div className="min-w-0 flex-1 pr-2">
+                  <p className="text-sm font-semibold leading-tight text-foreground break-words">
+                    {player.name}
+                  </p>
+                  {player.club && <p className="text-[10px] leading-tight text-primary/50 break-words">{player.club}</p>}
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="text-sm font-black tabular-nums text-foreground">
