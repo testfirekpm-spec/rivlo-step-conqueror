@@ -59,7 +59,7 @@ const Leaderboard = () => {
       document.body.appendChild(exportHost);
 
       exportRoot = createRoot(exportHost);
-      exportRoot.render(<LeaderboardPoster animated={false} exportMode />);
+      exportRoot.render(<LeaderboardPosterExport />);
 
       await waitForAssets(exportHost);
 
