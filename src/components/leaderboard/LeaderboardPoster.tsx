@@ -185,7 +185,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                     <FlagBadge code={player.flag} />
                     <RankBadge
                       rank={player.rank}
-                      className={`absolute -bottom-1 left-1/2 h-5 w-5 -translate-x-1/2 rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] ring-2 ring-background`}
+                      className={`absolute -bottom-1 -right-1 h-5 w-5 rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] ring-2 ring-background`}
                     />
                   </div>
                   <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
