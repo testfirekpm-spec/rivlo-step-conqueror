@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Download } from "lucide-react";
 import { useRef, useState, useCallback } from "react";
+import { createRoot } from "react-dom/client";
 import html2canvas from "html2canvas";
 import { LeaderboardPoster } from "@/components/leaderboard/LeaderboardPoster";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,32 @@ import { Button } from "@/components/ui/button";
 const STORY_W = 1080;
 const STORY_H = 1920;
 const DESIGN_W = 540;
+
+const waitForAssets = async (container: HTMLElement) => {
+  if (document.fonts?.ready) {
+    await document.fonts.ready;
+  }
+
+  const images = Array.from(container.querySelectorAll("img"));
+  await Promise.all(
+    images.map(
+      (image) =>
+        new Promise<void>((resolve) => {
+          if (image.complete) {
+            resolve();
+            return;
+          }
+
+          image.addEventListener("load", () => resolve(), { once: true });
+          image.addEventListener("error", () => resolve(), { once: true });
+        }),
+    ),
+  );
+
+  await new Promise<void>((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+  });
+};
 
 const Leaderboard = () => {
   const posterRef = useRef<HTMLDivElement>(null);
@@ -17,22 +44,27 @@ const Leaderboard = () => {
     if (!posterRef.current || exporting) return;
     setExporting(true);
 
-    try {
-      // Create an offscreen container at the design width
-      const clone = posterRef.current.cloneNode(true) as HTMLElement;
-      clone.style.width = `${DESIGN_W}px`;
-      clone.style.height = "auto";
-      clone.style.position = "fixed";
-      clone.style.left = "-9999px";
-      clone.style.top = "0";
-      document.body.appendChild(clone);
+    let exportRoot: ReturnType<typeof createRoot> | null = null;
+    let exportHost: HTMLDivElement | null = null;
 
-      // Wait for layout + images
-      await new Promise((r) => setTimeout(r, 300));
+    try {
+      exportHost = document.createElement("div");
+      exportHost.style.position = "fixed";
+      exportHost.style.left = "-9999px";
+      exportHost.style.top = "0";
+      exportHost.style.width = `${DESIGN_W}px`;
+      exportHost.style.height = `${STORY_H / (STORY_W / DESIGN_W)}px`;
+      exportHost.style.pointerEvents = "none";
+      document.body.appendChild(exportHost);
+
+      exportRoot = createRoot(exportHost);
+      exportRoot.render(<LeaderboardPoster animated={false} exportMode />);
+
+      await waitForAssets(exportHost);
 
       const scale = STORY_W / DESIGN_W; // 2x
 
-      const canvas = await html2canvas(clone, {
+      const canvas = await html2canvas(exportHost, {
         width: DESIGN_W,
         height: Math.ceil(STORY_H / scale),
         scale,
@@ -40,8 +72,6 @@ const Leaderboard = () => {
         useCORS: true,
         logging: false,
       });
-
-      document.body.removeChild(clone);
 
       // Compose onto exact 1080x1920 canvas
       const out = document.createElement("canvas");
@@ -66,6 +96,8 @@ const Leaderboard = () => {
     } catch (err) {
       console.error("Export failed:", err);
     } finally {
+      exportRoot?.unmount();
+      exportHost?.remove();
       setExporting(false);
     }
   }, [exporting]);

@@ -91,7 +91,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
   const Wrap = animated ? motion.div : "div";
 
   return (
-    <div className="relative overflow-hidden bg-background">
+    <div className={`relative overflow-hidden bg-background ${exportMode ? "mx-auto h-[960px] w-[540px]" : ""}`}>
       <EsportsBackground exportMode={exportMode} />
 
       {/* Abstract mascot shapes — positioned to not overlap content */}
@@ -101,7 +101,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
       <EnergyOrb className="absolute top-[30%] right-[4%] w-6 h-6" color="270 60% 55%" delay={0.9} />
       <EnergyOrb className="absolute bottom-[15%] right-[6%] w-5 h-5" color="196 80% 55%" delay={1.1} />
 
-      <div className="relative px-5 pb-10 pt-8">
+      <div className={`relative px-5 pt-8 ${exportMode ? "flex h-full flex-col pb-8" : "pb-10"}`}>
         {/* Header */}
         <Wrap
           className="mb-6 text-center"
@@ -150,7 +150,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
         </Wrap>
 
         {/* Podium */}
-        <div className="mx-auto mb-2 max-w-sm">
+        <div className={`mx-auto max-w-sm ${exportMode ? "mb-0" : "mb-2"}`}>
           <div className="flex items-end justify-center gap-2 sm:gap-3">
             {podiumOrder.map((player, visualIdx) => {
               const styles = podiumStyles[player.rank];
@@ -168,9 +168,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                   >
                     <FlagBadge code={player.flag} />
                     <span
-                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 grid h-5 w-5 place-items-center rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] font-black ring-2 ring-background`}
+                      className={`absolute -bottom-1 left-1/2 inline-grid h-5 w-5 -translate-x-1/2 place-items-center rounded-full ${styles.badgeBg} ${styles.badgeText} text-[10px] font-black leading-none ring-2 ring-background`}
                     >
-                      {player.rank}
+                      <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
                     </span>
                   </div>
                   <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
@@ -219,7 +219,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
         </div>
 
         {/* Player rows — only ranks 4-5 */}
-        <div className="mx-auto max-w-sm space-y-2">
+        <div className={`mx-auto max-w-sm space-y-2 ${exportMode ? "mt-4" : ""}`}>
           {rest.map((player, index) => {
             const row = (
               <>
@@ -229,16 +229,18 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
                     background: `linear-gradient(to bottom, hsl(196 80% 55% / ${0.4 - index * 0.1}), transparent)`,
                   }}
                 />
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted/60 text-[11px] font-bold text-muted-foreground">
-                  {player.rank}
+                <span className="inline-grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted/60 text-[11px] font-bold leading-none text-muted-foreground">
+                  <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
                 </span>
-                <img
-                  src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
-                  alt={player.flag}
-                  className="w-5 h-3.5 shrink-0 self-center rounded-[2px] object-cover"
-                  crossOrigin="anonymous"
-                  loading="eager"
-                />
+                <div className="grid h-7 w-5 shrink-0 place-items-center">
+                  <img
+                    src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
+                    alt={player.flag}
+                    className="h-3.5 w-5 rounded-[2px] object-cover"
+                    crossOrigin="anonymous"
+                    loading="eager"
+                  />
+                </div>
                 <div className="min-w-0 flex-1 pr-2">
                   <p className="text-sm font-semibold leading-tight text-foreground break-words">
                     {player.name}
@@ -257,7 +259,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
             return animated ? (
               <motion.div
                 key={player.rank}
-                className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 backdrop-blur-sm px-3.5 py-3"
+                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 1 + index * 0.1, ease: "easeOut" }}
@@ -267,7 +269,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
             ) : (
               <div
                 key={player.rank}
-                className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3"
+                className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3"
               >
                 {row}
               </div>
@@ -276,7 +278,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false }: Leade
         </div>
 
         {/* Footer */}
-        <div className="mt-6 text-center">
+        <div className={`text-center ${exportMode ? "mt-auto pt-6" : "mt-6"}`}>
           <p className="text-[9px] tracking-wider text-muted-foreground/30">rivlo.app · Download on the App Store</p>
         </div>
       </div>
