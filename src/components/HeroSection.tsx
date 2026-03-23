@@ -4,7 +4,7 @@ import ParticleBackground from "./ParticleBackground";
 import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
 import StepCounterRing from "./StepCounterRing";
 import FloatingTrophy from "./FloatingTrophy";
-import HomeScreenImg from "@/assets/Home.PNG";
+import HomeScreenImg from "@/assets/Home.webp";
 import { redirectToStore } from "@/lib/store-redirect";
 
 const HeroSection = () => {
@@ -150,6 +150,8 @@ const HeroSection = () => {
                   src={HomeScreenImg}
                   alt="Rivlo app home screen"
                   className="absolute inset-0 w-full h-full object-cover object-top"
+                  width={280}
+                  height={560}
                   fetchPriority="high"
                 />
               </div>
