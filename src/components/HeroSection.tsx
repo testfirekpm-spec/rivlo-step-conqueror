@@ -89,7 +89,7 @@ const HeroSection = () => {
             <p
               className="text-muted-foreground text-lg leading-relaxed max-w-[45ch]"
               style={{
-                animation: "fade-in-up 0.8s ease-out 0.15s backwards",
+                animation: "fade-in-up 0.8s ease-out 0.15s both",
               }}
             >
               Rivlo is a gamified step counter where walking becomes a global
