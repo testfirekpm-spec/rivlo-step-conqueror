@@ -318,7 +318,7 @@ const LegendarySection = ({ data }: { data: MilestoneData }) => {
           >
             <div className="absolute inset-0 rounded-full bg-yellow-400/20 blur-xl" />
             <div className="absolute inset-2 rounded-full bg-yellow-400/10 blur-md" />
-            <Crown className="relative h-12 w-12 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
+            <Swords className="relative h-12 w-12 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
           </motion.div>
         </motion.div>
 
