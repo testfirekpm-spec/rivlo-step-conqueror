@@ -34,49 +34,49 @@ const podiumStyles: Record<number, {
   glassBg: string; glassGlow: string;
 }> = {
   1: {
-    barH: "h-28",
-    avatarSize: "w-16 h-16",
-    glow: "shadow-[0_0_30px_rgba(234,179,8,0.4)]",
-    border: "border-yellow-500/60",
+    barH: "h-32",
+    avatarSize: "w-[4.5rem] h-[4.5rem]",
+    glow: "shadow-[0_0_35px_rgba(234,179,8,0.45)]",
+    border: "border-yellow-500/70",
     badgeBg: "bg-yellow-500",
     badgeText: "text-yellow-950",
     nameSize: "text-sm",
     neonColor: "43 96% 56%",
-    barGradient: "linear-gradient(to top, hsl(43 96% 40% / 0.4), hsl(43 96% 56% / 0.1) 70%, transparent)",
+    barGradient: "linear-gradient(to top, hsl(43 96% 40% / 0.5), hsl(43 96% 56% / 0.15) 60%, transparent)",
     barBorder: "border-yellow-500/30",
-    barShadow: "shadow-[inset_0_0_30px_rgba(234,179,8,0.1),0_-4px_20px_rgba(234,179,8,0.15)]",
-    glassBg: "bg-yellow-500/[0.04]",
-    glassGlow: "shadow-[0_0_40px_rgba(234,179,8,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]",
+    barShadow: "shadow-[inset_0_0_30px_rgba(234,179,8,0.12),0_-4px_20px_rgba(234,179,8,0.2)]",
+    glassBg: "bg-yellow-500/[0.06]",
+    glassGlow: "shadow-[0_0_50px_rgba(234,179,8,0.15),inset_0_1px_0_rgba(255,255,255,0.1)]",
   },
   2: {
-    barH: "h-20",
-    avatarSize: "w-12 h-12",
+    barH: "h-24",
+    avatarSize: "w-14 h-14",
     glow: "shadow-[0_0_25px_rgba(148,163,184,0.25)]",
     border: "border-slate-400/50",
     badgeBg: "bg-slate-300",
     badgeText: "text-slate-900",
     nameSize: "text-xs",
     neonColor: "215 20% 65%",
-    barGradient: "linear-gradient(to top, hsl(215 20% 50% / 0.35), hsl(215 20% 65% / 0.1) 70%, transparent)",
+    barGradient: "linear-gradient(to top, hsl(215 20% 50% / 0.4), hsl(215 20% 65% / 0.12) 60%, transparent)",
     barBorder: "border-slate-400/25",
     barShadow: "shadow-[inset_0_0_30px_rgba(148,163,184,0.08),0_-4px_20px_rgba(148,163,184,0.1)]",
-    glassBg: "bg-slate-400/[0.03]",
-    glassGlow: "shadow-[0_0_30px_rgba(148,163,184,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]",
+    glassBg: "bg-slate-400/[0.04]",
+    glassGlow: "shadow-[0_0_30px_rgba(148,163,184,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]",
   },
   3: {
-    barH: "h-16",
-    avatarSize: "w-12 h-12",
+    barH: "h-20",
+    avatarSize: "w-14 h-14",
     glow: "shadow-[0_0_25px_rgba(217,119,6,0.25)]",
     border: "border-amber-600/50",
     badgeBg: "bg-amber-700",
     badgeText: "text-amber-50",
     nameSize: "text-xs",
     neonColor: "26 90% 44%",
-    barGradient: "linear-gradient(to top, hsl(26 90% 40% / 0.35), hsl(26 90% 50% / 0.1) 70%, transparent)",
+    barGradient: "linear-gradient(to top, hsl(26 90% 40% / 0.4), hsl(26 90% 50% / 0.12) 60%, transparent)",
     barBorder: "border-amber-600/25",
     barShadow: "shadow-[inset_0_0_30px_rgba(217,119,6,0.08),0_-4px_20px_rgba(217,119,6,0.1)]",
-    glassBg: "bg-amber-600/[0.03]",
-    glassGlow: "shadow-[0_0_30px_rgba(217,119,6,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]",
+    glassBg: "bg-amber-600/[0.04]",
+    glassGlow: "shadow-[0_0_30px_rgba(217,119,6,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]",
   },
 };
 
@@ -252,24 +252,24 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
               );
 
               const trophiesElement = (
-                <p className="text-[11px] font-semibold tabular-nums text-foreground/90">
+                <p className="text-[11px] font-bold tabular-nums text-foreground/90 flex items-center gap-0.5 justify-center" style={{ textShadow: `0 0 12px hsl(${styles.neonColor} / 0.4)` }}>
+                  <span className="text-[10px]">🏆</span>
                   {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                 </p>
               );
 
               const barElement = (
-                <div className={`relative mt-2 w-full overflow-hidden rounded-t-lg border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`} style={{ transformOrigin: "bottom" }}>
+                <div className={`relative mt-2 w-full overflow-hidden rounded-t-xl border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`} style={{ transformOrigin: "bottom" }}>
                   <div className="absolute inset-0" style={{ background: styles.barGradient }} />
-                  <div className="absolute inset-0 bg-card/30 backdrop-blur-[2px]" />
-                  <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.5), transparent)`, boxShadow: `0 0 8px hsl(${styles.neonColor} / 0.3)` }} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="select-none text-3xl font-black text-foreground/[0.04]">{player.rank}</span>
-                  </div>
+                  <div className="absolute inset-0 bg-card/20 backdrop-blur-sm" />
+                  <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.6), transparent)`, boxShadow: `0 0 10px hsl(${styles.neonColor} / 0.4)` }} />
                 </div>
               );
 
               const content = (
-                <div className={`relative rounded-xl border border-white/[0.06] ${styles.glassBg} ${styles.glassGlow} backdrop-blur-md p-2 pt-3 flex flex-col items-center`}>
+                <div className={`relative rounded-xl border border-white/[0.08] ${styles.glassBg} ${styles.glassGlow} backdrop-blur-xl p-3 pt-4 flex flex-col items-center overflow-hidden`}>
+                  {/* Top accent line */}
+                  <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.7), transparent)` }} />
                   {crownElement}
 
                   {animated ? (
@@ -338,29 +338,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
           </div>
         </div>
 
-        {/* Player rows — ranks 4-5 with gap indicators */}
-        <div className={`mx-auto max-w-sm space-y-1 ${exportMode ? "mt-4" : ""}`}>
+        {/* Player rows — ranks 4-5 */}
+        <div className={`mx-auto max-w-sm space-y-2 ${exportMode ? "mt-4" : "mt-1"}`}>
           {rest.map((player, index) => {
-            const prevPlayer = index === 0 ? leaderboardData[2] : rest[index - 1];
-            const trophyGap = prevPlayer.trophies - player.trophies;
-
-            const gapIndicator = (
-              <div className="flex items-center gap-2 px-4 py-0.5">
-                <div className="flex-1 h-[1px] rounded-full overflow-hidden bg-border/20">
-                  <div
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${Math.min(100, (trophyGap / 200) * 100)}%`,
-                      background: "linear-gradient(90deg, hsl(196 80% 55% / 0.4), hsl(270 60% 55% / 0.3))",
-                    }}
-                  />
-                </div>
-                <span className="text-[8px] font-medium tabular-nums text-muted-foreground/60 shrink-0">
-                  {trophyGap} trophies apart
-                </span>
-              </div>
-            );
-
             const row = (
               <>
                 <div
@@ -388,17 +368,16 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                   {player.club && <p className="text-[10px] leading-tight text-primary/50 break-words">{player.club}</p>}
                 </div>
                 <div className="shrink-0 text-right">
-                  <p className="text-sm font-black tabular-nums text-foreground">
+                  <p className="text-sm font-black tabular-nums text-foreground flex items-center gap-1">
+                    <span className="text-xs">🏆</span>
                     {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                   </p>
-                  <p className="text-[8px] uppercase tracking-widest text-muted-foreground">trophies</p>
                 </div>
               </>
             );
 
             return (
               <div key={player.rank}>
-                {gapIndicator}
                 {animated ? (
                   <motion.div
                     className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
