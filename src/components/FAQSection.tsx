@@ -38,7 +38,7 @@ const FAQSection = () => {
   const { ref: contentRef, isVisible: contentVisible } = useScrollReveal(0.05);
 
   return (
-    <section id="faq" className="relative py-32 lg:py-40 bg-background">
+    <section id="faq" className="relative py-32 lg:py-40 bg-background" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
       <div className="container mx-auto px-6 max-w-3xl">
         <div
           ref={headerRef}
