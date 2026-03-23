@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import rivloLogo from "@/assets/logo-rivlo.png";
+import rivloLogo from "@/assets/logo-rivlo.webp";
 import { redirectToStore } from "@/lib/store-redirect";
 
 const navLinks = [

@@ -1,9 +1,9 @@
 import { Check, X, Crown, Zap, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
-import rivloLogo from "@/assets/logo-rivlo.png";
-import stravaLogo from "@/assets/logo-strava.png";
-import nikeLogo from "@/assets/logo-nike.png";
-import runnaLogo from "@/assets/logo-runna.png";
+import rivloLogo from "@/assets/logo-rivlo.webp";
+import stravaLogo from "@/assets/logo-strava.webp";
+import nikeLogo from "@/assets/logo-nike.webp";
+import runnaLogo from "@/assets/logo-runna.webp";
 
 type Status = "yes" | "no" | "partial" | "free" | "paid";
 
