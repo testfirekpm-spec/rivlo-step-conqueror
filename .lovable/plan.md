@@ -1,33 +1,73 @@
 
 
-# Milestones Page Plan
+# Milestones Page — Complete Redesign
 
-## What we're building
-A dedicated `/milestones` page showcasing the first players to hit 10k, 100k, 500k, and 1M steps, with rich data and a premium visual design.
+## Concept: "Monument" Layout
+Instead of a generic timeline, each milestone gets treated as a full-width immersive section you scroll through — like a gallery exhibition. The page feels like you're walking through a hall of records.
 
-## Data (with placeholders)
+## Layout Structure
 
-| Milestone | Player | Country | Date Achieved | Days to Reach | Total Players | Quote |
-|-----------|--------|---------|---------------|---------------|---------------|-------|
-| 10,000 | Top | US | Jan 18, 2025 | 3 days | 1,247 | "Just getting started!" |
-| 100,000 | Top | US | Feb 22, 2025 | 38 days | 314 | "Didn't even realize I was close." |
-| 500,000 | Top | US | May 10, 2025 | 115 days | 27 | "Half a million feels unreal." |
-| 1,000,000 | Luffy | CA | Sep 3, 2025 | 210 days | 1 | "King of the steps." |
+```text
+┌─────────────────────────────────────────────┐
+│  Nav (sticky, blur backdrop)                │
+├─────────────────────────────────────────────┤
+│  HERO: Full-viewport intro                  │
+│  "Hall of Fame" badge + large title         │
+│  Ambient gradient orbs + particle canvas    │
+│  Scroll indicator at bottom                 │
+├─────────────────────────────────────────────┤
+│  MILESTONE 1 — 10K (full-width section)     │
+│  Left: huge "10,000" number with            │
+│        horizontal reveal animation          │
+│  Right: player card (name, flag, quote)     │
+│  Tier accent: warm bronze gradient bg       │
+├─────────────────────────────────────────────┤
+│  MILESTONE 2 — 100K                         │
+│  Flipped layout (card left, number right)   │
+│  Tier accent: cool silver                   │
+├─────────────────────────────────────────────┤
+│  MILESTONE 3 — 500K                         │
+│  Same as #1 layout                          │
+│  Tier accent: rich gold                     │
+├─────────────────────────────────────────────┤
+│  MILESTONE 4 — 1M (LEGENDARY)              │
+│  Full-width centered, oversized             │
+│  Crown icon with radial glow burst          │
+│  Floating particles, shimmer border         │
+│  Player name rendered large                 │
+├─────────────────────────────────────────────┤
+│  Footer CTA: "Your name could be next"     │
+└─────────────────────────────────────────────┘
+```
 
-## Design
-- Dark page matching leaderboard aesthetic, same sticky nav with back button
-- Page title "Milestones" with subtitle about first-ever achievements
-- Vertical timeline with a glowing connecting line
-- 4 glassmorphic cards, each showing: milestone badge, player name + flag, date, days-to-reach, total players who've hit it, and a player quote
-- Cards escalate visually — 10k is subtle, 1M gets a golden glow and crown icon
-- Staggered scroll-reveal entrance animations (reusing existing `useScrollReveal` hook)
-- Rarity indicator: "1,247 players" vs "1 player — Only one" to show exclusivity
+## Key Design Details
+
+- **Hero section**: Full viewport height, large "Milestones" title with individual letter spring animations, subtitle, ambient background orbs (reusing the style from HeroSection), scroll-down chevron that bounces
+- **Each milestone is a full-width section** (~70-80vh) with generous padding — not crammed cards on a timeline
+- **Massive step numbers**: The step count (e.g. "10,000") is rendered at ~8-10rem, clipped with a gradient, and slides in from the side on scroll
+- **Player info panel**: Glassmorphic card beside the number with flag, name, quote — 3D tilt on hover (reuse TiltCard)
+- **Alternating layouts**: Odd milestones = number left / card right; even = flipped
+- **Tier-specific ambient lighting**: Each section has a subtle full-width radial gradient matching the tier color (bronze warm, silver cool, gold rich, legendary intense)
+- **Legendary 1M section**: Breaks the pattern — centered layout, larger scale, particle effects, pulsing golden glow ring behind the crown icon, the player name "Luffy" gets its own spotlight treatment
+- **Connecting element**: A thin vertical progress line between sections (scroll-driven, already have this logic)
+- **Bottom CTA**: "Your name could be next" with a subtle glow button linking back to the app
+
+## Animations (Framer Motion)
+
+- **Hero letters**: Spring-based staggered entrance (keep existing)
+- **Step numbers**: `whileInView` slide from left/right with scale, using spring physics
+- **Player cards**: Fade + slide up with delay after the number appears
+- **Quote text**: Typewriter-style fade per word
+- **Legendary section**: Crown icon does a slow continuous float + rotate; golden ring pulses; particles drift
+- **Scroll progress line**: Grows as user scrolls (keep existing logic)
+- **Section transitions**: Each section has a subtle parallax offset on its background gradient
 
 ## Files
-1. **Create `src/pages/Milestones.tsx`** — Full page with timeline layout, milestone cards, all data
-2. **Edit `src/App.tsx`** — Add `/milestones` route and import
+1. **Rewrite `src/pages/Milestones.tsx`** — Complete overhaul with the monument layout, all animations, tier-specific styling
 
-## Technical notes
-- No new dependencies — reuse existing hooks, Tailwind tokens, lucide icons, flagcdn
-- Icons per tier: Footprints (10k), Target (100k), Mountain (500k), Crown (1M)
+## Technical Notes
+- No new dependencies — framer-motion, lucide-react, existing Tailwind tokens
+- Reuse ParticleBackground component for the hero section (or a lighter inline version for legendary)
+- Keep the same data array (player, country, quote, icon, tier)
+- Mobile: stacks vertically, number on top, card below — no alternating
 
