@@ -15,11 +15,11 @@ type LeaderboardPosterProps = {
 };
 
 const leaderboardData = [
-  { rank: 1, name: "walking", club: "DailyWalkers 🍃", flag: "RO", steps: 11426 },
-  { rank: 2, name: "luffy", club: "Top pickers", flag: "CA", steps: 10622 },
-  { rank: 3, name: "saumya", club: "DailyWalkers 🍃", flag: "IN", steps: 10324 },
-  { rank: 4, name: "paceby harsh", club: "DailyWalkers 🍃", flag: "IN", steps: 10317 },
-  { rank: 5, name: "top", club: "Top club", flag: "US", steps: 10278 },
+  { rank: 1, name: "paceby harsh", club: "", flag: "IN", trophies: 12849 },
+  { rank: 2, name: "luffy", club: "", flag: "CA", trophies: 12103 },
+  { rank: 3, name: "top", club: "", flag: "US", trophies: 11668 },
+  { rank: 4, name: "j11mmy", club: "", flag: "GB", trophies: 11467 },
+  { rank: 5, name: "saumya_obsidian", club: "", flag: "IN", trophies: 11164 },
 ];
 
 const top3 = leaderboardData.slice(0, 3);
@@ -90,14 +90,14 @@ const FlagBadge = ({ code, size = "normal" }: { code: string; size?: "normal" | 
   />
 );
 
-const CountedSteps = ({ steps, rank }: { steps: number; rank: number }) => {
+const CountedTrophies = ({ trophies, rank }: { trophies: number; rank: number }) => {
   const duration = rank === 1 ? 1800 : rank <= 3 ? 1400 : 1000;
   const delay = rank === 1 ? 800 : rank === 2 ? 500 : rank === 3 ? 600 : 0;
-  const value = useCountUp(steps, duration, delay);
+  const value = useCountUp(trophies, duration, delay);
   return <>{value.toLocaleString()}</>;
 };
 
-const StaticSteps = ({ steps }: { steps: number }) => <>{steps.toLocaleString()}</>;
+const StaticTrophies = ({ trophies }: { trophies: number }) => <>{trophies.toLocaleString()}</>;
 
 /* Sparkle dots around the #1 crown */
 const SparkleParticles = ({ exportMode = false }: { exportMode?: boolean }) => {
@@ -251,9 +251,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                 </div>
               );
 
-              const stepsElement = (
+              const trophiesElement = (
                 <p className="text-[11px] font-semibold tabular-nums text-foreground/90">
-                  {animated ? <CountedSteps steps={player.steps} rank={player.rank} /> : <StaticSteps steps={player.steps} />}
+                  {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                 </p>
               );
 
@@ -342,7 +342,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
         <div className={`mx-auto max-w-sm space-y-1 ${exportMode ? "mt-4" : ""}`}>
           {rest.map((player, index) => {
             const prevPlayer = index === 0 ? leaderboardData[2] : rest[index - 1];
-            const stepGap = prevPlayer.steps - player.steps;
+            const trophyGap = prevPlayer.trophies - player.trophies;
 
             const gapIndicator = (
               <div className="flex items-center gap-2 px-4 py-0.5">
@@ -350,13 +350,13 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                   <div
                     className="h-full rounded-full"
                     style={{
-                      width: `${Math.min(100, (stepGap / 200) * 100)}%`,
+                      width: `${Math.min(100, (trophyGap / 200) * 100)}%`,
                       background: "linear-gradient(90deg, hsl(196 80% 55% / 0.4), hsl(270 60% 55% / 0.3))",
                     }}
                   />
                 </div>
                 <span className="text-[8px] font-medium tabular-nums text-muted-foreground/60 shrink-0">
-                  {stepGap} steps apart
+                  {trophyGap} trophies apart
                 </span>
               </div>
             );
@@ -389,9 +389,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="text-sm font-black tabular-nums text-foreground">
-                    {animated ? <CountedSteps steps={player.steps} rank={player.rank} /> : <StaticSteps steps={player.steps} />}
+                    {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                   </p>
-                  <p className="text-[8px] uppercase tracking-widest text-muted-foreground">steps</p>
+                  <p className="text-[8px] uppercase tracking-widest text-muted-foreground">trophies</p>
                 </div>
               </>
             );
