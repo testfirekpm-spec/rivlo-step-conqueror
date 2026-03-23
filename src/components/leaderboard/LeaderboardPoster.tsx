@@ -293,9 +293,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.9 + animIdx * 0.15, duration: 0.4, ease: "easeOut" }}
                     >
-                      {stepsElement}
+                      {trophiesElement}
                     </motion.div>
-                  ) : stepsElement}
+                  ) : trophiesElement}
 
                   {player.club && <p className="max-w-full px-1 text-center text-[9px] leading-tight text-primary/50">{player.club}</p>}
 
