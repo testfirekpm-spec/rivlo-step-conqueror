@@ -1,73 +1,107 @@
 
 
-# Milestones Page — Complete Redesign
+# Performance Optimization Plan for Rivlo Website
 
-## Concept: "Monument" Layout
-Instead of a generic timeline, each milestone gets treated as a full-width immersive section you scroll through — like a gallery exhibition. The page feels like you're walking through a hall of records.
+## Summary
 
-## Layout Structure
+The site loads 15+ sections on the homepage eagerly, imports heavy libraries (framer-motion, recharts, html2canvas) upfront, uses PNG images without optimization, and runs a canvas particle animation on every frame. This plan addresses all major bottlenecks.
+
+---
+
+## Step 1: Lazy-load below-the-fold sections
+
+**Problem**: All 15+ sections are bundled together and rendered immediately, even though users only see the hero on load.
+
+**Solution**: Use `React.lazy()` + `Suspense` to code-split every section below the hero. Only HeroSection, Navbar, and ScrollProgress load eagerly.
+
+Sections to lazy-load: TrustBar, LogoMarquee, StatsSection, FeaturesSection, AppShowcaseSection, VideoShowcaseSection, AchievementsSection, ComparisonSection, PricingSection, HowItWorksSection, TestimonialsSection, BlogSection, FAQSection, CTASection, Footer.
+
+**Files**: `src/pages/Index.tsx`
+
+---
+
+## Step 2: Replace framer-motion with CSS/IntersectionObserver
+
+**Problem**: `framer-motion` (~32KB gzipped) is imported by TrustBar, ComparisonSection, PricingSection, and LeaderboardPoster for simple fade/slide animations that CSS can handle.
+
+**Solution**: Remove framer-motion `motion.div` usages and replace with the existing `useScrollReveal` hook + inline CSS transitions (already used by most sections). This eliminates the entire framer-motion dependency.
+
+**Files**: `src/components/TrustBar.tsx`, `src/components/ComparisonSection.tsx`, `src/components/PricingSection.tsx`, `src/components/leaderboard/LeaderboardPoster.tsx`, then remove `framer-motion` from `package.json`.
+
+---
+
+## Step 3: Optimize images
+
+**Problem**: 13 PNG assets in `src/assets/` are uncompressed PNGs (likely large). Blog section loads external Unsplash images.
+
+**Solution**:
+- Add `loading="lazy"` to all images except the hero (`Home.PNG` already has `fetchPriority="high"`).
+- Add explicit `width`/`height` attributes to prevent layout shifts.
+- Ensure blog images use Unsplash's `&q=75&fm=webp` params for smaller payloads.
+- Consider converting local PNGs to WebP (manual step outside Lovable).
+
+**Files**: `src/components/AppShowcaseSection.tsx`, `src/components/BlogSection.tsx`, `src/components/ComparisonSection.tsx`, `src/components/Navbar.tsx`, `src/components/Footer.tsx`
+
+---
+
+## Step 4: Optimize ParticleBackground canvas
+
+**Problem**: 60 particles animate every frame via `requestAnimationFrame`, running even when the hero is scrolled out of view.
+
+**Solution**: Use IntersectionObserver to pause the animation loop when the hero section is not visible. Also reduce particle count on mobile (30 instead of 60).
+
+**Files**: `src/components/ParticleBackground.tsx`
+
+---
+
+## Step 5: Remove unused App.css
+
+**Problem**: `src/App.css` contains legacy Vite boilerplate styles (`.logo`, `.card`, `.read-the-docs`) that aren't used anywhere.
+
+**Solution**: Delete `src/App.css` and remove any import of it.
+
+**Files**: `src/App.css` (delete)
+
+---
+
+## Step 6: Lazy-load the video
+
+**Problem**: The video in VideoShowcaseSection has a `<source>` tag that may trigger early download.
+
+**Solution**: Set `preload="none"` on the `<video>` element since the IntersectionObserver already handles autoplay. This prevents the browser from buffering the video until the user scrolls near it.
+
+**Files**: `src/components/VideoShowcaseSection.tsx`
+
+---
+
+## Step 7: Add font `display: swap`
+
+**Problem**: Google Fonts link in `index.html` doesn't specify `display=swap`, which can cause invisible text during font load.
+
+**Solution**: Append `&display=swap` to the Google Fonts URL (already present based on the link, but verify).
+
+**Files**: `index.html`
+
+---
+
+## Technical Details
 
 ```text
-┌─────────────────────────────────────────────┐
-│  Nav (sticky, blur backdrop)                │
-├─────────────────────────────────────────────┤
-│  HERO: Full-viewport intro                  │
-│  "Hall of Fame" badge + large title         │
-│  Ambient gradient orbs + particle canvas    │
-│  Scroll indicator at bottom                 │
-├─────────────────────────────────────────────┤
-│  MILESTONE 1 — 10K (full-width section)     │
-│  Left: huge "10,000" number with            │
-│        horizontal reveal animation          │
-│  Right: player card (name, flag, quote)     │
-│  Tier accent: warm bronze gradient bg       │
-├─────────────────────────────────────────────┤
-│  MILESTONE 2 — 100K                         │
-│  Flipped layout (card left, number right)   │
-│  Tier accent: cool silver                   │
-├─────────────────────────────────────────────┤
-│  MILESTONE 3 — 500K                         │
-│  Same as #1 layout                          │
-│  Tier accent: rich gold                     │
-├─────────────────────────────────────────────┤
-│  MILESTONE 4 — 1M (LEGENDARY)              │
-│  Full-width centered, oversized             │
-│  Crown icon with radial glow burst          │
-│  Floating particles, shimmer border         │
-│  Player name rendered large                 │
-├─────────────────────────────────────────────┤
-│  Footer CTA: "Your name could be next"     │
-└─────────────────────────────────────────────┘
+Before:
+  Index.tsx imports 15 sections → single large bundle
+  framer-motion: ~32KB gzipped, used in 4 components
+  ParticleBackground: runs 60fps always
+  All images eager-loaded
+  App.css: dead code
+
+After:
+  Hero + Navbar load instantly; rest code-split
+  framer-motion removed entirely (CSS transitions)
+  Canvas pauses off-screen, fewer particles on mobile
+  Images lazy-loaded with dimensions
+  Video deferred with preload="none"
+  ~40-50% smaller initial JS bundle
 ```
 
-## Key Design Details
-
-- **Hero section**: Full viewport height, large "Milestones" title with individual letter spring animations, subtitle, ambient background orbs (reusing the style from HeroSection), scroll-down chevron that bounces
-- **Each milestone is a full-width section** (~70-80vh) with generous padding — not crammed cards on a timeline
-- **Massive step numbers**: The step count (e.g. "10,000") is rendered at ~8-10rem, clipped with a gradient, and slides in from the side on scroll
-- **Player info panel**: Glassmorphic card beside the number with flag, name, quote — 3D tilt on hover (reuse TiltCard)
-- **Alternating layouts**: Odd milestones = number left / card right; even = flipped
-- **Tier-specific ambient lighting**: Each section has a subtle full-width radial gradient matching the tier color (bronze warm, silver cool, gold rich, legendary intense)
-- **Legendary 1M section**: Breaks the pattern — centered layout, larger scale, particle effects, pulsing golden glow ring behind the crown icon, the player name "Luffy" gets its own spotlight treatment
-- **Connecting element**: A thin vertical progress line between sections (scroll-driven, already have this logic)
-- **Bottom CTA**: "Your name could be next" with a subtle glow button linking back to the app
-
-## Animations (Framer Motion)
-
-- **Hero letters**: Spring-based staggered entrance (keep existing)
-- **Step numbers**: `whileInView` slide from left/right with scale, using spring physics
-- **Player cards**: Fade + slide up with delay after the number appears
-- **Quote text**: Typewriter-style fade per word
-- **Legendary section**: Crown icon does a slow continuous float + rotate; golden ring pulses; particles drift
-- **Scroll progress line**: Grows as user scrolls (keep existing logic)
-- **Section transitions**: Each section has a subtle parallax offset on its background gradient
-
-## Files
-1. **Rewrite `src/pages/Milestones.tsx`** — Complete overhaul with the monument layout, all animations, tier-specific styling
-
-## Technical Notes
-- No new dependencies — framer-motion, lucide-react, existing Tailwind tokens
-- Reuse ParticleBackground component for the hero section (or a lighter inline version for legendary)
-- Keep the same data array (player, country, quote, icon, tier)
-- Mobile: stacks vertically, number on top, card below — no alternating
+**Estimated impact**: Initial bundle reduced by ~40-50%. LCP stays fast (hero image already preloaded). No visual changes — all animations preserved via CSS.
 
