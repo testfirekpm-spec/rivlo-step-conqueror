@@ -253,18 +253,42 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
 
               const trophiesElement = (
                 <p className="text-[11px] font-semibold tabular-nums text-foreground/90">
-                  {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
+                  🏆 {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                 </p>
               );
 
               const barElement = (
-                <div className={`relative mt-2 w-full overflow-hidden rounded-t-lg border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`} style={{ transformOrigin: "bottom" }}>
-                  <div className="absolute inset-0" style={{ background: styles.barGradient }} />
-                  <div className="absolute inset-0 bg-card/30 backdrop-blur-[2px]" />
-                  <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.5), transparent)`, boxShadow: `0 0 8px hsl(${styles.neonColor} / 0.3)` }} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="select-none text-3xl font-black text-foreground/[0.04]">{player.rank}</span>
+                <div className="relative mt-2 w-full" style={{ transformOrigin: "bottom", perspective: "400px" }}>
+                  {/* Front face */}
+                  <div className={`relative overflow-hidden rounded-t-lg border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`}>
+                    <div className="absolute inset-0" style={{ background: styles.barGradient }} />
+                    <div className="absolute inset-0 bg-card/30 backdrop-blur-[2px]" />
+                    <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.5), transparent)`, boxShadow: `0 0 8px hsl(${styles.neonColor} / 0.3)` }} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="select-none text-3xl font-black text-foreground/[0.04]">{player.rank}</span>
+                    </div>
                   </div>
+                  {/* Right 3D side face */}
+                  <div
+                    className="absolute top-0 right-0 h-full w-3 origin-left"
+                    style={{
+                      transform: "translateX(100%) skewY(-35deg)",
+                      background: `linear-gradient(to bottom, hsl(${styles.neonColor} / 0.12), hsl(${styles.neonColor} / 0.03) 70%, transparent)`,
+                      borderRight: `1px solid hsl(${styles.neonColor} / 0.1)`,
+                      borderTop: `1px solid hsl(${styles.neonColor} / 0.08)`,
+                    }}
+                  />
+                  {/* Top 3D face */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-3 origin-bottom"
+                    style={{
+                      transform: "translateY(-100%) skewX(-35deg) translateX(6px)",
+                      background: `linear-gradient(to right, hsl(${styles.neonColor} / 0.15), hsl(${styles.neonColor} / 0.06))`,
+                      borderTop: `1px solid hsl(${styles.neonColor} / 0.15)`,
+                      borderRight: `1px solid hsl(${styles.neonColor} / 0.1)`,
+                      borderRadius: "4px 4px 0 0",
+                    }}
+                  />
                 </div>
               );
 
@@ -338,28 +362,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
           </div>
         </div>
 
-        {/* Player rows — ranks 4-5 with gap indicators */}
-        <div className={`mx-auto max-w-sm space-y-1 ${exportMode ? "mt-4" : ""}`}>
+        {/* Player rows — ranks 4-5 */}
+        <div className={`mx-auto max-w-sm space-y-2 ${exportMode ? "mt-4" : ""}`}>
           {rest.map((player, index) => {
-            const prevPlayer = index === 0 ? leaderboardData[2] : rest[index - 1];
-            const trophyGap = prevPlayer.trophies - player.trophies;
-
-            const gapIndicator = (
-              <div className="flex items-center gap-2 px-4 py-0.5">
-                <div className="flex-1 h-[1px] rounded-full overflow-hidden bg-border/20">
-                  <div
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${Math.min(100, (trophyGap / 200) * 100)}%`,
-                      background: "linear-gradient(90deg, hsl(196 80% 55% / 0.4), hsl(270 60% 55% / 0.3))",
-                    }}
-                  />
-                </div>
-                <span className="text-[8px] font-medium tabular-nums text-muted-foreground/60 shrink-0">
-                  {trophyGap} trophies apart
-                </span>
-              </div>
-            );
 
             const row = (
               <>
@@ -389,16 +394,14 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="text-sm font-black tabular-nums text-foreground">
-                    {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
+                    🏆 {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                   </p>
-                  <p className="text-[8px] uppercase tracking-widest text-muted-foreground">trophies</p>
                 </div>
               </>
             );
 
             return (
               <div key={player.rank}>
-                {gapIndicator}
                 {animated ? (
                   <motion.div
                     className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
