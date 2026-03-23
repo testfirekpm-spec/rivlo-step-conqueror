@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Footprints, Target, Mountain, Crown, Quote, ChevronDown } from "lucide-react";
+import { ArrowLeft, Flame, Zap, Gem, Swords, Quote, ChevronDown } from "lucide-react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useRef } from "react";
 
@@ -14,10 +14,10 @@ interface MilestoneData {
 }
 
 const milestones: MilestoneData[] = [
-  { steps: "10,000", player: "Top", country: "us", quote: "Just getting started!", icon: Footprints, tier: "bronze" },
-  { steps: "100,000", player: "Top", country: "us", quote: "Didn't even realize I was close.", icon: Target, tier: "silver" },
-  { steps: "500,000", player: "Top", country: "us", quote: "Half a million feels unreal.", icon: Mountain, tier: "gold" },
-  { steps: "1,000,000", player: "Luffy", country: "ca", quote: "King of the steps.", icon: Crown, tier: "legendary" },
+  { steps: "10,000", player: "Top", country: "us", quote: "Just getting started!", icon: Flame, tier: "bronze" },
+  { steps: "100,000", player: "Top", country: "us", quote: "Didn't even realize I was close.", icon: Zap, tier: "silver" },
+  { steps: "500,000", player: "Top", country: "us", quote: "Half a million feels unreal.", icon: Gem, tier: "gold" },
+  { steps: "1,000,000", player: "Luffy", country: "ca", quote: "King of the steps.", icon: Swords, tier: "legendary" },
 ];
 
 const tierColors: Record<string, { accent: string; glow: string; bg: string; text: string; iconBg: string }> = {
@@ -318,7 +318,7 @@ const LegendarySection = ({ data }: { data: MilestoneData }) => {
           >
             <div className="absolute inset-0 rounded-full bg-yellow-400/20 blur-xl" />
             <div className="absolute inset-2 rounded-full bg-yellow-400/10 blur-md" />
-            <Crown className="relative h-12 w-12 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
+            <Swords className="relative h-12 w-12 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
           </motion.div>
         </motion.div>
 
