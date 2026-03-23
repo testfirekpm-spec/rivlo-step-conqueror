@@ -442,39 +442,43 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
           </div>
         </div>
 
-        {/* Player rows — ranks 4-5 */}
-        <div className={`mx-auto max-w-sm space-y-2 ${exportMode ? "mt-4" : "mt-1"}`}>
+        {/* Player rows — ranks 4-100 */}
+        <div className={`mx-auto max-w-sm space-y-1.5 ${exportMode ? "mt-4" : "mt-1"}`}>
           {rest.map((player, index) => {
+            const accentOpacity = Math.max(0.05, 0.4 - index * 0.004);
             const row = (
               <>
                 <div
                   className="absolute bottom-0 left-0 top-0 w-[2px] rounded-l-lg"
                   style={{
-                    background: `linear-gradient(to bottom, hsl(196 80% 55% / ${0.4 - index * 0.1}), transparent)`,
+                    background: `linear-gradient(to bottom, hsl(196 80% 55% / ${accentOpacity}), transparent)`,
                   }}
                 />
                 <span className="inline-grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted/60 text-[11px] font-bold leading-none text-muted-foreground">
                   <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
                 </span>
                 <div className="grid h-7 w-5 shrink-0 place-items-center">
-                  <img
-                    src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
-                    alt={player.flag}
-                    className="h-3.5 w-5 rounded-[2px] object-cover"
-                    crossOrigin="anonymous"
-                    loading="eager"
-                  />
+                  {player.flag ? (
+                    <img
+                      src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
+                      alt={player.flag}
+                      className="h-3.5 w-5 rounded-[2px] object-cover"
+                      crossOrigin="anonymous"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="h-3.5 w-5 rounded-[2px] bg-muted/40" />
+                  )}
                 </div>
                 <div className="min-w-0 flex-1 pr-2">
-                  <p className="text-sm font-semibold leading-tight text-foreground break-words">
+                  <p className="text-sm font-semibold leading-tight text-foreground break-words truncate">
                     {player.name}
                   </p>
-                  
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="text-sm font-black tabular-nums text-foreground flex items-center gap-1">
                     <span className="text-xs">🏆</span>
-                    {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
+                    {animated && player.rank <= 5 ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                   </p>
                 </div>
               </>
@@ -482,17 +486,17 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
 
             return (
               <div key={player.rank}>
-                {animated ? (
+                {animated && index < 10 ? (
                   <motion.div
-                    className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3 backdrop-blur-sm"
+                    className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3 py-2.5 backdrop-blur-sm"
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1 + index * 0.15, type: "spring", stiffness: 200, damping: 25 }}
+                    transition={{ delay: 1 + index * 0.08, type: "spring", stiffness: 200, damping: 25 }}
                   >
                     {row}
                   </motion.div>
                 ) : (
-                  <div className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3.5 py-3">
+                  <div className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3 py-2.5">
                     {row}
                   </div>
                 )}
