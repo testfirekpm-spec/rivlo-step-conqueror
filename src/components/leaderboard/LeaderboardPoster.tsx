@@ -263,6 +263,9 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                   <div className="absolute inset-0" style={{ background: styles.barGradient }} />
                   <div className="absolute inset-0 bg-card/20 backdrop-blur-sm" />
                   <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.6), transparent)`, boxShadow: `0 0 10px hsl(${styles.neonColor} / 0.4)` }} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="select-none text-4xl font-black" style={{ color: `hsl(${styles.neonColor} / 0.12)` }}>{player.rank}</span>
+                  </div>
                 </div>
               );
 
