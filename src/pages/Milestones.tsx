@@ -195,7 +195,7 @@ const MilestoneSection = ({ data, index }: { data: MilestoneData; index: number 
               {/* Step count */}
               <h2 className="relative">
                 <span
-                  className="block text-[4rem] sm:text-[6rem] lg:text-[8rem] xl:text-[10rem] font-black leading-[0.85] tracking-tighter"
+                  className="block text-[2.75rem] sm:text-[5rem] lg:text-[8rem] xl:text-[10rem] font-black leading-[0.85] tracking-tighter"
                   style={{
                     background: `linear-gradient(135deg, ${tier.accent}, hsl(var(--foreground)))`,
                     WebkitBackgroundClip: "text",
@@ -342,7 +342,7 @@ const LegendarySection = ({ data }: { data: MilestoneData }) => {
           transition={{ type: "spring", stiffness: 40, damping: 15, delay: 0.3 }}
         >
           <span
-            className="block text-[5rem] sm:text-[8rem] lg:text-[12rem] font-black leading-[0.85] tracking-tighter"
+            className="block text-[3rem] sm:text-[6rem] lg:text-[12rem] font-black leading-[0.85] tracking-tighter"
             style={{
               background: "linear-gradient(135deg, hsl(43, 96%, 56%), hsl(38, 92%, 50%), hsl(43, 96%, 70%))",
               WebkitBackgroundClip: "text",
