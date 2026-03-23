@@ -1,30 +1,33 @@
 
 
-# Leaderboard Polish Plan
+# Milestones Page Plan
 
-## Changes
+## What we're building
+A dedicated `/milestones` page showcasing the first players to hit 10k, 100k, 500k, and 1M steps, with rich data and a premium visual design.
 
-### 1. Add trophy icon next to trophy counts
-Add a small 🏆 emoji next to the trophy number in both podium cards (top 3) and player rows (ranks 4-5).
+## Data (with placeholders)
 
-**File:** `LeaderboardPoster.tsx`
-- Update `trophiesElement` (line 254-258) to include 🏆 before the number
-- Update the row trophy display (line 391-394) to include 🏆 and remove the separate "trophies" label text
+| Milestone | Player | Country | Date Achieved | Days to Reach | Total Players | Quote |
+|-----------|--------|---------|---------------|---------------|---------------|-------|
+| 10,000 | Top | US | Jan 18, 2025 | 3 days | 1,247 | "Just getting started!" |
+| 100,000 | Top | US | Feb 22, 2025 | 38 days | 314 | "Didn't even realize I was close." |
+| 500,000 | Top | US | May 10, 2025 | 115 days | 27 | "Half a million feels unreal." |
+| 1,000,000 | Luffy | CA | Sep 3, 2025 | 210 days | 1 | "King of the steps." |
 
-### 2. Remove "trophies apart" gap indicators
-Delete the `gapIndicator` block (lines 347-361) and remove its usage on line 401.
+## Design
+- Dark page matching leaderboard aesthetic, same sticky nav with back button
+- Page title "Milestones" with subtitle about first-ever achievements
+- Vertical timeline with a glowing connecting line
+- 4 glassmorphic cards, each showing: milestone badge, player name + flag, date, days-to-reach, total players who've hit it, and a player quote
+- Cards escalate visually — 10k is subtle, 1M gets a golden glow and crown icon
+- Staggered scroll-reveal entrance animations (reusing existing `useScrollReveal` hook)
+- Rarity indicator: "1,247 players" vs "1 player — Only one" to show exclusivity
 
-**File:** `LeaderboardPoster.tsx`
+## Files
+1. **Create `src/pages/Milestones.tsx`** — Full page with timeline layout, milestone cards, all data
+2. **Edit `src/App.tsx`** — Add `/milestones` route and import
 
-### 3. Improve podium card design
-Elevate the glassmorphic podium cards with:
-- **Stronger glass effect**: Increase backdrop blur, add a subtle top-edge highlight line
-- **Better spacing**: More padding, slightly larger avatar sizes for #1
-- **Rank-colored top border accent**: A thin colored line at the top of each card (gold/silver/bronze)
-- **Trophy count styling**: Make the number bolder with a subtle glow matching the rank color
-- **Remove the large ghost rank number** inside the bar (the faint "1", "2", "3") — it adds clutter
-- **Increase bar heights** slightly for more visual weight
-- **Add a subtle shimmer/gradient sweep** across the #1 card border
-
-**File:** `LeaderboardPoster.tsx` — update `podiumStyles`, `content` block, and `barElement`
+## Technical notes
+- No new dependencies — reuse existing hooks, Tailwind tokens, lucide icons, flagcdn
+- Icons per tier: Footprints (10k), Target (100k), Mountain (500k), Crown (1M)
 
