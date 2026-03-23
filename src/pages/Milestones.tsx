@@ -342,7 +342,7 @@ const LegendarySection = ({ data }: { data: MilestoneData }) => {
           transition={{ type: "spring", stiffness: 40, damping: 15, delay: 0.3 }}
         >
           <span
-            className="block text-[5rem] sm:text-[8rem] lg:text-[12rem] font-black leading-[0.85] tracking-tighter"
+            className="block text-[3rem] sm:text-[6rem] lg:text-[12rem] font-black leading-[0.85] tracking-tighter"
             style={{
               background: "linear-gradient(135deg, hsl(43, 96%, 56%), hsl(38, 92%, 50%), hsl(43, 96%, 70%))",
               WebkitBackgroundClip: "text",
