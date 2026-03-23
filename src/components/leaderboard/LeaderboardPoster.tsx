@@ -353,10 +353,15 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
               );
 
               const trophiesElement = (
-                <p className="text-[11px] font-bold tabular-nums text-foreground/90 flex items-center gap-0.5 justify-center" style={{ textShadow: `0 0 12px hsl(${styles.neonColor} / 0.4)` }}>
-                  <span className="text-[10px]">🏆</span>
-                  {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
-                </p>
+                <div className="text-center">
+                  <p className="text-[11px] font-bold tabular-nums text-foreground/90 flex items-center gap-0.5 justify-center" style={{ textShadow: `0 0 12px hsl(${styles.neonColor} / 0.4)` }}>
+                    <span className="text-[10px]">🏆</span>
+                    {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
+                  </p>
+                  <p className="text-[9px] tabular-nums text-muted-foreground mt-0.5">
+                    {player.steps.toLocaleString()} steps
+                  </p>
+                </div>
               );
 
               const barElement = (
@@ -476,9 +481,12 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                   </p>
                 </div>
                 <div className="shrink-0 text-right">
-                  <p className="text-sm font-black tabular-nums text-foreground flex items-center gap-1">
+                  <p className="text-sm font-black tabular-nums text-foreground flex items-center gap-1 justify-end">
                     <span className="text-xs">🏆</span>
                     {animated && player.rank <= 5 ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
+                  </p>
+                  <p className="text-[10px] tabular-nums text-muted-foreground">
+                    {player.steps.toLocaleString()} steps
                   </p>
                 </div>
               </>
