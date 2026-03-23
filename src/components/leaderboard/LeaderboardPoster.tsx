@@ -401,7 +401,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                     </motion.div>
                   ) : trophiesElement}
 
-                  {player.club && <p className="max-w-full px-1 text-center text-[9px] leading-tight text-primary/50">{player.club}</p>}
+                  
 
                   {animated ? (
                     <motion.div
@@ -469,7 +469,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                   <p className="text-sm font-semibold leading-tight text-foreground break-words">
                     {player.name}
                   </p>
-                  {player.club && <p className="text-[10px] leading-tight text-primary/50 break-words">{player.club}</p>}
+                  
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="text-sm font-black tabular-nums text-foreground flex items-center gap-1">
