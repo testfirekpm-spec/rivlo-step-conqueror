@@ -8,7 +8,7 @@ const posts = [
     category: "Health",
     readTime: "5 min read",
     date: "Mar 10, 2026",
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop&q=75&fm=webp",
   },
   {
     title: "Season 4 Recap: Records Broken & Lessons Learned",
@@ -16,7 +16,7 @@ const posts = [
     category: "Community",
     readTime: "4 min read",
     date: "Mar 5, 2026",
-    image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop&q=75&fm=webp",
   },
   {
     title: "The Psychology Behind Competitive Fitness Apps",
@@ -24,7 +24,7 @@ const posts = [
     category: "Insights",
     readTime: "7 min read",
     date: "Feb 28, 2026",
-    image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&h=400&fit=crop&q=75&fm=webp",
   },
 ];
 

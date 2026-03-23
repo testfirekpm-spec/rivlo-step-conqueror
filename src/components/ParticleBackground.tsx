@@ -20,8 +20,10 @@ const ParticleBackground = () => {
     if (!ctx) return;
 
     let animationId: number;
+    let isVisible = true;
     const particles: Particle[] = [];
-    const PARTICLE_COUNT = 60;
+    const isMobile = window.innerWidth < 768;
+    const PARTICLE_COUNT = isMobile ? 30 : 60;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -43,6 +45,8 @@ const ParticleBackground = () => {
     };
 
     const animate = () => {
+      if (!isVisible) return;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((p) => {
@@ -63,15 +67,26 @@ const ParticleBackground = () => {
       animationId = requestAnimationFrame(animate);
     };
 
+    // Pause when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) animate();
+      },
+      { threshold: 0 }
+    );
+
     resize();
     createParticles();
     animate();
+    observer.observe(canvas);
 
     window.addEventListener("resize", resize);
 
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", resize);
+      observer.disconnect();
     };
   }, []);
 

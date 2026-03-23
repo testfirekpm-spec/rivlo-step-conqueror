@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const ScrollProgress = () => {
   const [progress, setProgress] = useState(0);
@@ -28,21 +27,18 @@ const ScrollProgress = () => {
       </div>
 
       {/* Back to top */}
-      <AnimatePresence>
-        {showTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-xl hover:scale-110 transition-transform duration-200"
-            aria-label="Back to top"
-          >
-            <ArrowUp className="w-5 h-5" />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300"
+        style={{
+          opacity: showTop ? 1 : 0,
+          transform: showTop ? "scale(1)" : "scale(0.8)",
+          pointerEvents: showTop ? "auto" : "none",
+        }}
+        aria-label="Back to top"
+      >
+        <ArrowUp className="w-5 h-5" />
+      </button>
     </>
   );
 };

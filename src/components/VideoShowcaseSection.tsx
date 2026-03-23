@@ -107,6 +107,7 @@ const VideoShowcaseSection = () => {
               className="w-full aspect-video object-cover"
               playsInline
               muted
+              preload="none"
               onEnded={() => setIsPlaying(false)}
             >
               <source src="/videos/RIVLO_trailer_Beta1.mp4" type="video/mp4" />
