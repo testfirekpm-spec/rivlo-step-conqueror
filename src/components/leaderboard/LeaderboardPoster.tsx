@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import rivloLogo from "@/assets/logo-rivlo.png";
+import rivloLogo from "@/assets/logo-rivlo.webp";
 import { useCountUp } from "@/hooks/use-count-up";
 import EsportsBackground from "./EsportsBackground";
 import MinimalDarkBackground from "./MinimalDarkBackground";

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Trophy, BarChart3, Users, Flame } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import LeaderboardImg from "@/assets/Leaderboard.PNG";
-import InsightsImg from "@/assets/Insights.PNG";
-import ClubImg from "@/assets/Club.PNG";
-import ClubLeaderboardImg from "@/assets/Club_Leaderboard.PNG";
-import SeasonChallengesImg from "@/assets/Season_Challenges.PNG";
+import LeaderboardImg from "@/assets/Leaderboard.webp";
+import InsightsImg from "@/assets/Insights.webp";
+import ClubImg from "@/assets/Club.webp";
+import ClubLeaderboardImg from "@/assets/Club_Leaderboard.webp";
+import SeasonChallengesImg from "@/assets/Season_Challenges.webp";
 
 const tabs = [
   {
