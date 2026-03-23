@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Trophy } from "lucide-react";
 import rivloLogo from "@/assets/logo-rivlo.png";
 import { useCountUp } from "@/hooks/use-count-up";
 import EsportsBackground from "./EsportsBackground";
@@ -28,13 +29,14 @@ const podiumOrder = [top3[1], top3[0], top3[2]];
 const podiumAnimOrder = [0, 2, 1];
 
 const podiumStyles: Record<number, {
-  barH: string; avatarSize: string; glow: string; border: string;
+  barH: number; avatarSize: string; glow: string; border: string;
   badgeBg: string; badgeText: string; nameSize: string;
   neonColor: string; barGradient: string; barBorder: string; barShadow: string;
   glassBg: string; glassGlow: string;
+  trophyColor: string; sideDepth: number;
 }> = {
   1: {
-    barH: "h-28",
+    barH: 112,
     avatarSize: "w-16 h-16",
     glow: "shadow-[0_0_30px_rgba(234,179,8,0.4)]",
     border: "border-yellow-500/60",
@@ -42,14 +44,16 @@ const podiumStyles: Record<number, {
     badgeText: "text-yellow-950",
     nameSize: "text-sm",
     neonColor: "43 96% 56%",
-    barGradient: "linear-gradient(to top, hsl(43 96% 40% / 0.4), hsl(43 96% 56% / 0.1) 70%, transparent)",
+    barGradient: "linear-gradient(to top, hsl(43 96% 40% / 0.5), hsl(43 96% 56% / 0.15) 60%, hsl(43 96% 56% / 0.05))",
     barBorder: "border-yellow-500/30",
     barShadow: "shadow-[inset_0_0_30px_rgba(234,179,8,0.1),0_-4px_20px_rgba(234,179,8,0.15)]",
     glassBg: "bg-yellow-500/[0.04]",
     glassGlow: "shadow-[0_0_40px_rgba(234,179,8,0.12),inset_0_1px_0_rgba(255,255,255,0.08)]",
+    trophyColor: "text-yellow-400",
+    sideDepth: 14,
   },
   2: {
-    barH: "h-20",
+    barH: 80,
     avatarSize: "w-12 h-12",
     glow: "shadow-[0_0_25px_rgba(148,163,184,0.25)]",
     border: "border-slate-400/50",
@@ -57,14 +61,16 @@ const podiumStyles: Record<number, {
     badgeText: "text-slate-900",
     nameSize: "text-xs",
     neonColor: "215 20% 65%",
-    barGradient: "linear-gradient(to top, hsl(215 20% 50% / 0.35), hsl(215 20% 65% / 0.1) 70%, transparent)",
+    barGradient: "linear-gradient(to top, hsl(215 20% 50% / 0.45), hsl(215 20% 65% / 0.15) 60%, hsl(215 20% 65% / 0.05))",
     barBorder: "border-slate-400/25",
     barShadow: "shadow-[inset_0_0_30px_rgba(148,163,184,0.08),0_-4px_20px_rgba(148,163,184,0.1)]",
     glassBg: "bg-slate-400/[0.03]",
     glassGlow: "shadow-[0_0_30px_rgba(148,163,184,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]",
+    trophyColor: "text-slate-400",
+    sideDepth: 14,
   },
   3: {
-    barH: "h-16",
+    barH: 64,
     avatarSize: "w-12 h-12",
     glow: "shadow-[0_0_25px_rgba(217,119,6,0.25)]",
     border: "border-amber-600/50",
@@ -72,11 +78,13 @@ const podiumStyles: Record<number, {
     badgeText: "text-amber-50",
     nameSize: "text-xs",
     neonColor: "26 90% 44%",
-    barGradient: "linear-gradient(to top, hsl(26 90% 40% / 0.35), hsl(26 90% 50% / 0.1) 70%, transparent)",
+    barGradient: "linear-gradient(to top, hsl(26 90% 40% / 0.45), hsl(26 90% 50% / 0.15) 60%, hsl(26 90% 50% / 0.05))",
     barBorder: "border-amber-600/25",
     barShadow: "shadow-[inset_0_0_30px_rgba(217,119,6,0.08),0_-4px_20px_rgba(217,119,6,0.1)]",
     glassBg: "bg-amber-600/[0.03]",
     glassGlow: "shadow-[0_0_30px_rgba(217,119,6,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]",
+    trophyColor: "text-amber-500",
+    sideDepth: 14,
   },
 };
 
@@ -252,41 +260,51 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
               );
 
               const trophiesElement = (
-                <p className="text-[11px] font-semibold tabular-nums text-foreground/90">
-                  🏆 {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
+                <p className="flex items-center justify-center gap-1 text-[11px] font-semibold tabular-nums text-foreground/90">
+                  <Trophy size={12} className={styles.trophyColor} strokeWidth={2.5} />
+                  {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                 </p>
               );
 
+              const sideD = styles.sideDepth;
               const barElement = (
-                <div className="relative mt-2 w-full" style={{ transformOrigin: "bottom", perspective: "400px" }}>
+                <div className="relative mt-2 w-full" style={{ transformOrigin: "bottom", marginRight: `-${sideD}px` }}>
                   {/* Front face */}
-                  <div className={`relative overflow-hidden rounded-t-lg border border-b-0 ${styles.barH} ${styles.barBorder} ${styles.barShadow}`}>
+                  <div
+                    className={`relative overflow-hidden rounded-t-lg border border-b-0 ${styles.barBorder} ${styles.barShadow}`}
+                    style={{ height: `${styles.barH}px` }}
+                  >
                     <div className="absolute inset-0" style={{ background: styles.barGradient }} />
-                    <div className="absolute inset-0 bg-card/30 backdrop-blur-[2px]" />
-                    <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.5), transparent)`, boxShadow: `0 0 8px hsl(${styles.neonColor} / 0.3)` }} />
+                    <div className="absolute inset-0 bg-card/20 backdrop-blur-[2px]" />
+                    <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.6), transparent)`, boxShadow: `0 0 10px hsl(${styles.neonColor} / 0.4)` }} />
+                    {/* Vertical highlight line */}
+                    <div className="absolute left-[15%] top-0 bottom-0 w-[1px] opacity-20" style={{ background: `linear-gradient(to bottom, hsl(${styles.neonColor} / 0.5), transparent 60%)` }} />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="select-none text-3xl font-black text-foreground/[0.04]">{player.rank}</span>
                     </div>
                   </div>
                   {/* Right 3D side face */}
                   <div
-                    className="absolute top-0 right-0 h-full w-3 origin-left"
+                    className="absolute top-[6px] right-0 origin-top-left rounded-tr-md"
                     style={{
-                      transform: "translateX(100%) skewY(-35deg)",
-                      background: `linear-gradient(to bottom, hsl(${styles.neonColor} / 0.12), hsl(${styles.neonColor} / 0.03) 70%, transparent)`,
-                      borderRight: `1px solid hsl(${styles.neonColor} / 0.1)`,
-                      borderTop: `1px solid hsl(${styles.neonColor} / 0.08)`,
+                      width: `${sideD}px`,
+                      height: `${styles.barH}px`,
+                      transform: `translateX(100%) skewY(-45deg)`,
+                      background: `linear-gradient(to bottom, hsl(${styles.neonColor} / 0.18), hsl(${styles.neonColor} / 0.04) 80%)`,
+                      borderRight: `1px solid hsl(${styles.neonColor} / 0.12)`,
+                      borderBottom: `1px solid hsl(${styles.neonColor} / 0.06)`,
                     }}
                   />
                   {/* Top 3D face */}
                   <div
-                    className="absolute top-0 left-0 right-0 h-3 origin-bottom"
+                    className="absolute top-0 left-0 origin-bottom-left rounded-t-md"
                     style={{
-                      transform: "translateY(-100%) skewX(-35deg) translateX(6px)",
-                      background: `linear-gradient(to right, hsl(${styles.neonColor} / 0.15), hsl(${styles.neonColor} / 0.06))`,
-                      borderTop: `1px solid hsl(${styles.neonColor} / 0.15)`,
+                      width: "100%",
+                      height: `${sideD}px`,
+                      transform: `translateY(-${sideD - 1}px) skewX(-45deg) translateX(${sideD / 2}px)`,
+                      background: `linear-gradient(135deg, hsl(${styles.neonColor} / 0.22), hsl(${styles.neonColor} / 0.08))`,
+                      borderTop: `1px solid hsl(${styles.neonColor} / 0.2)`,
                       borderRight: `1px solid hsl(${styles.neonColor} / 0.1)`,
-                      borderRadius: "4px 4px 0 0",
                     }}
                   />
                 </div>
@@ -392,9 +410,10 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                   </p>
                   {player.club && <p className="text-[10px] leading-tight text-primary/50 break-words">{player.club}</p>}
                 </div>
-                <div className="shrink-0 text-right">
+                <div className="shrink-0 flex items-center gap-1.5 text-right">
+                  <Trophy size={14} className="text-primary/60" strokeWidth={2.5} />
                   <p className="text-sm font-black tabular-nums text-foreground">
-                    🏆 {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
+                    {animated ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
                   </p>
                 </div>
               </>
