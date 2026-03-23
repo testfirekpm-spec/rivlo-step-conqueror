@@ -195,7 +195,7 @@ const MilestoneSection = ({ data, index }: { data: MilestoneData; index: number 
               {/* Step count */}
               <h2 className="relative">
                 <span
-                  className="block text-[4rem] sm:text-[6rem] lg:text-[8rem] xl:text-[10rem] font-black leading-[0.85] tracking-tighter"
+                  className="block text-[2.75rem] sm:text-[5rem] lg:text-[8rem] xl:text-[10rem] font-black leading-[0.85] tracking-tighter"
                   style={{
                     background: `linear-gradient(135deg, ${tier.accent}, hsl(var(--foreground)))`,
                     WebkitBackgroundClip: "text",
