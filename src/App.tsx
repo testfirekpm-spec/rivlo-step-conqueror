@@ -9,6 +9,7 @@ import Contact from "./pages/Contact.tsx";
 import Terms from "./pages/Terms.tsx";
 import Privacy from "./pages/Privacy.tsx";
 import Leaderboard from "./pages/Leaderboard.tsx";
+import Milestones from "./pages/Milestones.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
