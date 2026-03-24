@@ -1,86 +1,46 @@
 
 
-# Performance Optimization Plan for Rivlo Website
+# Performance Optimization Plan — From 85% to 95%+
 
-## Summary
+## Current Bottlenecks (from PageSpeed audit)
 
-The site loads 15+ sections on the homepage eagerly, imports heavy libraries (framer-motion, recharts, html2canvas) upfront, uses PNG images without optimization, and runs a canvas particle animation on every frame. This plan addresses all major bottlenecks.
+| Issue | Severity | Impact |
+|-------|----------|--------|
+| Unused JS (`proxy-Csu6BI2I.js`, 41KB, 75% unused) | Error | 150ms LCP savings |
+| Cache lifetimes (398 KiB) | Error | Server-side, cannot fix |
+| Network dependency tree | Error | Already optimal 2-hop chain |
+| FCP 2.5s | Warning | Main scoring factor |
+| LCP 3.9s | Warning | Main scoring factor |
+| Unused CSS (11 KiB, 75% unused) | Warning | Minor |
 
----
+## What Can Actually Be Fixed
 
-## Step 1: Lazy-load below-the-fold sections
+Cache lifetimes and network tree are server-side / already optimal. The actionable items are:
 
-**Problem**: All 15+ sections are bundled together and rendered immediately, even though users only see the hero on load.
+### 1. Remove `@tanstack/react-query` entirely
+**The `proxy-*.js` chunk is react-query's proxy module.** The app imports `QueryClient` and `QueryClientProvider` in `App.tsx` but **never uses `useQuery`, `useMutation`, or `useQueryClient` anywhere**. This is dead weight — 41KB loaded for nothing. Removing it eliminates the biggest unused JS finding and reduces the critical chain.
 
-**Solution**: Use `React.lazy()` + `Suspense` to code-split every section below the hero. Only HeroSection, Navbar, and ScrollProgress load eagerly.
+**Files:** `src/App.tsx`, `package.json`
 
-Sections to lazy-load: TrustBar, LogoMarquee, StatsSection, FeaturesSection, AppShowcaseSection, VideoShowcaseSection, AchievementsSection, ComparisonSection, PricingSection, HowItWorksSection, TestimonialsSection, BlogSection, FAQSection, CTASection, Footer.
+### 2. Remove `framer-motion` from eagerly-loaded sections
+`framer-motion` is still imported by `ComparisonSection`, `PricingSection`, `TrustBar`, and `LeaderboardPoster`. These are lazy-loaded so they don't block initial load, but they inflate the `proxy` / main bundle because framer-motion's core gets bundled into the shared chunk. Replacing with CSS transitions (using the existing `useScrollReveal` hook) removes this ~32KB dependency entirely.
 
-**Files**: `src/pages/Index.tsx`
+**Files:** `src/components/TrustBar.tsx`, `src/components/ComparisonSection.tsx`, `src/components/PricingSection.tsx`, `src/components/leaderboard/LeaderboardPoster.tsx`, `src/components/leaderboard/AbstractMascots.tsx`, `src/pages/Milestones.tsx`, `package.json`
 
----
+### 3. Lazy-load `Navbar` and `ScrollProgress`
+These are currently eagerly imported in `Index.tsx`, adding to the main bundle. Neither is needed before the hero text renders (which is already in the pre-render HTML). Lazy-loading them lets the browser paint the pre-render content faster.
 
-## Step 2: Replace framer-motion with CSS/IntersectionObserver
+**Files:** `src/pages/Index.tsx`
 
-**Problem**: `framer-motion` (~32KB gzipped) is imported by TrustBar, ComparisonSection, PricingSection, and LeaderboardPoster for simple fade/slide animations that CSS can handle.
+### 4. Defer Google Fonts loading with `<link rel="preload">`
+The current `media="print" onload` pattern works but doesn't tell the browser to start fetching the font file early. Adding a preload for the actual `.woff2` file will reduce FCP since the hero text uses Space Grotesk.
 
-**Solution**: Remove framer-motion `motion.div` usages and replace with the existing `useScrollReveal` hook + inline CSS transitions (already used by most sections). This eliminates the entire framer-motion dependency.
+**Files:** `index.html`
 
-**Files**: `src/components/TrustBar.tsx`, `src/components/ComparisonSection.tsx`, `src/components/PricingSection.tsx`, `src/components/leaderboard/LeaderboardPoster.tsx`, then remove `framer-motion` from `package.json`.
+### 5. Reduce Tailwind CSS output
+75% of the CSS (11KB) is unused on initial load. Add Tailwind's `content` config to be more specific about which files to scan, and use `safelist` sparingly. The CSS is already deferred via the async plugin, but reducing its size helps when it does load.
 
----
-
-## Step 3: Optimize images
-
-**Problem**: 13 PNG assets in `src/assets/` are uncompressed PNGs (likely large). Blog section loads external Unsplash images.
-
-**Solution**:
-- Add `loading="lazy"` to all images except the hero (`Home.PNG` already has `fetchPriority="high"`).
-- Add explicit `width`/`height` attributes to prevent layout shifts.
-- Ensure blog images use Unsplash's `&q=75&fm=webp` params for smaller payloads.
-- Consider converting local PNGs to WebP (manual step outside Lovable).
-
-**Files**: `src/components/AppShowcaseSection.tsx`, `src/components/BlogSection.tsx`, `src/components/ComparisonSection.tsx`, `src/components/Navbar.tsx`, `src/components/Footer.tsx`
-
----
-
-## Step 4: Optimize ParticleBackground canvas
-
-**Problem**: 60 particles animate every frame via `requestAnimationFrame`, running even when the hero is scrolled out of view.
-
-**Solution**: Use IntersectionObserver to pause the animation loop when the hero section is not visible. Also reduce particle count on mobile (30 instead of 60).
-
-**Files**: `src/components/ParticleBackground.tsx`
-
----
-
-## Step 5: Remove unused App.css
-
-**Problem**: `src/App.css` contains legacy Vite boilerplate styles (`.logo`, `.card`, `.read-the-docs`) that aren't used anywhere.
-
-**Solution**: Delete `src/App.css` and remove any import of it.
-
-**Files**: `src/App.css` (delete)
-
----
-
-## Step 6: Lazy-load the video
-
-**Problem**: The video in VideoShowcaseSection has a `<source>` tag that may trigger early download.
-
-**Solution**: Set `preload="none"` on the `<video>` element since the IntersectionObserver already handles autoplay. This prevents the browser from buffering the video until the user scrolls near it.
-
-**Files**: `src/components/VideoShowcaseSection.tsx`
-
----
-
-## Step 7: Add font `display: swap`
-
-**Problem**: Google Fonts link in `index.html` doesn't specify `display=swap`, which can cause invisible text during font load.
-
-**Solution**: Append `&display=swap` to the Google Fonts URL (already present based on the link, but verify).
-
-**Files**: `index.html`
+**Files:** `tailwind.config.ts` — verify content paths are tight (no wildcard scanning of unused directories)
 
 ---
 
@@ -88,20 +48,18 @@ Sections to lazy-load: TrustBar, LogoMarquee, StatsSection, FeaturesSection, App
 
 ```text
 Before:
-  Index.tsx imports 15 sections → single large bundle
-  framer-motion: ~32KB gzipped, used in 4 components
-  ParticleBackground: runs 60fps always
-  All images eager-loaded
-  App.css: dead code
+  Main bundle: index-*.js (8.4KB) + proxy-*.js (41KB) + query-*.js (8.7KB)
+  framer-motion: shared across lazy chunks, inflates proxy bundle  
+  Navbar + ScrollProgress: eagerly loaded in main bundle
 
 After:
-  Hero + Navbar load instantly; rest code-split
-  framer-motion removed entirely (CSS transitions)
-  Canvas pauses off-screen, fewer particles on mobile
-  Images lazy-loaded with dimensions
-  Video deferred with preload="none"
-  ~40-50% smaller initial JS bundle
+  react-query removed: -50KB (proxy + query chunks gone entirely)
+  framer-motion removed: -32KB across lazy chunks
+  Navbar/ScrollProgress: lazy-loaded, not in critical path
+  Estimated main bundle: ~8KB (down from ~58KB effective)
 ```
 
-**Estimated impact**: Initial bundle reduced by ~40-50%. LCP stays fast (hero image already preloaded). No visual changes — all animations preserved via CSS.
+**Expected score improvement:** 85% → 92-97%. The remaining points will be from cache lifetimes (server-side, unfixable) and mobile network simulation overhead.
+
+**Risk:** Removing react-query is safe — zero usage found. Replacing framer-motion requires careful CSS transition recreation to preserve animations. Milestones page uses `useScroll`, `useTransform`, `useSpring` which need custom replacements.
 
