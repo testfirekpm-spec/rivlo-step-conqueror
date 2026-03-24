@@ -153,8 +153,8 @@ const HeroSection = () => {
                   src={HomeScreenImg}
                   alt="Rivlo app home screen"
                   className="absolute inset-0 w-full h-full object-cover object-top"
-                  width={280}
-                  height={560}
+                  width={448}
+                  height={974}
                   fetchPriority="high"
                 />
               </div>
