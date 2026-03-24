@@ -159,17 +159,19 @@ const HeroSection = () => {
                 />
               </div>
 
-              <div ref={cardsRef} className="absolute inset-0 pointer-events-none">
-                <div className="absolute -top-4 -left-36 lg:-left-44 xl:-left-52">
-                  <FloatingLeaderboardCard />
+              <Suspense fallback={null}>
+                <div ref={cardsRef} className="absolute inset-0 pointer-events-none">
+                  <div className="absolute -top-4 -left-36 lg:-left-44 xl:-left-52">
+                    <FloatingLeaderboardCard />
+                  </div>
+                  <div className="absolute -bottom-2 right-0 lg:right-2 xl:-right-8">
+                    <StepCounterRing />
+                  </div>
+                  <div className="absolute top-20 right-1 lg:right-2 xl:-right-6">
+                    <FloatingTrophy />
+                  </div>
                 </div>
-                <div className="absolute -bottom-2 right-0 lg:right-2 xl:-right-8">
-                  <StepCounterRing />
-                </div>
-                <div className="absolute top-20 right-1 lg:right-2 xl:-right-6">
-                  <FloatingTrophy />
-                </div>
-              </div>
+              </Suspense>
             </div>
           </div>
         </div>
