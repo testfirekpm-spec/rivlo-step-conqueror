@@ -64,22 +64,24 @@ const FAQSection = () => {
             transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s",
           }}
         >
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className="border-border/50 py-1"
-              >
-                <AccordionTrigger className="text-left text-base lg:text-lg font-semibold text-foreground hover:text-primary hover:no-underline transition-colors py-5">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed text-base pb-5">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          {contentVisible && (
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem
+                  key={i}
+                  value={`item-${i}`}
+                  className="border-border/50 py-1"
+                >
+                  <AccordionTrigger className="text-left text-base lg:text-lg font-semibold text-foreground hover:text-primary hover:no-underline transition-colors py-5">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed text-base pb-5">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          )}
         </div>
       </div>
     </section>
