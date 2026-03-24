@@ -1,11 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, lazy, Suspense } from "react";
 import { Trophy, ChevronRight } from "lucide-react";
-import ParticleBackground from "./ParticleBackground";
-import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
-import StepCounterRing from "./StepCounterRing";
-import FloatingTrophy from "./FloatingTrophy";
 import HomeScreenImg from "@/assets/Home.webp";
 import { redirectToStore } from "@/lib/store-redirect";
+
+const ParticleBackground = lazy(() => import("./ParticleBackground"));
+const FloatingLeaderboardCard = lazy(() => import("./FloatingLeaderboardCard"));
+const StepCounterRing = lazy(() => import("./StepCounterRing"));
+const FloatingTrophy = lazy(() => import("./FloatingTrophy"));
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -43,7 +44,9 @@ const HeroSection = () => {
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden bg-background"
     >
-      <ParticleBackground />
+      <Suspense fallback={null}>
+        <ParticleBackground />
+      </Suspense>
 
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/8 blur-[150px] pointer-events-none" />
       <div className="absolute top-1/3 right-1/3 w-[300px] h-[300px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
@@ -156,17 +159,19 @@ const HeroSection = () => {
                 />
               </div>
 
-              <div ref={cardsRef} className="absolute inset-0 pointer-events-none">
-                <div className="absolute -top-4 -left-36 lg:-left-44 xl:-left-52">
-                  <FloatingLeaderboardCard />
+              <Suspense fallback={null}>
+                <div ref={cardsRef} className="absolute inset-0 pointer-events-none">
+                  <div className="absolute -top-4 -left-36 lg:-left-44 xl:-left-52">
+                    <FloatingLeaderboardCard />
+                  </div>
+                  <div className="absolute -bottom-2 right-0 lg:right-2 xl:-right-8">
+                    <StepCounterRing />
+                  </div>
+                  <div className="absolute top-20 right-1 lg:right-2 xl:-right-6">
+                    <FloatingTrophy />
+                  </div>
                 </div>
-                <div className="absolute -bottom-2 right-0 lg:right-2 xl:-right-8">
-                  <StepCounterRing />
-                </div>
-                <div className="absolute top-20 right-1 lg:right-2 xl:-right-6">
-                  <FloatingTrophy />
-                </div>
-              </div>
+              </Suspense>
             </div>
           </div>
         </div>
