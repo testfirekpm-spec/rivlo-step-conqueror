@@ -1,6 +1,6 @@
 import { useEffect, useRef, lazy, Suspense } from "react";
 import { Trophy, ChevronRight } from "lucide-react";
-import HomeScreenImg from "@/assets/Home.webp";
+const HomeScreenImg = "/Home.webp";
 import { redirectToStore } from "@/lib/store-redirect";
 
 const ParticleBackground = lazy(() => import("./ParticleBackground"));
