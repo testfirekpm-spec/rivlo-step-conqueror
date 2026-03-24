@@ -1,11 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, lazy, Suspense } from "react";
 import { Trophy, ChevronRight } from "lucide-react";
-import ParticleBackground from "./ParticleBackground";
-import FloatingLeaderboardCard from "./FloatingLeaderboardCard";
-import StepCounterRing from "./StepCounterRing";
-import FloatingTrophy from "./FloatingTrophy";
 import HomeScreenImg from "@/assets/Home.webp";
 import { redirectToStore } from "@/lib/store-redirect";
+
+const ParticleBackground = lazy(() => import("./ParticleBackground"));
+const FloatingLeaderboardCard = lazy(() => import("./FloatingLeaderboardCard"));
+const StepCounterRing = lazy(() => import("./StepCounterRing"));
+const FloatingTrophy = lazy(() => import("./FloatingTrophy"));
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
