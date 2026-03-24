@@ -22,17 +22,21 @@ const ParticleBackground = () => {
     let animationId: number;
     let isVisible = true;
     const particles: Particle[] = [];
-    const isMobile = window.innerWidth < 768;
-    const PARTICLE_COUNT = isMobile ? 30 : 60;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
     };
 
     const createParticles = () => {
+      const isMobile = canvas.width < 768;
+      const count = isMobile ? 30 : 60;
       particles.length = 0;
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
+      for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
@@ -76,16 +80,23 @@ const ParticleBackground = () => {
       { threshold: 0 }
     );
 
-    resize();
-    createParticles();
-    animate();
-    observer.observe(canvas);
+    // Defer initial setup to avoid forced reflow during paint
+    requestAnimationFrame(() => {
+      resize();
+      createParticles();
+      animate();
+      observer.observe(canvas);
+    });
 
-    window.addEventListener("resize", resize);
+    const onResize = () => {
+      resize();
+      createParticles();
+    };
+    window.addEventListener("resize", onResize);
 
     return () => {
       cancelAnimationFrame(animationId);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", onResize);
       observer.disconnect();
     };
   }, []);
