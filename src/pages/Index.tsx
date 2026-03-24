@@ -1,9 +1,9 @@
 import { lazy, Suspense } from "react";
-import Navbar from "@/components/Navbar";
-import ScrollProgress from "@/components/ScrollProgress";
 import HeroSection from "@/components/HeroSection";
 import SectionDivider from "@/components/SectionDivider";
 
+const Navbar = lazy(() => import("@/components/Navbar"));
+const ScrollProgress = lazy(() => import("@/components/ScrollProgress"));
 const TrustBar = lazy(() => import("@/components/TrustBar"));
 const LogoMarquee = lazy(() => import("@/components/LogoMarquee"));
 const StatsSection = lazy(() => import("@/components/StatsSection"));
@@ -23,8 +23,10 @@ const Footer = lazy(() => import("@/components/Footer"));
 const Index = () => {
   return (
     <main className="bg-background">
-      <ScrollProgress />
-      <Navbar />
+      <Suspense fallback={null}>
+        <ScrollProgress />
+        <Navbar />
+      </Suspense>
       <HeroSection />
       <Suspense fallback={null}>
         <TrustBar />

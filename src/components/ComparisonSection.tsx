@@ -1,5 +1,5 @@
 import { Check, X, Crown, Zap, Trophy } from "lucide-react";
-import { motion } from "framer-motion";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import rivloLogo from "@/assets/logo-rivlo.webp";
 import stravaLogo from "@/assets/logo-strava.webp";
 import nikeLogo from "@/assets/logo-nike.webp";
@@ -70,19 +70,23 @@ const StatusCell = ({ status, isRivlo }: { status: Status; isRivlo: boolean }) =
 
 const ComparisonSection = () => {
   const rivloFreeCount = features.filter((f) => f.rivlo === "free" || f.rivlo === "yes").length;
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal();
+  const { ref: badgesRef, isVisible: badgesVisible } = useScrollReveal();
+  const { ref: tableRef, isVisible: tableVisible } = useScrollReveal();
+  const { ref: ctaRef, isVisible: ctaVisible } = useScrollReveal();
 
   return (
     <section className="relative py-32 lg:py-40 bg-background overflow-hidden">
-      {/* Ambient glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-primary/5 blur-[180px] pointer-events-none" />
 
       <div className="relative z-10 container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center max-w-3xl mx-auto mb-6"
+        <div
+          ref={headerRef}
+          className="text-center max-w-3xl mx-auto mb-6 transition-all duration-700"
+          style={{
+            opacity: headerVisible ? 1 : 0,
+            transform: headerVisible ? "translateY(0)" : "translateY(30px)",
+          }}
         >
           <h2 className="text-4xl lg:text-6xl xl:text-7xl font-bold text-foreground font-grotesk tracking-tight leading-[1.05]">
             Why choose
@@ -93,15 +97,15 @@ const ComparisonSection = () => {
             Other apps charge you monthly just to see your own stats. Rivlo gives you{" "}
             <span className="text-foreground font-semibold">{rivloFreeCount} core features for free</span> — and Pro costs less than a coffee.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Benefit callouts */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap items-center justify-center gap-4 mb-14"
+        <div
+          ref={badgesRef}
+          className="flex flex-wrap items-center justify-center gap-4 mb-14 transition-all duration-600"
+          style={{
+            opacity: badgesVisible ? 1 : 0,
+            transform: badgesVisible ? "translateY(0)" : "translateY(20px)",
+          }}
         >
           {[
             { icon: Crown, text: "Most free features", color: "text-yellow-400" },
@@ -116,14 +120,15 @@ const ComparisonSection = () => {
               <span className="text-xs font-semibold text-foreground">{item.text}</span>
             </div>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="max-w-5xl mx-auto"
+        <div
+          ref={tableRef}
+          className="max-w-5xl mx-auto transition-all duration-700"
+          style={{
+            opacity: tableVisible ? 1 : 0,
+            transform: tableVisible ? "translateY(0)" : "translateY(40px)",
+          }}
         >
           <div className="rounded-2xl border border-border bg-card/40 backdrop-blur-sm overflow-hidden">
             <div className="overflow-x-auto">
@@ -168,13 +173,9 @@ const ComparisonSection = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {features.map((feature, i) => (
-                    <motion.tr
+                  {features.map((feature) => (
+                    <tr
                       key={feature.name}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: i * 0.03 }}
                       className="border-b border-border/40 last:border-b-0 hover:bg-card/60 transition-colors"
                     >
                       <td className="py-4 px-5 text-foreground font-medium">
@@ -195,21 +196,21 @@ const ComparisonSection = () => {
                           />
                         </td>
                       ))}
-                    </motion.tr>
+                    </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-12"
+        <div
+          ref={ctaRef}
+          className="text-center mt-12 transition-all duration-500"
+          style={{
+            opacity: ctaVisible ? 1 : 0,
+            transform: ctaVisible ? "translateY(0)" : "translateY(20px)",
+          }}
         >
           <p className="text-muted-foreground text-sm max-w-lg mx-auto mb-6">
             While Strava charges <span className="text-foreground font-semibold">$11.99/mo</span> and Runna charges{" "}
@@ -224,7 +225,7 @@ const ComparisonSection = () => {
             <Zap className="w-4 h-4" />
             Try Rivlo Free
           </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

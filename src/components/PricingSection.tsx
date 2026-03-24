@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Check, X, Sparkles } from "lucide-react";
-import { motion } from "framer-motion";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { redirectToStore } from "@/lib/store-redirect";
 
 const features = [
@@ -17,6 +17,8 @@ const features = [
 
 const PricingSection = () => {
   const [yearly, setYearly] = useState(true);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollReveal();
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollReveal();
 
   const monthlyPrice = 3.99;
   const yearlyPrice = 24.99;
@@ -26,12 +28,13 @@ const PricingSection = () => {
   return (
     <section id="pricing" className="relative py-32 lg:py-40 bg-background">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center max-w-3xl mx-auto mb-16"
+        <div
+          ref={headerRef}
+          className="text-center max-w-3xl mx-auto mb-16 transition-all duration-700"
+          style={{
+            opacity: headerVisible ? 1 : 0,
+            transform: headerVisible ? "translateY(0)" : "translateY(30px)",
+          }}
         >
           <h2 className="text-4xl lg:text-6xl xl:text-7xl font-bold text-foreground font-grotesk tracking-tight leading-[1.05]">
             Simple pricing,
@@ -63,16 +66,19 @@ const PricingSection = () => {
               <span className="ml-1.5 text-xs text-primary font-bold">Save {monthlySavings}%</span>
             </span>
           </div>
-        </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div
+          ref={cardsRef}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+        >
           {/* Free Plan */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative rounded-3xl border border-border bg-card p-8 lg:p-10 hover:border-primary/20 transition-all duration-500"
+          <div
+            className="relative rounded-3xl border border-border bg-card p-8 lg:p-10 hover:border-primary/20 transition-all duration-700"
+            style={{
+              opacity: cardsVisible ? 1 : 0,
+              transform: cardsVisible ? "translateY(0)" : "translateY(40px)",
+            }}
           >
             <h3 className="text-xl font-bold text-foreground font-grotesk">Free</h3>
             <p className="text-sm text-muted-foreground mt-1">Everything you need to get started</p>
@@ -103,15 +109,16 @@ const PricingSection = () => {
             >
               Get Started Free
             </button>
-          </motion.div>
+          </div>
 
           {/* Pro Plan */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative rounded-3xl border border-primary/40 bg-card p-8 lg:p-10 shadow-[0_0_60px_rgba(79,106,255,0.12)] transition-all duration-500"
+          <div
+            className="relative rounded-3xl border border-primary/40 bg-card p-8 lg:p-10 shadow-[0_0_60px_rgba(79,106,255,0.12)] transition-all duration-700"
+            style={{
+              opacity: cardsVisible ? 1 : 0,
+              transform: cardsVisible ? "translateY(0)" : "translateY(40px)",
+              transitionDelay: "100ms",
+            }}
           >
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
               <Sparkles className="w-3 h-3" />
@@ -155,7 +162,7 @@ const PricingSection = () => {
             >
               Start 7-Day Free Trial
             </button>
-          </motion.div>
+          </div>
         </div>
 
         <p className="text-center text-sm text-muted-foreground mt-8">
