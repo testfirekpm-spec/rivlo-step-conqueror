@@ -38,6 +38,8 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
           'router': ['react-router-dom'],
+          'query': ['@tanstack/react-query'],
+          'ui-feedback': ['sonner'],
         },
       },
     },
