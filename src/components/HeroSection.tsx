@@ -44,7 +44,9 @@ const HeroSection = () => {
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden bg-background"
     >
-      <ParticleBackground />
+      <Suspense fallback={null}>
+        <ParticleBackground />
+      </Suspense>
 
       <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/8 blur-[150px] pointer-events-none" />
       <div className="absolute top-1/3 right-1/3 w-[300px] h-[300px] rounded-full bg-accent/5 blur-[120px] pointer-events-none" />
