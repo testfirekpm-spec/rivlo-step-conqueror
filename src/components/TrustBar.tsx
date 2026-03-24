@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { Star, Users, Shield, Award } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const trustItems = [
   { icon: Star, text: "4.9★ App Store", highlight: true },
@@ -9,18 +9,21 @@ const trustItems = [
 ];
 
 const TrustBar = () => {
+  const { ref, isVisible } = useScrollReveal();
+
   return (
-    <section className="py-8 border-b border-border bg-card/30">
+    <section ref={ref} className="py-8 border-b border-border bg-card/30">
       <div className="container mx-auto px-6">
         <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14">
           {trustItems.map((item, i) => (
-            <motion.div
+            <div
               key={item.text}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="flex items-center gap-2.5"
+              className="flex items-center gap-2.5 transition-all duration-500"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? "translateY(0)" : "translateY(12px)",
+                transitionDelay: `${i * 80}ms`,
+              }}
             >
               <item.icon
                 className={`w-4 h-4 ${
@@ -30,7 +33,7 @@ const TrustBar = () => {
               <span className="text-sm font-medium text-muted-foreground">
                 {item.text}
               </span>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

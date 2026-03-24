@@ -99,7 +99,7 @@ export default defineConfig(({ mode }) => ({
           if (id.includes('node_modules/react-dom')) return 'react-vendor';
           if (id.includes('node_modules/react/')) return 'react-vendor';
           if (id.includes('node_modules/react-router')) return 'router';
-          if (id.includes('node_modules/@tanstack/react-query')) return 'query';
+          if (id.includes('node_modules/framer-motion')) return 'framer';
           if (id.includes('node_modules/sonner')) return 'ui-feedback';
           if (id.includes('node_modules/@radix-ui')) return 'radix';
           if (id.includes('node_modules/class-variance-authority') || 
