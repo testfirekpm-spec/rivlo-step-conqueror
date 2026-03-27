@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import HeroSection from "@/components/HeroSection";
-import SectionDivider from "@/components/SectionDivider";
+
+const SectionDivider = lazy(() => import("@/components/SectionDivider"));
 
 const Navbar = lazy(() => import("@/components/Navbar"));
 const ScrollProgress = lazy(() => import("@/components/ScrollProgress"));

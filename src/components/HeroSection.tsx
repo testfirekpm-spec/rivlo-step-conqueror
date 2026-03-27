@@ -1,5 +1,4 @@
 import { useEffect, useRef, lazy, Suspense } from "react";
-import { Trophy, ChevronRight } from "lucide-react";
 const HomeScreenImg = "/Home.webp";
 import { redirectToStore } from "@/lib/store-redirect";
 
@@ -8,31 +7,41 @@ const FloatingLeaderboardCard = lazy(() => import("./FloatingLeaderboardCard"));
 const StepCounterRing = lazy(() => import("./StepCounterRing"));
 const FloatingTrophy = lazy(() => import("./FloatingTrophy"));
 
+// Lazy-load icons to keep them out of the main bundle
+const Trophy = lazy(() => import("lucide-react").then(m => ({ default: m.Trophy })));
+const ChevronRight = lazy(() => import("lucide-react").then(m => ({ default: m.ChevronRight })));
+
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const phoneRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxScroll = 240;
-      const clamped = Math.min(scrollY, maxScroll);
-      const isWideDesktop = window.innerWidth >= 1280;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const scrollY = window.scrollY;
+        const maxScroll = 240;
+        const clamped = Math.min(scrollY, maxScroll);
+        const isWideDesktop = window.innerWidth >= 1280;
 
-      if (phoneRef.current) {
-        phoneRef.current.style.transform = isWideDesktop
-          ? `translateY(${clamped * 0.05}px)`
-          : "translateY(0px)";
-        phoneRef.current.style.opacity = "1";
-      }
+        if (phoneRef.current) {
+          phoneRef.current.style.transform = isWideDesktop
+            ? `translateY(${clamped * 0.05}px)`
+            : "translateY(0px)";
+          phoneRef.current.style.opacity = "1";
+        }
 
-      if (cardsRef.current) {
-        cardsRef.current.style.transform = isWideDesktop
-          ? `translateY(${clamped * 0.07}px)`
-          : "translateY(0px)";
-        cardsRef.current.style.opacity = "1";
-      }
+        if (cardsRef.current) {
+          cardsRef.current.style.transform = isWideDesktop
+            ? `translateY(${clamped * 0.07}px)`
+            : "translateY(0px)";
+          cardsRef.current.style.opacity = "1";
+        }
+      });
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -119,7 +128,9 @@ const HeroSection = () => {
                 onClick={redirectToStore}
                 className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gold text-gold-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold-lg)]"
               >
-                <Trophy className="w-5 h-5" />
+                <Suspense fallback={<span className="w-5 h-5" />}>
+                  <Trophy className="w-5 h-5" />
+                </Suspense>
                 Start Your Journey
               </button>
 
@@ -128,7 +139,9 @@ const HeroSection = () => {
                 className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-foreground font-semibold text-sm transition-all duration-300 hover:bg-white/5 hover:border-white/25 hover:scale-105"
               >
                 See How It Works
-                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                <Suspense fallback={<span className="w-4 h-4" />}>
+                  <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </Suspense>
               </button>
             </div>
           </div>
