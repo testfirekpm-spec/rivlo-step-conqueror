@@ -24,8 +24,12 @@ const ParticleBackground = () => {
     const particles: Particle[] = [];
 
     const resize = () => {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
+      // Use parent dimensions to avoid forced reflow from clientWidth/Height
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const rect = parent.getBoundingClientRect();
+      const w = Math.round(rect.width);
+      const h = Math.round(rect.height);
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;
@@ -71,7 +75,6 @@ const ParticleBackground = () => {
       animationId = requestAnimationFrame(animate);
     };
 
-    // Pause when off-screen
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
@@ -80,13 +83,18 @@ const ParticleBackground = () => {
       { threshold: 0 }
     );
 
-    // Defer initial setup to avoid forced reflow during paint
-    requestAnimationFrame(() => {
+    // Use requestIdleCallback (or setTimeout fallback) to defer initialization
+    // completely out of the critical rendering path
+    const idleInit = () => {
       resize();
       createParticles();
       animate();
       observer.observe(canvas);
-    });
+    };
+
+    const idleId = 'requestIdleCallback' in window
+      ? (window as any).requestIdleCallback(idleInit, { timeout: 2000 })
+      : setTimeout(idleInit, 200);
 
     const onResize = () => {
       resize();
@@ -98,6 +106,11 @@ const ParticleBackground = () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", onResize);
       observer.disconnect();
+      if ('cancelIdleCallback' in window) {
+        (window as any).cancelIdleCallback(idleId);
+      } else {
+        clearTimeout(idleId);
+      }
     };
   }, []);
 
