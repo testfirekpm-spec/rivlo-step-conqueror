@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import rivloLogo from "@/assets/logo-rivlo.webp";
 
 const footerLinks = {
@@ -25,6 +25,9 @@ const footerLinks = {
 };
 
 const Footer = () => {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+
   return (
     <footer className="border-t border-border bg-background py-16 lg:py-20">
       <div className="container mx-auto px-6">
@@ -65,14 +68,23 @@ const Footer = () => {
                       >
                         {link.label}
                       </Link>
-                    ) : (
-                      <a
-                        href={link.href}
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {link.label}
-                      </a>
-                    )}
+                    ) : link.href.startsWith("#") ? (
+                      isHome ? (
+                        <a
+                          href={link.href}
+                          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          to={`/${link.href}`}
+                          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      )
+                    ) : null}
                   </li>
                 ))}
               </ul>
