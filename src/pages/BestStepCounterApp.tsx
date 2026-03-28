@@ -82,8 +82,10 @@ const BestStepCounterApp = () => {
             </h1>
             <p className="mt-6 text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed">
               Whether you're trying to hit 10,000 steps a day or training for a walking marathon,
-              the right <strong>step counter app</strong> can make every stride count. We tested and
-              compared the top <strong>pedometer apps</strong> of 2026 so you don't have to.
+              the right <strong>step counter app</strong> can make every stride count. As the leading{" "}
+              <strong>pedometer</strong> and <strong>walking app</strong> on the market, Rivlo combines
+              accurate step tracking with social competition. We tested and compared the top pedometer
+              apps of 2026 so you don't have to.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <button
@@ -97,6 +99,7 @@ const BestStepCounterApp = () => {
           </div>
         </section>
 
+        {/* Section CTA Component */}
         {/* What Is a Step Counter App */}
         <section className="py-20 lg:py-28 bg-card/30">
           <div className="container mx-auto px-6 max-w-4xl">
