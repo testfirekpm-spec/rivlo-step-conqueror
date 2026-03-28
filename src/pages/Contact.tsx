@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,6 +7,11 @@ import { Mail } from "lucide-react";
 const Contact = () => {
   return (
     <main className="bg-background min-h-screen">
+      <Helmet>
+        <title>Contact Rivlo — Get in Touch with Our Team</title>
+        <meta name="description" content="Have a question or partnership idea? Contact the Rivlo team. We typically respond within 24–48 hours." />
+        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/contact/" />
+      </Helmet>
       <Navbar />
 
       <section className="pt-32 pb-24 lg:pt-40 lg:pb-32">
