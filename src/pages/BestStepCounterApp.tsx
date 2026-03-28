@@ -140,15 +140,6 @@ const BestStepCounterApp = () => {
               </p>
             </div>
 
-            <div className="mt-10 text-center">
-              <button
-                onClick={redirectToStore}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-              >
-                <Download className="w-5 h-5" />
-                Download Rivlo – the Best Step Counter App
-              </button>
-            </div>
           </div>
         </section>
 
@@ -223,7 +214,7 @@ const BestStepCounterApp = () => {
                 className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
               >
                 <Download className="w-5 h-5" />
-                Download Rivlo – the Best Step Counter App
+                Try Rivlo Free
               </button>
             </div>
           </div>
@@ -290,15 +281,6 @@ const BestStepCounterApp = () => {
               Data as of March 2026. Prices reflect monthly subscription costs.
             </p>
 
-            <div className="mt-10 text-center">
-              <button
-                onClick={redirectToStore}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-              >
-                <Download className="w-5 h-5" />
-                Download Rivlo – the Best Step Counter App
-              </button>
-            </div>
           </div>
         </section>
 
@@ -380,7 +362,7 @@ const BestStepCounterApp = () => {
                 className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
               >
                 <Download className="w-5 h-5" />
-                Download Rivlo – the Best Step Counter App
+                Start Tracking with Rivlo
               </button>
             </div>
           </div>
@@ -409,17 +391,6 @@ const BestStepCounterApp = () => {
               ))}
             </div>
 
-            <div className="mt-10 text-center">
-              <button
-                onClick={redirectToStore}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-              >
-                <Download className="w-5 h-5" />
-                Download Rivlo – the Best Step Counter App
-              </button>
-            </div>
-          </div>
-        </section>
 
         {/* CTA */}
         <section className="py-24 lg:py-32">
