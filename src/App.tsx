@@ -13,6 +13,7 @@ const Privacy = lazy(() => import("./pages/Privacy.tsx"));
 const Leaderboard = lazy(() => import("./pages/Leaderboard.tsx"));
 const Milestones = lazy(() => import("./pages/Milestones.tsx"));
 const BestStepCounterApp = lazy(() => import("./pages/BestStepCounterApp.tsx"));
+const FitnessChallengeApp = lazy(() => import("./pages/FitnessChallengeApp.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 const App = () => (
