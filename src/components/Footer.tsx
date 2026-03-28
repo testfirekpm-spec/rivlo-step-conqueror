@@ -84,7 +84,7 @@ const Footer = () => {
                           {link.label}
                         </Link>
                       )
-                    )}
+                    ) : null}
                   </li>
                 ))}
               </ul>
