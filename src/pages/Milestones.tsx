@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Flame, Zap, Gem, Swords, Quote, ChevronDown } from "lucide-react";
+import Footer from "@/components/Footer";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useRef } from "react";
 
@@ -546,6 +547,7 @@ const Milestones = () => {
           </div>
         </motion.div>
       </section>
+      <Footer />
     </main>
   );
 };
