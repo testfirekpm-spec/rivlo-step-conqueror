@@ -4,7 +4,7 @@ import { ArrowLeft, Palette, Trophy, TrendingUp, Users, Target, Zap, BarChart3 }
 import { useState } from "react";
 import { LeaderboardPoster, type LeaderboardTheme } from "@/components/leaderboard/LeaderboardPoster";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { BreadcrumbNav } from "@/components/BreadcrumbNav";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { redirectToStore } from "@/lib/store-redirect";
 
 const themeLabels: Record<LeaderboardTheme, string> = {
