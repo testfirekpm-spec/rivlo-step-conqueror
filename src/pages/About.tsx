@@ -37,7 +37,7 @@ const About = () => {
       <Helmet>
         <title>About Rivlo — The Gamified Step Counter App by 3Bytes</title>
         <meta name="description" content="Learn about Rivlo, the gamified step counter app built by 3Bytes. Our mission is to make fitness social, competitive, and genuinely fun." />
-        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/about/" />
+        <link rel="canonical" href="https://rivlo.3bytes.org/about/" />
       </Helmet>
       <Navbar />
 

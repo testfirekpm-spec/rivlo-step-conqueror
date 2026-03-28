@@ -10,7 +10,7 @@ const Contact = () => {
       <Helmet>
         <title>Contact Rivlo — Get in Touch with Our Team</title>
         <meta name="description" content="Have a question or partnership idea? Contact the Rivlo team. We typically respond within 24–48 hours." />
-        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/contact/" />
+        <link rel="canonical" href="https://rivlo.3bytes.org/contact/" />
       </Helmet>
       <Navbar />
 

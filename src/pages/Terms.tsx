@@ -8,7 +8,7 @@ const Terms = () => {
       <Helmet>
         <title>Terms of Service — Rivlo Step Counter App</title>
         <meta name="description" content="Read Rivlo's terms of service. Understand the rules and guidelines for using the Rivlo step counter app." />
-        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/terms/" />
+        <link rel="canonical" href="https://rivlo.3bytes.org/terms/" />
       </Helmet>
       <Navbar />
 
