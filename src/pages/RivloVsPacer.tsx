@@ -4,6 +4,7 @@ import { Trophy, Check, X, Download, Star, Swords, Users, Gamepad2, Target, Spar
 import { redirectToStore } from "@/lib/store-redirect";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 const faqData = [
   {
