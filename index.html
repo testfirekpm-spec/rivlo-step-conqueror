@@ -30,8 +30,11 @@
 
   <body>
     <div id="root">
-      <div id="pre-render" style="min-height:100vh;background:hsl(230,25%,8%)"></div>
+      <div id="pre-render" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:hsl(230,25%,8%)">
+        <div style="width:28px;height:28px;border:3px solid hsl(220,10%,20%);border-top-color:hsl(230,75%,52%);border-radius:50%;animation:spin .7s linear infinite"></div>
+      </div>
     </div>
+    <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
