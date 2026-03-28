@@ -25,6 +25,9 @@ const footerLinks = {
 };
 
 const Footer = () => {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+
   return (
     <footer className="border-t border-border bg-background py-16 lg:py-20">
       <div className="container mx-auto px-6">
