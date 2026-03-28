@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Mail } from "lucide-react";
@@ -32,6 +33,19 @@ const Contact = () => {
             </a>
             <p className="text-xs text-muted-foreground mt-2 max-w-xs">
               We typically respond within 24–48 hours.
+            </p>
+          </div>
+
+          <div className="mt-12 text-sm text-muted-foreground space-y-2">
+            <p>
+              Looking for fitness tips? Visit our{" "}
+              <Link to="/blog/" className="text-primary hover:underline font-medium">blog</Link>.
+            </p>
+            <p>
+              Want to learn more? Check out the{" "}
+              <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">best step counter app</Link>{" "}
+              or explore{" "}
+              <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">fitness challenges</Link>.
             </p>
           </div>
         </div>

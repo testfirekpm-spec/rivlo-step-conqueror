@@ -8,9 +8,14 @@ const footerLinks = {
     { label: "Pricing", href: "#pricing" },
     { label: "Download", href: "https://apps.apple.com/app/rivlo-steps-runs-hikes/id6756506796", external: true },
   ],
+  Resources: [
+    { label: "Best Step Counter App", href: "/best-step-counter-app" },
+    { label: "Fitness Challenge App", href: "/fitness-challenge-app" },
+    { label: "Rivlo vs Pacer", href: "/compare/rivlo-vs-pacer" },
+    { label: "Blog", href: "/blog" },
+  ],
   Company: [
     { label: "About", href: "/about" },
-    { label: "Blog", href: "#blog" },
     { label: "Contact", href: "/contact" },
   ],
   Legal: [
