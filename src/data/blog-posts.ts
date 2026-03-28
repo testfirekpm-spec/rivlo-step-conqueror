@@ -12,8 +12,8 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-walk-10000-steps-a-day",
-    title: "How to Walk 10,000 Steps a Day: A Complete Guide (2026)",
-    metaDescription: "Learn practical strategies to hit 10,000 steps daily. Tips on building a walking habit, tracking progress, and staying motivated with step challenges.",
+    title: "How to Walk 10,000 Steps Daily (Easy Guide)",
+    metaDescription: "Learn how to walk 10,000 steps daily with practical tips, common mistakes to avoid, and how step counter apps like Rivlo make tracking effortless.",
     category: "Fitness Tips",
     readTime: "8 min read",
     date: "2026-03-15",
