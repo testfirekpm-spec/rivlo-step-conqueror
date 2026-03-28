@@ -14,6 +14,7 @@ const Leaderboard = lazy(() => import("./pages/Leaderboard.tsx"));
 const Milestones = lazy(() => import("./pages/Milestones.tsx"));
 const BestStepCounterApp = lazy(() => import("./pages/BestStepCounterApp.tsx"));
 const FitnessChallengeApp = lazy(() => import("./pages/FitnessChallengeApp.tsx"));
+const RivloVsPacer = lazy(() => import("./pages/RivloVsPacer.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 const App = () => (
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="/milestones" element={<Milestones />} />
             <Route path="/best-step-counter-app" element={<BestStepCounterApp />} />
             <Route path="/fitness-challenge-app" element={<FitnessChallengeApp />} />
+            <Route path="/compare/rivlo-vs-pacer" element={<RivloVsPacer />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
