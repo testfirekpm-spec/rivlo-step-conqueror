@@ -6,6 +6,7 @@ import { redirectToStore } from "@/lib/store-redirect";
 import { BlogPost, getRelatedPosts } from "@/data/blog-posts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 interface BlogLayoutProps {
   post: BlogPost;
@@ -40,14 +41,7 @@ const BlogLayout = ({ post, faqSchema, children }: BlogLayoutProps) => {
       <main className="bg-background text-foreground">
         <article className="pt-32 pb-20 lg:pt-40 lg:pb-28">
           <div className="container mx-auto px-6 max-w-3xl">
-            {/* Back link */}
-            <Link
-              to="/blog/"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Blog
-            </Link>
+            <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog/" }, { label: post.title }]} />
 
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-muted-foreground">
