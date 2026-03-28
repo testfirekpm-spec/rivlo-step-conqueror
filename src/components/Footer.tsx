@@ -68,14 +68,22 @@ const Footer = () => {
                       >
                         {link.label}
                       </Link>
-                    ) : (
-                      <a
-                        href={link.href}
-                        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {link.label}
-                      </a>
-                    )}
+                    ) : link.href.startsWith("#") ? (
+                      isHome ? (
+                        <a
+                          href={link.href}
+                          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          to={`/${link.href}`}
+                          className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          {link.label}
+                        </Link>
+                      )
                   </li>
                 ))}
               </ul>
