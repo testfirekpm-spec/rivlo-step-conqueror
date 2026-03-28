@@ -429,7 +429,12 @@ const Milestones = () => {
   const legendary = milestones[3];
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-background overflow-x-hidden">
+    <main ref={pageRef} className="min-h-screen bg-background overflow-x-hidden">
+      <Helmet>
+        <title>Step Milestones — Celebrate Every Walking Achievement | Rivlo</title>
+        <meta name="description" content="Discover Rivlo's step milestones from 10,000 to 1,000,000 steps. Celebrate every walking achievement and see what top walkers have accomplished." />
+        <link rel="canonical" href="https://rivlo.3bytes.org/milestones/" />
+      </Helmet>
       {/* Scroll progress line */}
       <div className="fixed left-0 top-0 bottom-0 z-50 w-px bg-border/10 ml-3 hidden lg:block">
         <motion.div
@@ -532,9 +537,16 @@ const Milestones = () => {
           >
             Get Started
           </Link>
+          <div className="mt-6 text-xs text-muted-foreground space-x-3">
+            <Link to="/best-step-counter-app/" className="text-primary hover:underline">Best Step Counter App</Link>
+            <span>·</span>
+            <Link to="/fitness-challenge-app/" className="text-primary hover:underline">Fitness Challenges</Link>
+            <span>·</span>
+            <Link to="/blog/" className="text-primary hover:underline">Blog</Link>
+          </div>
         </motion.div>
       </section>
-    </div>
+    </main>
   );
 };
 
