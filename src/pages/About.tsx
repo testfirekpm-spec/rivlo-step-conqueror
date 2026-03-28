@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Users, Trophy, Target, Heart } from "lucide-react";
@@ -80,7 +81,19 @@ const About = () => {
               Rivlo combines a <span className="text-foreground">Global Ranking System</span> — from Rookie to Immortal — with Club Wars, real-time hike &amp; run GPS tracking, deep health insights, and seasonal challenges that keep millions of users moving every single day.
             </p>
             <p>
+              Discover why users call Rivlo the{" "}
+              <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">best step counter app</Link>{" "}
+              — or see how our{" "}
+              <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">fitness challenges</Link>{" "}
+              turn walking into a team sport.
+            </p>
+            <p>
               Available on <span className="text-foreground">iPhone</span> and <span className="text-foreground">Apple Watch</span>, Rivlo is designed to be sleek, battery-efficient, and endlessly motivating. Whether you're chasing weight-loss goals or leading your club to victory, every step counts.
+            </p>
+            <p>
+              Check out the{" "}
+              <Link to="/blog/" className="text-primary hover:underline font-medium">Rivlo blog</Link>{" "}
+              for walking tips, challenge strategies, and fitness guides.
             </p>
             <p>
               Our Pro tier unlocks advanced analytics, yearly heat maps, hourly step tracking, exclusive themes, and an ad-free experience — because serious athletes deserve serious tools.
