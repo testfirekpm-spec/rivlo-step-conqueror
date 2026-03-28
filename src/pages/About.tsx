@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { Users, Trophy, Target, Heart } from "lucide-react";
 
 const values = [
@@ -42,17 +43,20 @@ const About = () => {
       <Navbar />
 
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="container mx-auto px-6 max-w-3xl text-center">
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-primary mb-4">
-            About Us
-          </span>
-          <h1 className="text-4xl lg:text-5xl font-bold text-foreground font-grotesk tracking-tight">
-            Stop Walking Alone.&nbsp;Start&nbsp;Competing.
-          </h1>
-          <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
-            Rivlo is more than a pedometer — it's a global arena where every step earns you rank, trophies, and glory. Built by a small team at{" "}
-            <span className="text-foreground font-medium">3Bytes</span>, we're on a mission to make fitness social, competitive, and genuinely fun.
-          </p>
+        <div className="container mx-auto px-6 max-w-3xl">
+          <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "About Rivlo" }]} />
+          <div className="text-center">
+            <span className="inline-block text-xs font-semibold tracking-widest uppercase text-primary mb-4">
+              About Us
+            </span>
+            <h1 className="text-4xl lg:text-5xl font-bold text-foreground font-grotesk tracking-tight">
+              About Rivlo — The Gamified Step Counter App
+            </h1>
+            <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
+              Rivlo is more than a pedometer — it's a global arena where every step earns you rank, trophies, and glory. Built by a small team at{" "}
+              <span className="text-foreground font-medium">3Bytes</span>, we're on a mission to make fitness social, competitive, and genuinely fun.
+            </p>
+          </div>
         </div>
       </section>
 

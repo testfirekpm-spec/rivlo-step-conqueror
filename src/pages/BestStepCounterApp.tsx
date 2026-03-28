@@ -4,6 +4,7 @@ import { Trophy, Check, X, Download, Star, Footprints, Target, Users, BarChart3,
 import { redirectToStore } from "@/lib/store-redirect";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 const faqData = [
   {
@@ -74,6 +75,7 @@ const BestStepCounterApp = () => {
         {/* Hero */}
         <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
           <div className="container mx-auto px-6 max-w-4xl">
+            <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Best Step Counter App" }]} />
             <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold font-grotesk tracking-tight leading-[1.05] text-foreground">
               Best Step Counter App{" "}
               <span className="text-primary">(2026)</span>

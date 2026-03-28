@@ -4,6 +4,7 @@ import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { blogPosts } from "@/data/blog-posts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 const BlogIndex = () => (
   <>
@@ -21,6 +22,7 @@ const BlogIndex = () => (
     <main className="bg-background text-foreground">
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="container mx-auto px-6 max-w-4xl">
+          <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
           <h1 className="text-4xl lg:text-6xl font-bold font-grotesk tracking-tight leading-[1.05] text-foreground mb-4">
             The Rivlo <span className="text-primary">Blog</span>
           </h1>

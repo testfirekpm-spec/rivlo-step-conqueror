@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { Download, MapPin, Trophy, Users, TrendingUp } from "lucide-react";
 import { redirectToStore } from "@/lib/store-redirect";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { getCityBySlug, getOtherCities } from "@/data/city-challenges";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -67,6 +68,7 @@ const StepChallengeCity = () => {
         {/* Hero */}
         <section className="pt-32 pb-16 lg:pt-40 lg:pb-20">
           <div className="container mx-auto px-6 max-w-3xl">
+            <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Step Challenges", href: "/fitness-challenge-app/" }, { label: cityData.name }]} />
             <div className="flex items-center gap-2 text-primary mb-6">
               <MapPin className="w-5 h-5" />
               <span className="font-semibold text-sm">{cityData.name}, {cityData.state}</span>
