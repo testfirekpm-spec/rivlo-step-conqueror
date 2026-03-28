@@ -465,9 +465,9 @@ const FitnessChallengeApp = () => {
               <span>Related guides:</span>
               <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">Best Step Counter App</Link>
               <span>·</span>
-              <Link to="/walking-challenge-app/" className="text-primary hover:underline font-medium">Walking Challenge App</Link>
+              <Link to="/leaderboard/" className="text-primary hover:underline font-medium">Step Leaderboard</Link>
               <span>·</span>
-              <Link to="/step-competition-app/" className="text-primary hover:underline font-medium">Step Competition App</Link>
+              <Link to="/step-challenge/new-york/" className="text-primary hover:underline font-medium">NYC Step Challenge</Link>
             </div>
           </div>
         </section>
