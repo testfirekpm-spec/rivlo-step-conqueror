@@ -82,8 +82,10 @@ const BestStepCounterApp = () => {
             </h1>
             <p className="mt-6 text-lg lg:text-xl text-muted-foreground max-w-2xl leading-relaxed">
               Whether you're trying to hit 10,000 steps a day or training for a walking marathon,
-              the right <strong>step counter app</strong> can make every stride count. We tested and
-              compared the top <strong>pedometer apps</strong> of 2026 so you don't have to.
+              the right <strong>step counter app</strong> can make every stride count. As the leading{" "}
+              <strong>pedometer</strong> and <strong>walking app</strong> on the market, Rivlo combines
+              accurate step tracking with social competition. We tested and compared the top pedometer
+              apps of 2026 so you don't have to.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <button
@@ -97,6 +99,7 @@ const BestStepCounterApp = () => {
           </div>
         </section>
 
+        {/* Section CTA Component */}
         {/* What Is a Step Counter App */}
         <section className="py-20 lg:py-28 bg-card/30">
           <div className="container mx-auto px-6 max-w-4xl">
@@ -128,6 +131,23 @@ const BestStepCounterApp = () => {
                 accountability you need to stick with your goals. The key is choosing one that fits your
                 lifestyle — and that's exactly what this guide helps you do.
               </p>
+              <p>
+                Want to see how daily step tracking translates into real competition? Check out Rivlo's{" "}
+                <Link to="/leaderboard/" className="text-primary hover:underline font-medium">global step leaderboard</Link>{" "}
+                to see how walkers worldwide are stacking up — and learn{" "}
+                <Link to="/blog/how-to-walk-10000-steps-a-day/" className="text-primary hover:underline font-medium">how to walk 10,000 steps a day</Link>{" "}
+                with our science-backed guide.
+              </p>
+            </div>
+
+            <div className="mt-10 text-center">
+              <button
+                onClick={redirectToStore}
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
+              >
+                <Download className="w-5 h-5" />
+                Download Rivlo – the Best Step Counter App
+              </button>
             </div>
           </div>
         </section>
@@ -192,8 +212,20 @@ const BestStepCounterApp = () => {
               best <Link to="/walking-app/" className="text-primary hover:underline font-medium">walking app</Link> options
               available today. For those who love group challenges, our{" "}
               <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">fitness challenge app</Link>{" "}
-              roundup covers the most engaging competitive features in detail.
+              roundup covers the most engaging competitive features in detail. You can also see how Rivlo's{" "}
+              <Link to="/leaderboard/" className="text-primary hover:underline font-medium">step leaderboard</Link>{" "}
+              drives daily motivation.
             </p>
+
+            <div className="mt-10 text-center">
+              <button
+                onClick={redirectToStore}
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
+              >
+                <Download className="w-5 h-5" />
+                Download Rivlo – the Best Step Counter App
+              </button>
+            </div>
           </div>
         </section>
 
@@ -257,6 +289,16 @@ const BestStepCounterApp = () => {
             <p className="mt-6 text-sm text-muted-foreground text-center">
               Data as of March 2026. Prices reflect monthly subscription costs.
             </p>
+
+            <div className="mt-10 text-center">
+              <button
+                onClick={redirectToStore}
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
+              >
+                <Download className="w-5 h-5" />
+                Download Rivlo – the Best Step Counter App
+              </button>
+            </div>
           </div>
         </section>
 
@@ -324,10 +366,22 @@ const BestStepCounterApp = () => {
               <p className="mt-8">
                 If you prefer a broader fitness tracking experience, you might also want to explore our picks for the
                 best <Link to="/pedometer-app/" className="text-primary hover:underline font-medium">pedometer app</Link> options.
-                And for runners who also want step tracking, our{" "}
+                For runners who also want step tracking, our{" "}
                 <Link to="/walking-app/" className="text-primary hover:underline font-medium">walking app</Link>{" "}
-                guide covers hybrid options.
+                guide covers hybrid options. And don't miss our deep dive into{" "}
+                <Link to="/blog/how-to-walk-10000-steps-a-day/" className="text-primary hover:underline font-medium">how to walk 10,000 steps every day</Link>{" "}
+                for practical strategies that pair perfectly with Rivlo's tracking.
               </p>
+            </div>
+
+            <div className="mt-10 text-center">
+              <button
+                onClick={redirectToStore}
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
+              >
+                <Download className="w-5 h-5" />
+                Download Rivlo – the Best Step Counter App
+              </button>
             </div>
           </div>
         </section>
@@ -353,6 +407,16 @@ const BestStepCounterApp = () => {
                   </div>
                 </details>
               ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <button
+                onClick={redirectToStore}
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
+              >
+                <Download className="w-5 h-5" />
+                Download Rivlo – the Best Step Counter App
+              </button>
             </div>
           </div>
         </section>
