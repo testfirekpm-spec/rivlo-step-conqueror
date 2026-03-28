@@ -153,7 +153,7 @@ const RivloVsPacer = () => {
               </p>
             </div>
 
-            <CtaBanner text="Want the step counter app built for competition? Try Rivlo." />
+            <CtaBanner text="Try Rivlo for competitive step tracking — it's free." />
           </div>
         </section>
 
@@ -217,7 +217,7 @@ const RivloVsPacer = () => {
             </div>
             <p className="mt-4 text-sm text-muted-foreground text-center">Data as of March 2026.</p>
 
-            <CtaBanner text="Rivlo wins 11 out of 15 categories. See for yourself." />
+            <CtaBanner text="Rivlo wins 11 out of 15 categories. Try it free." />
           </div>
         </section>
 
@@ -375,7 +375,62 @@ const RivloVsPacer = () => {
               </p>
             </div>
 
-            <CtaBanner text="Ready for a step counter that makes walking feel like a game?" />
+            <CtaBanner text="Try Rivlo for competitive step tracking." />
+          </div>
+        </section>
+
+        {/* Which App Is Better? — Verdict */}
+        <section className="py-20 lg:py-28 bg-card/30">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <h2 className="text-3xl lg:text-4xl font-bold font-grotesk tracking-tight text-foreground mb-6">
+              Which App Is Better — Rivlo or Pacer?
+            </h2>
+            <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
+              <p>
+                After comparing every feature side by side, the answer depends on what you want from a step
+                counter app. If your priority is guided workouts and weight tracking, Pacer is a decent choice.
+                But if you care about <strong>gamification, social competition, and staying motivated long-term</strong>,
+                Rivlo is the clear winner.
+              </p>
+              <p>
+                Rivlo wins 11 out of 15 comparison categories — including every gamification, social, and value
+                metric. Its free tier alone offers more competitive features than Pacer's premium subscription.
+                Leaderboards, friend challenges, club battles, season events, and 50+ achievement badges are all
+                included at no cost. Pacer charges $5.99/month just to unlock basic leaderboard access.
+              </p>
+              <p>
+                The research supports this approach: gamified fitness apps increase weekly physical activity by
+                an average of 27 minutes compared to non-gamified alternatives. Rivlo doesn't just track your
+                steps — it gives you a reason to take more of them. That's why it earns our top recommendation
+                as the best step counter app for anyone who thrives on competition.
+              </p>
+              <p>
+                For a broader look at the top pedometer apps on the market, read our{" "}
+                <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">
+                  best step counter app
+                </Link>{" "}
+                guide. And if you're ready to turn walking into a team sport, our{" "}
+                <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">
+                  fitness challenge app
+                </Link>{" "}
+                roundup covers the most engaging competitive options.
+              </p>
+            </div>
+
+            <div className="mt-10 p-8 rounded-2xl border border-primary/20 bg-primary/[0.04] text-center">
+              <ShieldCheck className="w-10 h-10 text-primary mx-auto mb-4" />
+              <p className="text-xl font-bold text-foreground mb-2">Our Verdict: Rivlo Wins for Gamification</p>
+              <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+                More free features, better competition tools, and a lower Pro price. Rivlo is the smarter choice for walkers who want motivation that lasts.
+              </p>
+              <button
+                onClick={redirectToStore}
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gold text-gold-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
+              >
+                <Download className="w-4 h-4" />
+                Try Rivlo for Competitive Step Tracking
+              </button>
+            </div>
           </div>
         </section>
 
