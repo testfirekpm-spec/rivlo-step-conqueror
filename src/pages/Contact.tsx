@@ -48,6 +48,7 @@ const Contact = () => {
               <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">fitness challenges</Link>.
             </p>
           </div>
+        </div>
       </section>
 
       <Footer />
