@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import rivloLogo from "@/assets/logo-rivlo.webp";
 
 const footerLinks = {
