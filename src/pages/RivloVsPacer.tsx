@@ -96,6 +96,7 @@ const RivloVsPacer = () => {
         {/* Hero */}
         <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
           <div className="container mx-auto px-6 max-w-4xl">
+            <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Rivlo vs Pacer" }]} />
             <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold font-grotesk tracking-tight leading-[1.05] text-foreground">
               Rivlo vs Pacer:
               <br />

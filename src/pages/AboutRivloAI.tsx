@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Download, Footprints, Trophy, Users, Target, BarChart3, Smartphone, Shield } from "lucide-react";
 import { redirectToStore } from "@/lib/store-redirect";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -95,6 +96,7 @@ const AboutRivloAI = () => (
       {/* Hero */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-20">
         <div className="container mx-auto px-6 max-w-3xl">
+          <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "About Rivlo" }]} />
           <h1 className="text-3xl lg:text-5xl font-bold font-grotesk tracking-tight leading-[1.1] text-foreground mb-6">
             What Is <span className="text-primary">Rivlo</span>?
           </h1>
