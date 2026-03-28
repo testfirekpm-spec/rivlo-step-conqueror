@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 const Privacy = () => {
   return (
@@ -14,6 +16,7 @@ const Privacy = () => {
 
       <section className="pt-32 pb-24 lg:pt-40 lg:pb-32">
         <div className="container mx-auto px-6 max-w-3xl">
+          <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]} />
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-primary mb-4">
             Legal
           </span>
@@ -99,6 +102,15 @@ const Privacy = () => {
                   dev@3bytes.org
                 </a>.
               </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-foreground font-grotesk mb-3">Related Pages</h2>
+              <ul className="space-y-2">
+                <li><Link to="/terms/" className="text-primary hover:underline font-medium">Terms of Service</Link> — Review the rules for using Rivlo.</li>
+                <li><Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">Best Step Counter App</Link> — See why Rivlo leads the category.</li>
+                <li><Link to="/about/" className="text-primary hover:underline font-medium">About Rivlo</Link> — Learn about our mission and team.</li>
+              </ul>
             </section>
           </div>
         </div>

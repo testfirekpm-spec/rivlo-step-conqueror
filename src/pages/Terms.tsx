@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 const Terms = () => {
   return (
@@ -14,6 +16,7 @@ const Terms = () => {
 
       <section className="pt-32 pb-24 lg:pt-40 lg:pb-32">
         <div className="container mx-auto px-6 max-w-3xl">
+          <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Terms of Service" }]} />
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-primary mb-4">
             Legal
           </span>
@@ -96,6 +99,15 @@ const Terms = () => {
                   dev@3bytes.org
                 </a>.
               </p>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-bold text-foreground font-grotesk mb-3">Related Pages</h2>
+              <ul className="space-y-2">
+                <li><Link to="/privacy/" className="text-primary hover:underline font-medium">Privacy Policy</Link> — How we protect your data.</li>
+                <li><Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">Fitness Challenge App</Link> — Explore Rivlo's competitive features.</li>
+                <li><Link to="/blog/" className="text-primary hover:underline font-medium">Rivlo Blog</Link> — Walking tips and challenge guides.</li>
+              </ul>
             </section>
           </div>
         </div>
