@@ -121,7 +121,101 @@ const FitnessChallengeApp = () => {
                 <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">
                   best step counter app
                 </Link>{" "}
-                covers the fundamentals of choosing the right pedometer for your needs.
+                covers the fundamentals of choosing the right pedometer. And if you want to see real-time
+                competition in action, check out Rivlo's{" "}
+                <Link to="/leaderboard/" className="text-primary hover:underline font-medium">
+                  global step leaderboard
+                </Link>.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Types of Step Challenges */}
+        <section className="py-20 lg:py-28">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <h2 className="text-3xl lg:text-4xl font-bold font-grotesk tracking-tight text-foreground mb-6">
+              Types of Step Challenges You Can Join
+            </h2>
+            <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
+              <p>
+                Not all challenges are created equal. The best <strong>fitness challenge apps</strong> offer
+                multiple formats so you can pick the competition style that fits your personality and schedule.
+                Here are the three main types:
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8 mb-3">Daily Step Challenges</h3>
+              <p>
+                The simplest and most accessible format. Set a daily step goal — 8,000, 10,000, or 15,000 steps —
+                and see if you hit it before midnight. On Rivlo, daily challenges reset automatically and feed into
+                the <Link to="/leaderboard/" className="text-primary hover:underline font-medium">daily leaderboard</Link>,
+                so even casual walkers can compete for a top-10 spot every 24 hours. Daily challenges are perfect
+                for beginners who want low-commitment accountability.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8 mb-3">Team & Club Challenges</h3>
+              <p>
+                Team-based competitions add a layer of collective accountability. In Rivlo's club system, groups
+                of walkers pool their steps and compete against other clubs. This format works especially well
+                for workplace wellness programs, running groups, and friend circles. When your team is counting
+                on you, skipping a walk isn't just a personal choice — it affects everyone's ranking. Cities like{" "}
+                <Link to="/step-challenge/new-york/" className="text-primary hover:underline font-medium">
+                  New York
+                </Link>{" "}
+                have seen massive adoption of team-based step challenges through local fitness communities.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8 mb-3">Leaderboard & Season Challenges</h3>
+              <p>
+                For competitive walkers who want long-term stakes, season challenges run over multiple weeks
+                with escalating milestones and exclusive rewards. Rivlo's season events rank all participants
+                on a dedicated leaderboard, with the top finishers earning badges that can't be unlocked any
+                other way. This format mirrors the competitive seasons found in gaming — creating urgency,
+                progression, and bragging rights that keep users engaged month after month.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Gamification Improves Fitness Consistency */}
+        <section className="py-20 lg:py-28 bg-card/30">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <h2 className="text-3xl lg:text-4xl font-bold font-grotesk tracking-tight text-foreground mb-6">
+              Why Gamification Improves Fitness Consistency
+            </h2>
+            <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
+              <p>
+                Gamification — applying game mechanics like points, levels, badges, and leaderboards to non-game
+                activities — has been studied extensively in the context of physical activity. The results are
+                consistently positive: people who use a gamified <strong>step challenge app</strong> exercise
+                more frequently and for longer durations than those who rely on willpower alone.
+              </p>
+              <p>
+                The psychology behind this is straightforward. Games activate the brain's reward circuitry by
+                providing clear goals, immediate feedback, and visible progress. When you see your step count
+                climbing toward a daily target, or watch yourself overtake a rival on the leaderboard, your
+                brain releases dopamine — the same neurotransmitter responsible for the satisfaction of
+                completing a level in a video game or receiving a like on social media.
+              </p>
+              <p>
+                Rivlo leverages these principles deliberately. Achievement badges create a sense of collection
+                and completionism. Streak tracking punishes missed days with visible consequences. Leaderboard
+                rankings introduce status and social comparison. Season challenges add time pressure and
+                exclusivity. Together, these mechanics create an environment where walking isn't just exercise
+                — it's a game you want to win.
+              </p>
+              <p>
+                A 2024 meta-analysis published in the Journal of Medical Internet Research found that gamified
+                fitness interventions increased moderate-to-vigorous physical activity by an average of 27
+                minutes per week compared to non-gamified alternatives. Over a year, that's an extra 23 hours
+                of exercise — enough to meaningfully reduce the risk of chronic disease.
+              </p>
+              <p>
+                Learn how to maximize your daily steps with our guide on{" "}
+                <Link to="/blog/how-to-walk-10000-steps-a-day/" className="text-primary hover:underline font-medium">
+                  how to walk 10,000 steps a day
+                </Link>{" "}
+                — the perfect companion to any step challenge.
               </p>
             </div>
           </div>
@@ -359,8 +453,8 @@ const FitnessChallengeApp = () => {
                 onClick={redirectToStore}
                 className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
               >
-                <Trophy className="w-5 h-5" />
-                Join a Challenge Now
+              <Swords className="w-5 h-5" />
+                Join a Live Step Challenge with Rivlo
               </button>
               <p className="text-sm text-muted-foreground">
                 Free on iOS & Android · No subscription required
