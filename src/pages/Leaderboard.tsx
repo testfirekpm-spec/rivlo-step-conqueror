@@ -5,6 +5,7 @@ import { useState } from "react";
 import { LeaderboardPoster, type LeaderboardTheme } from "@/components/leaderboard/LeaderboardPoster";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
+import Footer from "@/components/Footer";
 import { redirectToStore } from "@/lib/store-redirect";
 
 const themeLabels: Record<LeaderboardTheme, string> = {
@@ -251,6 +252,7 @@ const Leaderboard = () => {
           </p>
         </div>
       </section>
+      <Footer />
     </main>
   );
 };
