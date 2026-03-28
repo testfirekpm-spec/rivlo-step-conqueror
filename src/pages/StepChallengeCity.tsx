@@ -57,7 +57,7 @@ const StepChallengeCity = () => {
           name="description"
           content={`Join the best step challenge in ${cityData.name}. Compete on leaderboards, track your steps, and walk more with Rivlo — the free step counter app for ${cityData.name} walkers.`}
         />
-        <link rel="canonical" href={`https://rivlo-step-conqueror.lovable.app/step-challenge/${cityData.slug}/`} />
+        <link rel="canonical" href={`https://rivlo.3bytes.org/step-challenge/${cityData.slug}/`} />
         <script type="application/ld+json">{JSON.stringify(faq)}</script>
       </Helmet>
 

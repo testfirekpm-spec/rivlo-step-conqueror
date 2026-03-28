@@ -64,7 +64,7 @@ const BestStepCounterApp = () => {
           name="description"
           content="Looking for the best step counter app in 2026? Rivlo is a free pedometer app with leaderboards, challenges, clubs & achievements. Compare top step tracker apps."
         />
-        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/best-step-counter-app/" />
+        <link rel="canonical" href="https://rivlo.3bytes.org/best-step-counter-app/" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

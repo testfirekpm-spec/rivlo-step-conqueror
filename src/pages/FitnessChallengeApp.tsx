@@ -55,7 +55,7 @@ const FitnessChallengeApp = () => {
           name="description"
           content="Find the best fitness challenge app for step competitions, walking challenges, and leaderboard races. Rivlo offers free 1v1 duels, club battles, and season challenges."
         />
-        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/fitness-challenge-app/" />
+        <link rel="canonical" href="https://rivlo.3bytes.org/fitness-challenge-app/" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

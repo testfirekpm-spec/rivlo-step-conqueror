@@ -8,7 +8,7 @@ const Privacy = () => {
       <Helmet>
         <title>Privacy Policy — Rivlo Step Counter App</title>
         <meta name="description" content="Read Rivlo's privacy policy. Learn how we collect, use, and protect your data in the Rivlo step counter app." />
-        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/privacy/" />
+        <link rel="canonical" href="https://rivlo.3bytes.org/privacy/" />
       </Helmet>
       <Navbar />
 

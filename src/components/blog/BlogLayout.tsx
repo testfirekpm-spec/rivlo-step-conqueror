@@ -21,7 +21,7 @@ const BlogLayout = ({ post, faqSchema, children }: BlogLayoutProps) => {
       <Helmet>
         <title>{post.title} — Rivlo Blog</title>
         <meta name="description" content={post.metaDescription} />
-        <link rel="canonical" href={`https://rivlo-step-conqueror.lovable.app/blog/${post.slug}/`} />
+        <link rel="canonical" href={`https://rivlo.3bytes.org/blog/${post.slug}/`} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">
           {JSON.stringify({

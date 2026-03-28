@@ -28,14 +28,14 @@ const Index = () => {
       <Helmet>
         <title>Rivlo — Best Step Counter App with Leaderboards &amp; Challenges</title>
         <meta name="description" content="Rivlo is the #1 gamified step counter app. Compete on leaderboards, challenge friends, track hikes and runs, and unlock achievements — all free." />
-        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/" />
+        <link rel="canonical" href="https://rivlo.3bytes.org/" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "Rivlo",
-            url: "https://rivlo-step-conqueror.lovable.app",
-            logo: "https://rivlo-step-conqueror.lovable.app/logo-rivlo.webp",
+            url: "https://rivlo.3bytes.org",
+            logo: "https://rivlo.3bytes.org/logo-rivlo.webp",
             description: "Rivlo is a gamified step counter app where walking becomes a global challenge. Compete with friends, climb leaderboards, and unlock achievements.",
             sameAs: [
               "https://apps.apple.com/app/rivlo-steps-runs-hikes/id6756506796"

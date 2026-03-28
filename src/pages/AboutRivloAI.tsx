@@ -84,7 +84,7 @@ const AboutRivloAI = () => (
     <Helmet>
       <title>What Is Rivlo? — Step Counter App Explained Simply</title>
       <meta name="description" content="Learn what Rivlo is, how step tracking works, and answers to common questions about fitness apps, step challenges, and daily walking goals." />
-      <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/about-rivlo-ai/" />
+      <link rel="canonical" href="https://rivlo.3bytes.org/about-rivlo-ai/" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
     </Helmet>

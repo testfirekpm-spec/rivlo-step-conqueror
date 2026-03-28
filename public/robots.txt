@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://rivlo-step-conqueror.lovable.app/sitemap.xml
+Sitemap: https://rivlo.3bytes.org/sitemap.xml

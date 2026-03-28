@@ -13,7 +13,7 @@ const BlogIndex = () => (
         name="description"
         content="Expert guides on step tracking, walking for fitness, and step challenges. Tips to walk more, lose weight, and compete with friends using Rivlo."
       />
-      <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/blog/" />
+      <link rel="canonical" href="https://rivlo.3bytes.org/blog/" />
     </Helmet>
 
     <Navbar />

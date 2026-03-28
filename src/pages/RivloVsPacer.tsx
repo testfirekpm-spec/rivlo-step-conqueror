@@ -85,7 +85,7 @@ const RivloVsPacer = () => {
           name="description"
           content="Rivlo vs Pacer — a detailed comparison of features, gamification, social tools, and pricing. See why Rivlo is the better step counter app for competitions and challenges."
         />
-        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/compare/rivlo-vs-pacer/" />
+        <link rel="canonical" href="https://rivlo.3bytes.org/compare/rivlo-vs-pacer/" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
