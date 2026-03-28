@@ -390,7 +390,8 @@ const BestStepCounterApp = () => {
                 </details>
               ))}
             </div>
-
+          </div>
+        </section>
 
         {/* CTA */}
         <section className="py-24 lg:py-32">
