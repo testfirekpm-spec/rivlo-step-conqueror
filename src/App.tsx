@@ -19,6 +19,7 @@ const BlogIndex = lazy(() => import("./pages/BlogIndex.tsx"));
 const BlogPost10kSteps = lazy(() => import("./pages/blog/HowToWalk10000Steps.tsx"));
 const BlogPostWeightLoss = lazy(() => import("./pages/blog/WalkingForWeightLoss.tsx"));
 const BlogPostGroupChallenges = lazy(() => import("./pages/blog/BestWalkingChallenges.tsx"));
+const StepChallengeCity = lazy(() => import("./pages/StepChallengeCity.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 
 const App = () => (
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/blog/how-to-walk-10000-steps-a-day" element={<BlogPost10kSteps />} />
             <Route path="/blog/walking-for-weight-loss" element={<BlogPostWeightLoss />} />
             <Route path="/blog/best-walking-challenges-for-groups" element={<BlogPostGroupChallenges />} />
+            <Route path="/step-challenge/:city" element={<StepChallengeCity />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
