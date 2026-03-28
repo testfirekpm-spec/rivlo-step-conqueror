@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://rivlo-step-conqueror.lovable.app/sitemap.xml

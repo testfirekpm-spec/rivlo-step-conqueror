@@ -1,9 +1,15 @@
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const Terms = () => {
   return (
     <main className="bg-background min-h-screen">
+      <Helmet>
+        <title>Terms of Service — Rivlo Step Counter App</title>
+        <meta name="description" content="Read Rivlo's terms of service. Understand the rules and guidelines for using the Rivlo step counter app." />
+        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/terms/" />
+      </Helmet>
       <Navbar />
 
       <section className="pt-32 pb-24 lg:pt-40 lg:pb-32">

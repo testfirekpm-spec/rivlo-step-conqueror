@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -33,6 +34,11 @@ const values = [
 const About = () => {
   return (
     <main className="bg-background min-h-screen">
+      <Helmet>
+        <title>About Rivlo — The Gamified Step Counter App by 3Bytes</title>
+        <meta name="description" content="Learn about Rivlo, the gamified step counter app built by 3Bytes. Our mission is to make fitness social, competitive, and genuinely fun." />
+        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/about/" />
+      </Helmet>
       <Navbar />
 
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">

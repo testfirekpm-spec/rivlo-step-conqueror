@@ -1,9 +1,15 @@
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const Privacy = () => {
   return (
     <main className="bg-background min-h-screen">
+      <Helmet>
+        <title>Privacy Policy — Rivlo Step Counter App</title>
+        <meta name="description" content="Read Rivlo's privacy policy. Learn how we collect, use, and protect your data in the Rivlo step counter app." />
+        <link rel="canonical" href="https://rivlo-step-conqueror.lovable.app/privacy/" />
+      </Helmet>
       <Navbar />
 
       <section className="pt-32 pb-24 lg:pt-40 lg:pb-32">
