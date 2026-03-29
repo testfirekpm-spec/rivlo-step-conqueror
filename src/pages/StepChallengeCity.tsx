@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link, useParams, Navigate } from "react-router-dom";
-import { Download, MapPin, Trophy, Users, TrendingUp } from "lucide-react";
+import { Download, MapPin, Trophy, Users, TrendingUp, Footprints, Compass } from "lucide-react";
 import { redirectToStore } from "@/lib/store-redirect";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { getCityBySlug, getOtherCities } from "@/data/city-challenges";
@@ -13,18 +13,18 @@ const faqForCity = (city: string) => ({
   mainEntity: [
     {
       "@type": "Question",
-      name: `Is there a step challenge in ${city}?`,
-      acceptedAnswer: { "@type": "Answer", text: `Yes! Rivlo lets you join or create step challenges in ${city}. Compete against friends, coworkers, or the entire ${city} community on real-time leaderboards — completely free.` },
+      name: `How do I join a step challenge in ${city}?`,
+      acceptedAnswer: { "@type": "Answer", text: `Download Rivlo for free, set your daily step goal, and you're instantly connected to ${city}'s walking community. You can join public leaderboards to compete against other ${city} walkers, or create private challenges and invite friends, family, or coworkers. No subscription or sign-up fee required — just download, walk, and compete.` },
     },
     {
       "@type": "Question",
-      name: `How do I join a walking challenge in ${city}?`,
-      acceptedAnswer: { "@type": "Answer", text: `Download Rivlo, set your location to ${city}, and browse active challenges. You can join public challenges or create private ones and invite friends. No subscription required.` },
+      name: `What is the best way to stay active in ${city}?`,
+      acceptedAnswer: { "@type": "Answer", text: `The most effective way to stay active in ${city} is consistent daily walking combined with social accountability. Step challenges through Rivlo add competitive motivation to your walks, whether you're exploring local parks, commuting on foot, or walking during lunch breaks. Research shows that people who participate in step challenges walk 2,400+ more steps per day than solo walkers.` },
     },
     {
       "@type": "Question",
       name: `What's the best step counter app for ${city} walkers?`,
-      acceptedAnswer: { "@type": "Answer", text: `Rivlo is the best step counter app for ${city} walkers because it combines accurate step tracking with social competition. Leaderboards, friend challenges, and achievement badges keep you motivated to explore ${city} on foot.` },
+      acceptedAnswer: { "@type": "Answer", text: `Rivlo is the best step counter app for ${city} walkers because it combines accurate step tracking with social competition. Leaderboards, friend challenges, and achievement badges keep you motivated to explore ${city} on foot — all completely free.` },
     },
     {
       "@type": "Question",
@@ -48,7 +48,9 @@ const StepChallengeCity = () => {
   }
 
   const faq = faqForCity(cityData.name);
-  const otherCities = getOtherCities(cityData.slug).slice(0, 4);
+  const otherCities = getOtherCities(cityData.slug);
+  const linkedCityData = cityData.linkedCities.map((s) => getCityBySlug(s)).filter(Boolean);
+  const remainingCities = otherCities.filter((c) => !cityData.linkedCities.includes(c.slug)).slice(0, 2);
 
   return (
     <>
@@ -56,9 +58,12 @@ const StepChallengeCity = () => {
         <title>Step Challenge in {cityData.name} — Walk, Compete & Win | Rivlo</title>
         <meta
           name="description"
-          content={`Join the best step challenge in ${cityData.name}. Compete on leaderboards, track your steps, and walk more with Rivlo — the free step counter app for ${cityData.name} walkers.`}
+          content={`Join the best step challenge in ${cityData.name}. Compete on leaderboards, track your steps, and walk more with Rivlo — the free fitness challenge app for ${cityData.name} walkers.`}
         />
         <link rel="canonical" href={`https://rivlo.3bytes.org/step-challenge/${cityData.slug}/`} />
+        <meta property="og:title" content={`Step Challenge in ${cityData.name} | Rivlo`} />
+        <meta property="og:description" content={`Join step challenges in ${cityData.name}. Compete with local walkers on real-time leaderboards.`} />
+        <meta property="og:url" content={`https://rivlo.3bytes.org/step-challenge/${cityData.slug}/`} />
         <script type="application/ld+json">{JSON.stringify(faq)}</script>
       </Helmet>
 
@@ -68,7 +73,7 @@ const StepChallengeCity = () => {
         {/* Hero */}
         <section className="pt-32 pb-16 lg:pt-40 lg:pb-20">
           <div className="container mx-auto px-6 max-w-3xl">
-            <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Step Challenges", href: "/fitness-challenge-app/" }, { label: cityData.name }]} />
+            <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Fitness Challenges", href: "/fitness-challenge-app/" }, { label: cityData.name }]} />
             <div className="flex items-center gap-2 text-primary mb-6">
               <MapPin className="w-5 h-5" />
               <span className="font-semibold text-sm">{cityData.name}, {cityData.state}</span>
@@ -84,7 +89,7 @@ const StepChallengeCity = () => {
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105"
             >
               <Trophy className="w-4 h-4" />
-              Join Step Challenge in {cityData.name}
+              Join a Step Challenge in {cityData.name} with Rivlo
             </button>
           </div>
         </section>
@@ -109,20 +114,49 @@ const StepChallengeCity = () => {
           </div>
         </section>
 
-        {/* Benefits */}
+        {/* Local Fitness Context */}
         <section className="py-16 lg:py-20">
           <div className="container mx-auto px-6 max-w-3xl">
-            <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-6">
-              Why Join a Step Challenge in {cityData.name}?
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              Walking is the simplest form of exercise, but consistency is the hard part.
-              Step challenges solve this by adding competition, community, and accountability.
-              In a city like {cityData.name} — with a walk score of {cityData.walkScore} and
-              a population of {cityData.population} — there's no shortage of people to compete with.
-            </p>
+            <div className="flex items-center gap-3 mb-6">
+              <Footprints className="w-6 h-6 text-primary" />
+              <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground">
+                Walking & Fitness Culture in {cityData.name}
+              </h2>
+            </div>
+            <div className="space-y-5 text-muted-foreground leading-relaxed">
+              <p>{cityData.localFitnessContext}</p>
+              <p>
+                If you're looking for a{" "}
+                <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">
+                  step counter app
+                </Link>{" "}
+                that does more than count steps, Rivlo adds the competitive structure that turns {cityData.name}'s
+                walkable streets into a fitness arena — with leaderboards, challenges, and milestone achievements
+                that keep you moving day after day.
+              </p>
+            </div>
+          </div>
+        </section>
 
-            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+        {/* Benefits of Step Challenges */}
+        <section className="py-16 lg:py-20 bg-card/30">
+          <div className="container mx-auto px-6 max-w-3xl">
+            <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-6">
+              Why Step Challenges Work in {cityData.name}
+            </h2>
+            <div className="space-y-5 text-muted-foreground leading-relaxed mb-8">
+              <p>{cityData.challengeBenefits}</p>
+              <p>
+                Whether you prefer solo accountability or team-based competition, a{" "}
+                <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">
+                  fitness challenge app
+                </Link>{" "}
+                like Rivlo gives you both. Create private 1v1 duels with a friend or join the {cityData.name}-wide
+                leaderboard and see how you rank against the entire city.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
               {[
                 { icon: Trophy, title: "Compete Locally", desc: `See how you stack up against other ${cityData.name} walkers on real-time leaderboards.` },
                 { icon: Users, title: "Build Community", desc: `Connect with ${cityData.name} walkers who share your fitness goals and push each other further.` },
@@ -136,26 +170,18 @@ const StepChallengeCity = () => {
                 </div>
               ))}
             </div>
-
-            <p className="text-muted-foreground leading-relaxed">
-              Research from the American Journal of Preventive Medicine shows that people who
-              participate in step challenges walk 2,400 more steps per day on average. In{" "}
-              {cityData.name}, that translates to an extra mile of exploring your city every
-              single day. Whether you're a seasoned walker or just starting out, a{" "}
-              <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">
-                fitness challenge app
-              </Link>{" "}
-              turns your daily routine into a game worth winning.
-            </p>
           </div>
         </section>
 
         {/* Best places to walk */}
-        <section className="py-16 lg:py-20 bg-card/30">
+        <section className="py-16 lg:py-20">
           <div className="container mx-auto px-6 max-w-3xl">
-            <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-6">
-              Best Places to Walk in {cityData.name}
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
+              <Compass className="w-6 h-6 text-primary" />
+              <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground">
+                Best Places to Walk in {cityData.name}
+              </h2>
+            </div>
             <p className="text-muted-foreground leading-relaxed mb-6">
               {cityData.name} offers excellent walking routes for every fitness level.
               Here are the top spots to rack up steps:
@@ -166,14 +192,12 @@ const StepChallengeCity = () => {
                   <MapPin className="w-4 h-4 text-primary mt-1 shrink-0" />
                   <span className="text-muted-foreground">
                     <strong className="text-foreground">{landmark}</strong> — a top destination for
-                    {cityData.name} walkers looking to combine exercise with sightseeing.
+                    {" "}{cityData.name} walkers looking to combine exercise with sightseeing.
                   </span>
                 </li>
               ))}
             </ul>
-            <p className="text-muted-foreground leading-relaxed">
-              {cityData.weather}
-            </p>
+            <p className="text-muted-foreground leading-relaxed">{cityData.weather}</p>
             <p className="text-muted-foreground leading-relaxed mt-4">
               <strong className="text-foreground">Pro tip:</strong> {cityData.uniqueTip}
             </p>
@@ -181,24 +205,19 @@ const StepChallengeCity = () => {
         </section>
 
         {/* How Rivlo works */}
-        <section className="py-16 lg:py-20">
+        <section className="py-16 lg:py-20 bg-card/30">
           <div className="container mx-auto px-6 max-w-3xl">
             <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-6">
               How Rivlo Works in {cityData.name}
             </h2>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              Rivlo is the{" "}
-              <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">
-                best step counter app
-              </Link>{" "}
-              for {cityData.name} walkers who want more than just a number on a screen.
-              Here's how it transforms your walking routine:
-            </p>
+            <div className="space-y-5 text-muted-foreground leading-relaxed mb-8">
+              <p>{cityData.howRivloWorks}</p>
+            </div>
             <ol className="space-y-4 mb-8">
               {[
                 { step: "Download & Set Up", desc: `Install Rivlo for free, set your daily step goal, and you're ready to start walking in ${cityData.name}.` },
                 { step: "Track Every Step", desc: "Rivlo uses your phone's sensors to count steps accurately — no smartwatch needed. Walk anywhere and your steps count." },
-                { step: "Compete on Leaderboards", desc: `See where you rank among ${cityData.name} walkers. Daily and weekly leaderboards reset regularly, giving everyone a fresh chance to win.` },
+                { step: "Compete on Leaderboards", desc: `See where you rank among ${cityData.name} walkers. Daily and weekly leaderboards reset regularly for fresh competition.` },
                 { step: "Challenge Friends", desc: "Invite friends, family, or coworkers to private step duels. Set the duration, compete, and see who walks more." },
                 { step: "Earn Achievements", desc: "Unlock badges for streaks, milestones, and challenge wins. Gamification keeps you coming back day after day." },
               ].map((item, i) => (
@@ -216,22 +235,25 @@ const StepChallengeCity = () => {
 
             {/* CTA */}
             <div className="p-8 rounded-2xl border border-border bg-card/40 backdrop-blur-sm text-center">
-              <p className="text-foreground font-semibold text-lg mb-4">
-                Ready to join the step challenge in {cityData.name}?
+              <p className="text-foreground font-semibold text-lg mb-2">
+                Join a step challenge in {cityData.name} with Rivlo
+              </p>
+              <p className="text-sm text-muted-foreground mb-5">
+                Free step tracking, leaderboards, and challenges — no subscription required.
               </p>
               <button
                 onClick={redirectToStore}
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105"
               >
                 <Download className="w-4 h-4" />
-                Track Your Steps with Rivlo
+                Get Rivlo Free
               </button>
             </div>
           </div>
         </section>
 
         {/* FAQ */}
-        <section className="py-16 lg:py-20 bg-card/30">
+        <section className="py-16 lg:py-20">
           <div className="container mx-auto px-6 max-w-3xl">
             <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-6">
               Frequently Asked Questions
@@ -253,14 +275,45 @@ const StepChallengeCity = () => {
           </div>
         </section>
 
+        {/* Cross-linked city pages */}
+        {linkedCityData.length > 0 && (
+          <section className="py-16 lg:py-20 bg-card/30">
+            <div className="container mx-auto px-6 max-w-3xl">
+              <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-6">
+                Step Challenges Near {cityData.name}
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Explore step challenges in other cities and see how {cityData.name} walkers compare:
+              </p>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {linkedCityData.map((c) => c && (
+                  <Link
+                    key={c.slug}
+                    to={`/step-challenge/${c.slug}/`}
+                    className="group rounded-xl border border-border bg-card/40 p-5 hover:border-primary/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <MapPin className="w-4 h-4 text-primary" />
+                      <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">
+                        Step Challenge in {c.name}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{c.intro.slice(0, 120)}…</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Other cities */}
         <section className="py-16 lg:py-20">
           <div className="container mx-auto px-6 max-w-3xl">
             <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-6">
-              Step Challenges in Other Cities
+              More Step Challenge Cities
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
-              {otherCities.map((c) => (
+              {remainingCities.map((c) => (
                 <Link
                   key={c.slug}
                   to={`/step-challenge/${c.slug}/`}
