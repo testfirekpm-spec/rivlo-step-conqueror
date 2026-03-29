@@ -20,9 +20,12 @@ const BlogLayout = ({ post, faqSchema, children }: BlogLayoutProps) => {
   return (
     <>
       <Helmet>
-        <title>{post.title} — Rivlo Blog</title>
+        <title>{post.title.length > 47 ? post.title.slice(0, 47) + '…' : post.title} | Rivlo</title>
         <meta name="description" content={post.metaDescription} />
         <link rel="canonical" href={`https://rivlo.3bytes.org/blog/${post.slug}/`} />
+        <meta property="og:title" content={`${post.title} | Rivlo`} />
+        <meta property="og:description" content={post.metaDescription} />
+        <meta property="og:url" content={`https://rivlo.3bytes.org/blog/${post.slug}/`} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">
           {JSON.stringify({

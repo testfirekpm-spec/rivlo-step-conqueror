@@ -38,7 +38,7 @@ const Leaderboard = () => {
   return (
     <main className="min-h-screen bg-background">
       <Helmet>
-        <title>Fitness Leaderboard App — Compete & Track Steps | Rivlo</title>
+        <title>Fitness Leaderboard App — Track Steps | Rivlo</title>
         <meta name="description" content="Rivlo is the #1 fitness leaderboard app. Track steps, compete on global rankings, and stay motivated with a step tracker with leaderboard features." />
         <link rel="canonical" href="https://rivlo.3bytes.org/leaderboard/" />
         <meta property="og:title" content="Fitness Leaderboard App — Compete & Track Steps | Rivlo" />
