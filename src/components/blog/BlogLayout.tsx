@@ -74,8 +74,11 @@ const BlogLayout = ({ post, faqSchema, children }: BlogLayoutProps) => {
 
             {/* CTA */}
             <div className="mt-16 p-8 rounded-2xl border border-border bg-card/40 backdrop-blur-sm text-center">
-              <p className="text-foreground font-semibold text-lg mb-4">
-                Ready to start tracking your steps?
+              <p className="text-foreground font-semibold text-lg mb-2">
+                Track your steps with Rivlo — the best step counter app
+              </p>
+              <p className="text-sm text-muted-foreground mb-5">
+                Free step tracking, leaderboards, and challenges. No subscription required.
               </p>
               <button
                 onClick={redirectToStore}
