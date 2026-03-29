@@ -6,7 +6,7 @@
   <url><loc>https://rivlo.3bytes.org/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://rivlo.3bytes.org/terms/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://rivlo.3bytes.org/leaderboard/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://rivlo.3bytes.org/milestones/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://rivlo.3bytes.org/milestones/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://rivlo.3bytes.org/best-step-counter-app/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://rivlo.3bytes.org/fitness-challenge-app/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://rivlo.3bytes.org/compare/rivlo-vs-pacer/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
