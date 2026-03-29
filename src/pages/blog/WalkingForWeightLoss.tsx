@@ -42,7 +42,11 @@ const BlogPostWeightLoss = () => (
       Walking is the most underrated weight loss tool on the planet. While fitness influencers
       push HIIT workouts and complex gym routines, research consistently shows that
       <strong> daily walking</strong> produces more sustainable weight loss results for the
-      majority of people — with virtually zero injury risk.
+      majority of people — with virtually zero injury risk. Pairing your walks with a{" "}
+      <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">
+        reliable step counter app
+      </Link>{" "}
+      ensures you hit the daily thresholds that actually move the needle on the scale.
     </p>
     <p>
       The catch? You need to walk <em>enough</em>, and you need to do it <em>consistently</em>.
@@ -166,6 +170,18 @@ const BlogPostWeightLoss = () => (
       For weight loss, aim for a "brisk" pace — fast enough that you're breathing harder but
       can still hold a conversation. This corresponds to roughly 100–130 steps per minute,
       which you can easily monitor with any good pedometer app.
+    </p>
+
+    <h2>Add Accountability with Leaderboards</h2>
+    <p>
+      One of the most effective weight loss strategies is making your progress visible to others. When you track your steps on a{" "}
+      <Link to="/leaderboard/" className="text-primary hover:underline font-medium">
+        fitness leaderboard
+      </Link>
+      , you add a layer of social accountability that solo tracking simply can't replicate. Rivlo's daily and weekly leaderboards rank you against friends and global walkers, creating gentle competitive pressure that keeps you walking even on days when motivation is low.
+    </p>
+    <p>
+      Studies show that people who share fitness progress with a community lose 20% more weight than those who track privately. The visibility isn't about judgment — it's about commitment. When others can see your step count, you're far less likely to skip that evening walk. Combined with the calorie-burning benefits of consistent daily steps, leaderboard accountability can be the difference between a short-lived diet attempt and lasting weight loss.
     </p>
 
     <h2>Frequently Asked Questions</h2>

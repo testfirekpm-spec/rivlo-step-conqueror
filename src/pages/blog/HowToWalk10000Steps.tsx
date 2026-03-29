@@ -42,7 +42,12 @@ const BlogPost10kSteps = () => (
       The 10,000-step goal has become the gold standard of daily fitness. It's the number on
       every <strong>step counter app</strong>, the default on every fitness tracker, and the target
       your doctor mentions at every checkup. But here's the reality: most people fall short by
-      3,000–4,000 steps every single day.
+      3,000–4,000 steps every single day. If you're looking for the right tool to close that gap,
+      a{" "}
+      <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">
+        best-in-class step counter app
+      </Link>{" "}
+      can make the difference between knowing your goal and actually reaching it.
     </p>
     <p>
       The problem isn't willpower — it's strategy. Hitting 10,000 steps consistently requires
@@ -203,8 +208,19 @@ const BlogPost10kSteps = () => (
     </ul>
     <p>
       Rivlo combines all five of these features in a free app with no subscription required.
-      Whether you're competing against friends on the leaderboard or chasing your personal
-      best streak, the app keeps you moving when motivation alone falls short.
+      Whether you're competing against friends on the{" "}
+      <Link to="/leaderboard/" className="text-primary hover:underline font-medium">
+        fitness leaderboard
+      </Link>{" "}
+      or chasing your personal best streak, the app keeps you moving when motivation alone falls short.
+    </p>
+
+    <h2>Make Every Step Count Toward Something Bigger</h2>
+    <p>
+      Walking 10,000 steps a day isn't just about daily fitness — it's about building momentum toward long-term health. When you track your steps with Rivlo, every walk contributes to cumulative milestones that celebrate your progress over weeks, months, and years. From your first 10K-step day to reaching 100,000 lifetime steps, the milestone system gives your daily habit a sense of purpose that basic pedometers can't match.
+    </p>
+    <p>
+      The walkers who succeed long-term aren't the ones with the most discipline. They're the ones with the best systems — a reliable step counter, a community to compete with, and goals that grow with them. Start with 10,000 steps today, and let the app handle the rest.
     </p>
 
     <h2>Frequently Asked Questions</h2>

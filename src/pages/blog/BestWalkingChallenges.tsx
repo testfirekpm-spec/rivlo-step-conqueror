@@ -42,7 +42,11 @@ const BlogPostGroupChallenges = () => (
       Walking challenges are the fastest-growing trend in workplace wellness and social fitness.
       And for good reason — they combine the simplicity of walking with the motivational power
       of competition, creating an activity that's accessible to everyone regardless of fitness
-      level.
+      level. To get the most out of any challenge, start with a{" "}
+      <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">
+        top-rated step counter app
+      </Link>{" "}
+      that tracks every participant's progress automatically.
     </p>
     <p>
       Whether you're organizing a challenge for your office, friend group, or online community,
@@ -168,6 +172,18 @@ const BlogPostGroupChallenges = () => (
       The bottom line: walking challenges aren't just fun — they produce measurable, lasting
       improvements in physical activity. The competitive element transforms walking from
       something you "should" do into something you <em>want</em> to do.
+    </p>
+
+    <h2>Track Challenge Results on the Leaderboard</h2>
+    <p>
+      The best part of any walking challenge is seeing where you stand. Rivlo's{" "}
+      <Link to="/leaderboard/" className="text-primary hover:underline font-medium">
+        real-time fitness leaderboard
+      </Link>{" "}
+      ranks every participant by daily and weekly step totals, creating a live scoreboard that drives engagement throughout the challenge. Unlike apps that only show results at the end, Rivlo updates rankings continuously — so participants always know exactly how many steps they need to take the lead.
+    </p>
+    <p>
+      For team challenges, the leaderboard aggregates individual contributions into team scores, making it easy to see which department or friend group is winning. This real-time visibility is what separates high-engagement challenges (80%+ completion) from ones that fizzle out after the first few days. When you can see your rival pulling ahead at 3 PM, you'll find a reason to take the stairs.
     </p>
 
     <h2>Frequently Asked Questions</h2>
