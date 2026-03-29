@@ -105,7 +105,9 @@ const Terms = () => {
               <h2 className="text-xl font-bold text-foreground font-grotesk mb-3">Related Pages</h2>
               <ul className="space-y-2">
                 <li><Link to="/privacy/" className="text-primary hover:underline font-medium">Privacy Policy</Link> — How we protect your data.</li>
-                <li><Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">Fitness Challenge App</Link> — Explore Rivlo's competitive features.</li>
+                <li><Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">Best step counter app</Link> — See why Rivlo is the top-rated pedometer.</li>
+                <li><Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">Fitness challenge app</Link> — Explore Rivlo's competitive features.</li>
+                <li><Link to="/leaderboard/" className="text-primary hover:underline font-medium">Walking competition app</Link> — Compete on global leaderboards.</li>
                 <li><Link to="/blog/" className="text-primary hover:underline font-medium">Rivlo Blog</Link> — Walking tips and challenge guides.</li>
               </ul>
             </section>

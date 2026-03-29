@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Footer from "@/components/Footer";
 
@@ -18,6 +18,15 @@ const NotFound = () => {
           <a href="/" className="text-primary underline hover:text-primary/90">
             Return to Home
           </a>
+          <div className="mt-6 text-sm text-muted-foreground space-y-2">
+            <p>Try one of these popular pages:</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">Best Step Counter App</Link>
+              <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">Fitness Challenge App</Link>
+              <Link to="/leaderboard/" className="text-primary hover:underline font-medium">Leaderboard</Link>
+              <Link to="/blog/" className="text-primary hover:underline font-medium">Blog</Link>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

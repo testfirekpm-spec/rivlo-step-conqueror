@@ -64,6 +64,20 @@ const BlogIndex = () => (
               </Link>
             ))}
           </div>
+
+          <div className="mt-16 rounded-xl border border-border bg-card/50 p-6">
+            <h2 className="text-lg font-bold text-foreground font-grotesk mb-3">Explore More</h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Discover the{" "}
+              <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">best step counter app</Link>{" "}
+              for tracking your daily walks, explore our{" "}
+              <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">fitness challenge app</Link>{" "}
+              features for team competitions, or see how Rivlo works as a{" "}
+              <Link to="/leaderboard/" className="text-primary hover:underline font-medium">walking competition app</Link>{" "}
+              with real-time leaderboards. Set personal goals with our{" "}
+              <Link to="/milestones/" className="text-primary hover:underline font-medium">step goals tracker</Link>.
+            </p>
+          </div>
         </div>
       </section>
     </main>
