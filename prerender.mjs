@@ -57,11 +57,31 @@ async function prerender() {
 
       let finalHtml = template;
 
-      // Replace the pre-render spinner + noscript block with actual content
-      finalHtml = finalHtml.replace(
-        /<div id="root">[\s\S]*?<\/div>\s*<\/div>/,
-        `<div id="root">${appHtml}</div>`
+      // Replace everything inside <div id="root">...</div> (the outermost root div)
+      // Match from <div id="root"> to the last </div> before <style> or <script
+      const rootStart = finalHtml.indexOf('<div id="root">');
+      const afterRoot = finalHtml.indexOf('</div>', rootStart);
+      // Find the matching closing </div> for root - scan for the noscript end
+      const scriptTag = finalHtml.indexOf('<script type="module"');
+      const styleTag = finalHtml.indexOf('<style>@keyframes');
+      const boundary = Math.min(
+        scriptTag > -1 ? scriptTag : Infinity,
+        styleTag > -1 ? styleTag : Infinity
       );
+      // Find last </div> before boundary
+      let lastDivEnd = -1;
+      let searchPos = rootStart;
+      while (true) {
+        const pos = finalHtml.indexOf('</div>', searchPos);
+        if (pos === -1 || pos >= boundary) break;
+        lastDivEnd = pos + 6;
+        searchPos = pos + 6;
+      }
+      if (rootStart > -1 && lastDivEnd > -1) {
+        finalHtml = finalHtml.substring(0, rootStart) +
+          `<div id="root">${appHtml}</div>` +
+          finalHtml.substring(lastDivEnd);
+      }
 
       // Inject helmet head tags before </head>
       if (headTags) {
