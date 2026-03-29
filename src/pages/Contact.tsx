@@ -10,8 +10,11 @@ const Contact = () => {
     <main className="bg-background min-h-screen">
       <Helmet>
         <title>Contact Rivlo — Get in Touch with Our Team</title>
-        <meta name="description" content="Have a question or partnership idea? Contact the Rivlo team. We typically respond within 24–48 hours." />
+        <meta name="description" content="Have a question or partnership idea? Contact the Rivlo team. We typically respond within 24–48 hours via email." />
         <link rel="canonical" href="https://rivlo.3bytes.org/contact/" />
+        <meta property="og:title" content="Contact Rivlo — Get in Touch" />
+        <meta property="og:description" content="Have a question or partnership idea? Contact the Rivlo team." />
+        <meta property="og:url" content="https://rivlo.3bytes.org/contact/" />
       </Helmet>
       <Navbar />
 

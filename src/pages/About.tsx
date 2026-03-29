@@ -36,9 +36,12 @@ const About = () => {
   return (
     <main className="bg-background min-h-screen">
       <Helmet>
-        <title>About Rivlo — The Gamified Step Counter App by 3Bytes</title>
+        <title>About Rivlo — The Gamified Step Counter App</title>
         <meta name="description" content="Learn about Rivlo, the gamified step counter app built by 3Bytes. Our mission is to make fitness social, competitive, and genuinely fun." />
         <link rel="canonical" href="https://rivlo.3bytes.org/about/" />
+        <meta property="og:title" content="About Rivlo — The Gamified Step Counter App" />
+        <meta property="og:description" content="Rivlo is more than a pedometer — it's a global arena where every step earns rank, trophies, and glory." />
+        <meta property="og:url" content="https://rivlo.3bytes.org/about/" />
       </Helmet>
       <Navbar />
 

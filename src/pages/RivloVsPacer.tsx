@@ -81,12 +81,15 @@ const RivloVsPacer = () => {
   return (
     <>
       <Helmet>
-        <title>Rivlo vs Pacer: Which Step Counter App Is Better? (2026 Comparison)</title>
+        <title>Rivlo vs Pacer: Best Step Counter App (2026)</title>
         <meta
           name="description"
-          content="Rivlo vs Pacer — a detailed comparison of features, gamification, social tools, and pricing. See why Rivlo is the better step counter app for competitions and challenges."
+          content="Rivlo vs Pacer — detailed comparison of features, gamification, social tools, and pricing. See why Rivlo is the better step counter app."
         />
         <link rel="canonical" href="https://rivlo.3bytes.org/compare/rivlo-vs-pacer/" />
+        <meta property="og:title" content="Rivlo vs Pacer: Best Step Counter App (2026)" />
+        <meta property="og:description" content="Feature-by-feature comparison of Rivlo and Pacer step counter apps. See which wins for competitions." />
+        <meta property="og:url" content="https://rivlo.3bytes.org/compare/rivlo-vs-pacer/" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

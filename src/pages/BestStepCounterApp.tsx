@@ -60,12 +60,15 @@ const BestStepCounterApp = () => {
   return (
     <>
       <Helmet>
-        <title>Best Step Counter App (2026) — Rivlo | Free Pedometer & Step Tracker</title>
+        <title>Best Step Counter App (2026) — Free Pedometer | Rivlo</title>
         <meta
           name="description"
-          content="Looking for the best step counter app in 2026? Rivlo is a free pedometer app with leaderboards, challenges, clubs & achievements. Compare top step tracker apps."
+          content="Looking for the best step counter app? Rivlo is a free pedometer with leaderboards, challenges, clubs, and achievements. Compare top step trackers."
         />
         <link rel="canonical" href="https://rivlo.3bytes.org/best-step-counter-app/" />
+        <meta property="og:title" content="Best Step Counter App (2026) | Rivlo" />
+        <meta property="og:description" content="Free pedometer with leaderboards, challenges, and achievements. Compare top step tracker apps." />
+        <meta property="og:url" content="https://rivlo.3bytes.org/best-step-counter-app/" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
