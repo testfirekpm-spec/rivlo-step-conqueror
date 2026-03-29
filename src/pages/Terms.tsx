@@ -9,8 +9,10 @@ const Terms = () => {
     <main className="bg-background min-h-screen">
       <Helmet>
         <title>Terms of Service — Rivlo Step Counter App</title>
-        <meta name="description" content="Read Rivlo's terms of service. Understand the rules and guidelines for using the Rivlo step counter app." />
+        <meta name="description" content="Read Rivlo's terms of service. Understand the rules and guidelines for using the Rivlo step counter and fitness app." />
         <link rel="canonical" href="https://rivlo.3bytes.org/terms/" />
+        <meta property="og:title" content="Terms of Service — Rivlo" />
+        <meta property="og:url" content="https://rivlo.3bytes.org/terms/" />
       </Helmet>
       <Navbar />
 

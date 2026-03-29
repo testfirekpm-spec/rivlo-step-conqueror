@@ -9,8 +9,10 @@ const Privacy = () => {
     <main className="bg-background min-h-screen">
       <Helmet>
         <title>Privacy Policy — Rivlo Step Counter App</title>
-        <meta name="description" content="Read Rivlo's privacy policy. Learn how we collect, use, and protect your data in the Rivlo step counter app." />
+        <meta name="description" content="Read Rivlo's privacy policy. Learn how we collect, use, and protect your data in the Rivlo step counter and fitness app." />
         <link rel="canonical" href="https://rivlo.3bytes.org/privacy/" />
+        <meta property="og:title" content="Privacy Policy — Rivlo" />
+        <meta property="og:url" content="https://rivlo.3bytes.org/privacy/" />
       </Helmet>
       <Navbar />
 

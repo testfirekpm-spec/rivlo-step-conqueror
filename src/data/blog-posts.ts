@@ -22,7 +22,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "walking-for-weight-loss",
-    title: "Walking for Weight Loss: How Many Steps Do You Need? (2026)",
+    title: "Walking for Weight Loss: Steps You Need",
     metaDescription: "Discover how walking helps with weight loss, how many steps you need per day, and how a step counter app can accelerate your results.",
     category: "Health & Wellness",
     readTime: "7 min read",

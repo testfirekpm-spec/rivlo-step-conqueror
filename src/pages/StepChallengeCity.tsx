@@ -55,7 +55,7 @@ const StepChallengeCity = () => {
   return (
     <>
       <Helmet>
-        <title>Step Challenge in {cityData.name} — Walk, Compete & Win | Rivlo</title>
+        <title>{`Step Challenge ${cityData.name} — Compete | Rivlo`}</title>
         <meta
           name="description"
           content={`Join the best step challenge in ${cityData.name}. Compete on leaderboards, track your steps, and walk more with Rivlo — the free fitness challenge app for ${cityData.name} walkers.`}
