@@ -26,8 +26,12 @@ const Index = () => {
   return (
     <main className="bg-background">
       <Helmet>
-        <title>Rivlo — Best Step Counter App with Leaderboards &amp; Challenges</title>
-        <meta name="description" content="Rivlo is the #1 gamified step counter app. Compete on leaderboards, challenge friends, track hikes and runs, and unlock achievements — all free." />
+        <title>Rivlo — Step Counter App with Leaderboards</title>
+        <meta name="description" content="Rivlo is the #1 gamified step counter app. Compete on leaderboards, challenge friends, track hikes & runs, and unlock achievements — all free." />
+        <meta property="og:title" content="Rivlo — Step Counter App with Leaderboards" />
+        <meta property="og:description" content="Compete on leaderboards, challenge friends, and unlock achievements with the best free step counter app." />
+        <meta property="og:url" content="https://rivlo.3bytes.org/" />
+        <meta property="og:type" content="website" />
         <link rel="canonical" href="https://rivlo.3bytes.org/" />
         <script type="application/ld+json">
           {JSON.stringify({

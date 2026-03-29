@@ -9,12 +9,15 @@ import BreadcrumbNav from "@/components/BreadcrumbNav";
 const BlogIndex = () => (
   <>
     <Helmet>
-      <title>Rivlo Blog — Step Tracking Tips, Walking Guides & Fitness Challenges</title>
+      <title>Rivlo Blog — Walking Tips & Step Challenges</title>
       <meta
         name="description"
         content="Expert guides on step tracking, walking for fitness, and step challenges. Tips to walk more, lose weight, and compete with friends using Rivlo."
       />
       <link rel="canonical" href="https://rivlo.3bytes.org/blog/" />
+      <meta property="og:title" content="Rivlo Blog — Walking Tips & Step Challenges" />
+      <meta property="og:description" content="Step tracking tips, walking guides, and fitness challenge ideas to help you walk more every day." />
+      <meta property="og:url" content="https://rivlo.3bytes.org/blog/" />
     </Helmet>
 
     <Navbar />

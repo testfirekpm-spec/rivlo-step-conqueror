@@ -430,11 +430,11 @@ const Milestones = () => {
   return (
     <main ref={pageRef} className="min-h-screen bg-background overflow-x-hidden">
       <Helmet>
-        <title>Step Goals Tracker & Fitness Milestones — Set, Track & Achieve | Rivlo</title>
-        <meta name="description" content="Set step goals and track your fitness milestones with Rivlo — the fitness goals app that turns walking into an achievement system. From 10K to 1M steps." />
+        <title>Step Goals Tracker & Fitness Milestones | Rivlo</title>
+        <meta name="description" content="Set step goals and track fitness milestones with Rivlo — the fitness goals app that turns walking into an achievement system. From 10K to 1M steps." />
         <link rel="canonical" href="https://rivlo.3bytes.org/milestones/" />
         <meta property="og:title" content="Step Goals Tracker & Fitness Milestones | Rivlo" />
-        <meta property="og:description" content="Set step goals and track your fitness milestones with Rivlo. From 10K to 1M steps — celebrate every achievement." />
+        <meta property="og:description" content="Set step goals, track milestones, and unlock achievements. Turn walking into a game with Rivlo." />
         <meta property="og:url" content="https://rivlo.3bytes.org/milestones/" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

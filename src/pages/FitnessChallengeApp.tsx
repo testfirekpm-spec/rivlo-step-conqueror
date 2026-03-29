@@ -51,12 +51,15 @@ const FitnessChallengeApp = () => {
   return (
     <>
       <Helmet>
-        <title>Best Fitness Challenge App for Walking & Steps (2026) — Rivlo</title>
+        <title>Fitness Challenge App for Steps & Walking | Rivlo</title>
         <meta
           name="description"
-          content="Find the best fitness challenge app for step competitions, walking challenges, and leaderboard races. Rivlo offers free 1v1 duels, club battles, and season challenges."
+          content="Find the best fitness challenge app for step competitions and walking challenges. Rivlo offers free 1v1 duels, club battles, and season challenges."
         />
         <link rel="canonical" href="https://rivlo.3bytes.org/fitness-challenge-app/" />
+        <meta property="og:title" content="Fitness Challenge App for Steps & Walking | Rivlo" />
+        <meta property="og:description" content="Free step competitions, 1v1 duels, club battles, and season challenges. Start competing today." />
+        <meta property="og:url" content="https://rivlo.3bytes.org/fitness-challenge-app/" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
