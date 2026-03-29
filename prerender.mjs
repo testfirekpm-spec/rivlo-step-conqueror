@@ -83,9 +83,25 @@ async function prerender() {
           finalHtml.substring(lastDivEnd);
       }
 
-      // Inject helmet head tags before </head>
-      if (headTags) {
-        finalHtml = finalHtml.replace("</head>", `    ${headTags}\n  </head>`);
+      // If helmet provides a title, replace the default <title> in template
+      const helmetTitle = helmet?.title?.toString() || "";
+      if (helmetTitle) {
+        finalHtml = finalHtml.replace(
+          /<title>[^<]*<\/title>/,
+          helmetTitle
+        );
+      }
+
+      // Inject remaining helmet head tags before </head>
+      const otherHeadTags = [
+        helmet?.meta?.toString() || "",
+        helmet?.link?.toString() || "",
+        helmet?.script?.toString() || "",
+      ]
+        .filter(Boolean)
+        .join("\n    ");
+      if (otherHeadTags) {
+        finalHtml = finalHtml.replace("</head>", `    ${otherHeadTags}\n  </head>`);
       }
 
       // Write to the correct path
