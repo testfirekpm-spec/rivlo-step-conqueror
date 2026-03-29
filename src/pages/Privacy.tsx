@@ -108,7 +108,8 @@ const Privacy = () => {
               <h2 className="text-xl font-bold text-foreground font-grotesk mb-3">Related Pages</h2>
               <ul className="space-y-2">
                 <li><Link to="/terms/" className="text-primary hover:underline font-medium">Terms of Service</Link> — Review the rules for using Rivlo.</li>
-                <li><Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">Best Step Counter App</Link> — See why Rivlo leads the category.</li>
+                <li><Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">Best step counter app</Link> — See why Rivlo leads the category.</li>
+                <li><Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">Fitness challenge app</Link> — Explore walking competitions and team challenges.</li>
                 <li><Link to="/about/" className="text-primary hover:underline font-medium">About Rivlo</Link> — Learn about our mission and team.</li>
               </ul>
             </section>
