@@ -22,7 +22,7 @@ const faqData = [
   },
   {
     q: "What devices does Rivlo support?",
-    a: "Rivlo is available on iPhone and Apple Watch. It integrates with Apple Health to pull step data from any connected wearable, including Garmin, Fitbit, and Whoop devices that sync to Health.",
+    a: "Rivlo is available on iPhone, Apple Watch, and Android phones. On iOS, it integrates with Apple Health to pull step data from connected wearables including Garmin, Fitbit, and Whoop. On Android, it integrates with Google Fit and the built-in step sensor. No smartwatch is required — your smartphone's motion sensor handles step counting on its own.",
   },
   {
     q: "How is Rivlo different from other step counters?",
