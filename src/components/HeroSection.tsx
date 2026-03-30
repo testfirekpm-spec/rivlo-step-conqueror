@@ -8,9 +8,9 @@ const FloatingLeaderboardCard = lazy(() => import("./FloatingLeaderboardCard"));
 const StepCounterRing = lazy(() => import("./StepCounterRing"));
 const FloatingTrophy = lazy(() => import("./FloatingTrophy"));
 
-// Lazy-load icons to keep them out of the main bundle
-const Trophy = lazy(() => import("lucide-react").then(m => ({ default: m.Trophy })));
-const ChevronRight = lazy(() => import("lucide-react").then(m => ({ default: m.ChevronRight })));
+// Lazy-load icons via direct path imports
+const Trophy = lazy(() => import("lucide-react/dist/esm/icons/trophy"));
+const ChevronRight = lazy(() => import("lucide-react/dist/esm/icons/chevron-right"));
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
