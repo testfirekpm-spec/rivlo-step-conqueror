@@ -61,7 +61,7 @@ const BlogLayout = ({ post, faqSchema, articleSchema, children }: BlogLayoutProp
       <main className="bg-background text-foreground">
         <article className="pt-32 pb-20 lg:pt-40 lg:pb-28">
           <div className="container mx-auto px-6 max-w-3xl">
-            <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog/" }, { label: post.title }]} />
+            <BreadcrumbNav items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog/" }, { label: post.title }]} renderSchema={false} />
 
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-muted-foreground">

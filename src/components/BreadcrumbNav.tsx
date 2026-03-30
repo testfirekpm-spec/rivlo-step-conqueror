@@ -8,6 +8,7 @@ export interface BreadcrumbItem {
 
 interface BreadcrumbNavProps {
   items: BreadcrumbItem[];
+  renderSchema?: boolean;
 }
 
 const breadcrumbSchema = (items: BreadcrumbItem[]) => ({
@@ -21,12 +22,14 @@ const breadcrumbSchema = (items: BreadcrumbItem[]) => ({
   })),
 });
 
-const BreadcrumbNav = ({ items }: BreadcrumbNavProps) => (
+const BreadcrumbNav = ({ items, renderSchema = true }: BreadcrumbNavProps) => (
   <>
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(items)) }}
-    />
+    {renderSchema && (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(items)) }}
+      />
+    )}
     <nav aria-label="Breadcrumb" className="mb-6">
       <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
         {items.map((item, i) => (
