@@ -76,6 +76,46 @@ const Index = () => {
             description: "Free gamified step counter app with leaderboards, challenges, and achievements. Track steps, compete globally, and earn badges without a subscription. Available on iOS and Android.",
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Is Rivlo free to download?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, Rivlo is completely free to download and use on iOS and Android. There is no subscription required to access leaderboards, step challenges, or achievement badges."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is Rivlo available on iPhone and Android?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes! Rivlo is available for free on both iOS (iPhone and Apple Watch) and Android. Download it from the App Store or Google Play — no subscription required."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I compete with friends on Rivlo?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes! Rivlo features both global leaderboards and friend-specific leaderboards. You can send 1v1 step challenges, join group competitions, and participate in seasonal events with people from around the world."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does Rivlo count steps?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Rivlo uses your smartphone's built-in accelerometer and motion sensor to accurately count steps. It runs in the background so you never miss a step, even when your phone is in your pocket."
+                }
+              }
+            ]
+          })}
+        </script>
       </Helmet>
       <Suspense fallback={null}>
         <ScrollProgress />
