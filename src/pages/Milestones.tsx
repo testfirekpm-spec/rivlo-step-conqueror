@@ -437,6 +437,7 @@ const Milestones = () => {
         <meta property="og:description" content="Set step goals, track milestones, and unlock achievements. Turn walking into a game with Rivlo." />
         <meta property="og:url" content="https://rivlo.3bytes.org/milestones/" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

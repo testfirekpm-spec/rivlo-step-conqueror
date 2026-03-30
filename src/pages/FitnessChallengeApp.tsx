@@ -61,6 +61,8 @@ const FitnessChallengeApp = () => {
         <meta property="og:title" content="Fitness Challenge App for Steps & Walking | Rivlo" />
         <meta property="og:description" content="Free step competitions, 1v1 duels, club battles, and season challenges. Start competing today." />
         <meta property="og:url" content="https://rivlo.3bytes.org/fitness-challenge-app/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
