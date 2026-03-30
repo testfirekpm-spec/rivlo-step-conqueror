@@ -105,6 +105,7 @@ const VideoShowcaseSection = () => {
             <video
               ref={videoRef}
               className="w-full aspect-video object-cover"
+              poster="/og-image.png"
               playsInline
               muted
               preload="none"
