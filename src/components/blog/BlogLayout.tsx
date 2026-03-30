@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Download } from "lucide-react";
 import { redirectToStore } from "@/lib/store-redirect";
+import StoreButtons from "@/components/StoreButtons";
 import { BlogPost, getRelatedPosts } from "@/data/blog-posts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -83,13 +84,7 @@ const BlogLayout = ({ post, faqSchema, children }: BlogLayoutProps) => {
               <p className="text-sm text-muted-foreground mb-5">
                 Free step tracking, leaderboards, and challenges. No subscription required.
               </p>
-              <button
-                onClick={redirectToStore}
-                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gold text-gold-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-              >
-                <Download className="w-4 h-4" />
-                Download Rivlo Free
-              </button>
+              <StoreButtons variant="compact" />
             </div>
           </div>
         </article>
