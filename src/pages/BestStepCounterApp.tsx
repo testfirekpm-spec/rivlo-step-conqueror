@@ -198,7 +198,7 @@ const BestStepCounterApp = () => {
 
             <p className="mt-10 text-muted-foreground leading-relaxed">
               If you're specifically interested in walking for fitness and competition, check out our guide to the
-              best <Link to="/walking-app/" className="text-primary hover:underline font-medium">walking app</Link> options
+              best <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">walking app</Link> options
               available today. For those who love group challenges, our{" "}
               <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">fitness challenge app</Link>{" "}
               roundup covers the most engaging competitive features in detail. You can also see how Rivlo's{" "}
@@ -345,9 +345,9 @@ const BestStepCounterApp = () => {
 
               <p className="mt-8">
                 If you prefer a broader fitness tracking experience, you might also want to explore our picks for the
-                best <Link to="/pedometer-app/" className="text-primary hover:underline font-medium">pedometer app</Link> options.
+                best <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">pedometer app</Link> options.
                 For runners who also want step tracking, our{" "}
-                <Link to="/walking-app/" className="text-primary hover:underline font-medium">walking app</Link>{" "}
+                <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">walking app</Link>{" "}
                 guide covers hybrid options. And don't miss our deep dive into{" "}
                 <Link to="/blog/how-to-walk-10000-steps-a-day/" className="text-primary hover:underline font-medium">how to walk 10,000 steps every day</Link>{" "}
                 for practical strategies that pair perfectly with Rivlo's tracking.
@@ -411,9 +411,9 @@ const BestStepCounterApp = () => {
 
             <div className="mt-12 flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
               <span>Related guides:</span>
-              <Link to="/pedometer-app/" className="text-primary hover:underline font-medium">Pedometer App</Link>
+              <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">Pedometer App</Link>
               <span>·</span>
-              <Link to="/walking-app/" className="text-primary hover:underline font-medium">Walking App</Link>
+              <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">Walking App</Link>
               <span>·</span>
               <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">Fitness Challenge App</Link>
             </div>
