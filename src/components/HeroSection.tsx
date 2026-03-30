@@ -1,6 +1,7 @@
 import { useEffect, useRef, lazy, Suspense } from "react";
 const HomeScreenImg = "/Home.webp";
 import { redirectToStore } from "@/lib/store-redirect";
+import StoreButtons from "@/components/StoreButtons";
 
 const ParticleBackground = lazy(() => import("./ParticleBackground"));
 const FloatingLeaderboardCard = lazy(() => import("./FloatingLeaderboardCard"));
@@ -119,24 +120,15 @@ const HeroSection = () => {
             </p>
 
             <div
-              className="flex flex-wrap gap-4 mt-2"
+              className="flex flex-col gap-4 mt-2"
               style={{
                 animation: "fade-in-up 0.8s ease-out 0.3s backwards",
               }}
             >
-              <button
-                onClick={redirectToStore}
-                className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gold text-gold-foreground font-bold text-sm transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold-lg)]"
-              >
-                <Suspense fallback={<span className="w-5 h-5" />}>
-                  <Trophy className="w-5 h-5" />
-                </Suspense>
-                Start Your Journey
-              </button>
-
+              <StoreButtons />
               <button
                 onClick={() => document.querySelector("#how-it-works")?.scrollIntoView({ behavior: "smooth" })}
-                className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-foreground font-semibold text-sm transition-all duration-300 hover:bg-white/5 hover:border-white/25 hover:scale-105"
+                className="group flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/15 text-foreground font-semibold text-sm transition-all duration-300 hover:bg-white/5 hover:border-white/25 hover:scale-105 w-fit"
               >
                 See How It Works
                 <Suspense fallback={<span className="w-4 h-4" />}>

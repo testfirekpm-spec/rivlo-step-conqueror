@@ -1,6 +1,6 @@
 import { Trophy } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { redirectToStore } from "@/lib/store-redirect";
+import StoreButtons from "@/components/StoreButtons";
 
 const CTASection = () => {
   const { ref, isVisible } = useScrollReveal();
@@ -29,14 +29,8 @@ const CTASection = () => {
         <p className="mt-2 text-sm text-muted-foreground">
           Available on iOS & Android
         </p>
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
-          <button
-            onClick={redirectToStore}
-            className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-          >
-            <Trophy className="w-5 h-5" />
-            Start Your Journey
-          </button>
+        <div className="mt-10 flex flex-col items-center gap-5">
+          <StoreButtons />
           <p className="text-sm text-muted-foreground">
             Free to download · No credit card required
           </p>

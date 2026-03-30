@@ -6,7 +6,7 @@ const steps = [
     icon: Download,
     number: "01",
     title: "Download Rivlo",
-    description: "Grab the app from the App Store. Setup takes less than 30 seconds.",
+    description: "Grab the app from the App Store or Google Play. Setup takes less than 30 seconds.",
   },
   {
     icon: Footprints,

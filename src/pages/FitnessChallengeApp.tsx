@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Trophy, Users, Flame, Timer, Target, Medal, Download, Swords, BarChart3 } from "lucide-react";
 import { redirectToStore } from "@/lib/store-redirect";
+import StoreButtons from "@/components/StoreButtons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
@@ -451,14 +452,8 @@ const FitnessChallengeApp = () => {
             <p className="mt-6 text-muted-foreground text-lg max-w-md mx-auto">
               Download Rivlo, challenge a friend, and see who takes more steps this week. It's free.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
-              <button
-                onClick={redirectToStore}
-                className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-              >
-              <Swords className="w-5 h-5" />
-                Join a Live Step Challenge with Rivlo
-              </button>
+            <div className="mt-10 flex flex-col items-center gap-5">
+              <StoreButtons />
               <p className="text-sm text-muted-foreground">
                 Free on iOS & Android · No subscription required
               </p>

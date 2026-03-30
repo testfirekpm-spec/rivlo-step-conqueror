@@ -515,7 +515,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
 
         {/* Footer */}
         <div className={`text-center ${exportMode ? "mt-auto pt-6" : "mt-6"}`}>
-          <p className="text-[9px] tracking-wider text-muted-foreground/30">rivlo.app · Download on the App Store</p>
+          <p className="text-[9px] tracking-wider text-muted-foreground/30">rivlo.app · Download on the App Store & Google Play</p>
         </div>
       </div>
     </div>
