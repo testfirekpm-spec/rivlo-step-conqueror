@@ -43,6 +43,17 @@ const BlogLayout = ({ post, faqSchema, articleSchema, children }: BlogLayoutProp
             })}
           </script>
         )}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://rivlo.3bytes.org/" },
+              { "@type": "ListItem", position: 2, name: "Blog", item: "https://rivlo.3bytes.org/blog/" },
+              { "@type": "ListItem", position: 3, name: post.title, item: `https://rivlo.3bytes.org/blog/${post.slug}/` },
+            ],
+          })}
+        </script>
       </Helmet>
 
       <Navbar />
