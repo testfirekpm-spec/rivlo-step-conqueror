@@ -92,9 +92,19 @@ async function prerender() {
         );
       }
 
+      // Replace template meta description with helmet's version
+      const helmetMeta = helmet?.meta?.toString() || "";
+      if (helmetMeta) {
+        // Remove template meta description so helmet's takes over
+        finalHtml = finalHtml.replace(
+          /<meta name="description"[^>]*>/,
+          ""
+        );
+      }
+
       // Inject remaining helmet head tags before </head>
       const otherHeadTags = [
-        helmet?.meta?.toString() || "",
+        helmetMeta,
         helmet?.link?.toString() || "",
         helmet?.script?.toString() || "",
       ]
