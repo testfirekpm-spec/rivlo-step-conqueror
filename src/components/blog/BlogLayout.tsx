@@ -12,10 +12,11 @@ import BreadcrumbNav from "@/components/BreadcrumbNav";
 interface BlogLayoutProps {
   post: BlogPost;
   faqSchema: object;
+  articleSchema?: object;
   children: React.ReactNode;
 }
 
-const BlogLayout = ({ post, faqSchema, children }: BlogLayoutProps) => {
+const BlogLayout = ({ post, faqSchema, articleSchema, children }: BlogLayoutProps) => {
   const related = getRelatedPosts(post.slug);
 
   return (
@@ -28,16 +29,20 @@ const BlogLayout = ({ post, faqSchema, children }: BlogLayoutProps) => {
         <meta property="og:description" content={post.metaDescription} />
         <meta property="og:url" content={`https://rivlo.3bytes.org/blog/${post.slug}/`} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: post.title,
-            description: post.metaDescription,
-            datePublished: post.date,
-            author: { "@type": "Organization", name: "Rivlo" },
-          })}
-        </script>
+        {articleSchema ? (
+          <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
+        ) : (
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: post.title,
+              description: post.metaDescription,
+              datePublished: post.date,
+              author: { "@type": "Organization", name: "Rivlo" },
+            })}
+          </script>
+        )}
       </Helmet>
 
       <Navbar />
