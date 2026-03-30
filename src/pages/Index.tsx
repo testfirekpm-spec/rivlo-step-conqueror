@@ -47,6 +47,33 @@ const Index = () => {
             founder: { "@type": "Organization", name: "3Bytes" },
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "Rivlo",
+            applicationCategory: "HealthApplication",
+            operatingSystem: ["iOS", "Android"],
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+            },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.8",
+              reviewCount: "1000",
+              bestRating: "5",
+            },
+            url: "https://rivlo.3bytes.org/",
+            downloadUrl: [
+              "https://apps.apple.com/app/rivlo-steps-runs-hikes/id6756506796",
+              "https://play.google.com/store/apps/details?id=com.rivlo.app",
+            ],
+            screenshot: "https://rivlo.3bytes.org/og-image.png",
+            description: "Free gamified step counter app with leaderboards, challenges, and achievements. Track steps, compete globally, and earn badges without a subscription. Available on iOS and Android.",
+          })}
+        </script>
       </Helmet>
       <Suspense fallback={null}>
         <ScrollProgress />
