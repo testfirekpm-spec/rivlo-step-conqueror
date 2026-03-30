@@ -1,4 +1,8 @@
-import { Check, X, Crown, Zap, Trophy } from "lucide-react";
+import Check from "lucide-react/dist/esm/icons/check";
+import X from "lucide-react/dist/esm/icons/x";
+import Crown from "lucide-react/dist/esm/icons/crown";
+import Zap from "lucide-react/dist/esm/icons/zap";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import rivloLogo from "@/assets/logo-rivlo.webp";
 import stravaLogo from "@/assets/logo-strava.webp";

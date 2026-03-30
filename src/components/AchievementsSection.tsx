@@ -1,5 +1,12 @@
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { Trophy, Flame, Mountain, Footprints, Zap, Crown, Target, MapPin } from "lucide-react";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import Flame from "lucide-react/dist/esm/icons/flame";
+import Mountain from "lucide-react/dist/esm/icons/mountain";
+import Footprints from "lucide-react/dist/esm/icons/footprints";
+import Zap from "lucide-react/dist/esm/icons/zap";
+import Crown from "lucide-react/dist/esm/icons/crown";
+import Target from "lucide-react/dist/esm/icons/target";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
 
 const badges = [
   { icon: Footprints, name: "First Steps", desc: "Walk 1,000 steps", color: "from-primary/20 to-primary/5", earned: true },

@@ -1,6 +1,16 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Trophy, Check, X, Download, Star, Swords, Users, Gamepad2, Target, Sparkles, ShieldCheck } from "lucide-react";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import Check from "lucide-react/dist/esm/icons/check";
+import X from "lucide-react/dist/esm/icons/x";
+import Download from "lucide-react/dist/esm/icons/download";
+import Star from "lucide-react/dist/esm/icons/star";
+import Swords from "lucide-react/dist/esm/icons/swords";
+import Users from "lucide-react/dist/esm/icons/users";
+import Gamepad2 from "lucide-react/dist/esm/icons/gamepad-2";
+import Target from "lucide-react/dist/esm/icons/target";
+import Sparkles from "lucide-react/dist/esm/icons/sparkles";
+import ShieldCheck from "lucide-react/dist/esm/icons/shield-check";
 import { redirectToStore } from "@/lib/store-redirect";
 import StoreButtons from "@/components/StoreButtons";
 import Navbar from "@/components/Navbar";

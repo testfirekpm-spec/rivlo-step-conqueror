@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowUp } from "lucide-react";
+import ArrowUp from "lucide-react/dist/esm/icons/arrow-up";
 
 const ScrollProgress = () => {
   const [progress, setProgress] = useState(0);

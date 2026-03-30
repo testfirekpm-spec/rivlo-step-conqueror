@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Trophy, BarChart3, Users, Flame } from "lucide-react";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import BarChart3 from "lucide-react/dist/esm/icons/bar-chart-3";
+import Users from "lucide-react/dist/esm/icons/users";
+import Flame from "lucide-react/dist/esm/icons/flame";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import LeaderboardImg from "@/assets/Leaderboard.webp";
 import InsightsImg from "@/assets/Insights.webp";

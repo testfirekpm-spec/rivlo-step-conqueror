@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import { Users, Trophy, Target, Heart } from "lucide-react";
+import Users from "lucide-react/dist/esm/icons/users";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import Target from "lucide-react/dist/esm/icons/target";
+import Heart from "lucide-react/dist/esm/icons/heart";
 
 const values = [
   {

@@ -1,4 +1,9 @@
-import { Trophy, Users, Target, MapPin, Swords, Flame } from "lucide-react";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import Users from "lucide-react/dist/esm/icons/users";
+import Target from "lucide-react/dist/esm/icons/target";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Swords from "lucide-react/dist/esm/icons/swords";
+import Flame from "lucide-react/dist/esm/icons/flame";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const features = [

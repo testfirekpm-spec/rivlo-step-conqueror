@@ -1,6 +1,17 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Flame, Zap, Gem, Swords, Quote, ChevronDown, Target, TrendingUp, Trophy, CheckCircle, BarChart3 } from "lucide-react";
+import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
+import Flame from "lucide-react/dist/esm/icons/flame";
+import Zap from "lucide-react/dist/esm/icons/zap";
+import Gem from "lucide-react/dist/esm/icons/gem";
+import Swords from "lucide-react/dist/esm/icons/swords";
+import Quote from "lucide-react/dist/esm/icons/quote";
+import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
+import Target from "lucide-react/dist/esm/icons/target";
+import TrendingUp from "lucide-react/dist/esm/icons/trending-up";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import CheckCircle from "lucide-react/dist/esm/icons/check-circle";
+import BarChart3 from "lucide-react/dist/esm/icons/bar-chart-3";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
