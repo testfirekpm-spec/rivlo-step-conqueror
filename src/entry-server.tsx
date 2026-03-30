@@ -32,21 +32,21 @@ export function render(url: string) {
         <StaticRouter location={url}>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="/milestones" element={<Milestones />} />
-            <Route path="/best-step-counter-app" element={<BestStepCounterApp />} />
-            <Route path="/fitness-challenge-app" element={<FitnessChallengeApp />} />
-            <Route path="/compare/rivlo-vs-pacer" element={<RivloVsPacer />} />
-            <Route path="/blog" element={<BlogIndex />} />
-            <Route path="/blog/how-to-walk-10000-steps-a-day" element={<BlogPost10kSteps />} />
-            <Route path="/blog/walking-for-weight-loss" element={<BlogPostWeightLoss />} />
-            <Route path="/blog/best-walking-challenges-for-groups" element={<BlogPostGroupChallenges />} />
-            <Route path="/step-challenge/:city" element={<StepChallengeCity />} />
-            <Route path="/about-rivlo-ai" element={<AboutRivloAI />} />
+            <Route path="/about/" element={<About />} />
+            <Route path="/contact/" element={<Contact />} />
+            <Route path="/terms/" element={<Terms />} />
+            <Route path="/privacy/" element={<Privacy />} />
+            <Route path="/leaderboard/" element={<Leaderboard />} />
+            <Route path="/milestones/" element={<Milestones />} />
+            <Route path="/best-step-counter-app/" element={<BestStepCounterApp />} />
+            <Route path="/fitness-challenge-app/" element={<FitnessChallengeApp />} />
+            <Route path="/compare/rivlo-vs-pacer/" element={<RivloVsPacer />} />
+            <Route path="/blog/" element={<BlogIndex />} />
+            <Route path="/blog/how-to-walk-10000-steps-a-day/" element={<BlogPost10kSteps />} />
+            <Route path="/blog/walking-for-weight-loss/" element={<BlogPostWeightLoss />} />
+            <Route path="/blog/best-walking-challenges-for-groups/" element={<BlogPostGroupChallenges />} />
+            <Route path="/step-challenge/:city/" element={<StepChallengeCity />} />
+            <Route path="/about-rivlo-ai/" element={<AboutRivloAI />} />
           </Routes>
         </StaticRouter>
       </TooltipProvider>
