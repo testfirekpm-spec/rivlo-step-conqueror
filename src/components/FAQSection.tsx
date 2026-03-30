@@ -12,8 +12,8 @@ const faqs = [
     a: "Yes! Rivlo is free to download and use. Our Free plan includes step tracking, leaderboards, and basic achievements. Upgrade to Pro or Team for advanced features like GPS hike tracking, unlimited challenges, and club management.",
   },
   {
-    q: "Which devices are supported?",
-    a: "Rivlo is available on iOS (iPhone 12 and later). We integrate with Apple Health to automatically sync your step data. Android support is coming soon.",
+    q: "Is Rivlo available on iPhone and Android?",
+    a: "Yes! Rivlo is available for free on both iOS (iPhone and Apple Watch) and Android. Download it from the App Store or Google Play — no subscription required.",
   },
   {
     q: "How does the leaderboard work?",
