@@ -144,7 +144,7 @@ const AboutRivloAI = () => (
           </h2>
           <ol className="space-y-4">
             {[
-              "Download Rivlo for free from the App Store.",
+              "Download Rivlo for free from the App Store or Google Play.",
               "Set your daily step goal (default: 10,000 steps).",
               "Walk normally — Rivlo counts every step automatically using your phone's sensors.",
               "Compete on leaderboards, challenge friends, or join a club.",
