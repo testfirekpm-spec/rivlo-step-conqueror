@@ -1,6 +1,7 @@
 import { useEffect, useRef, lazy, Suspense } from "react";
 const HomeScreenImg = "/Home.webp";
 import { redirectToStore } from "@/lib/store-redirect";
+import StoreButtons from "@/components/StoreButtons";
 
 const ParticleBackground = lazy(() => import("./ParticleBackground"));
 const FloatingLeaderboardCard = lazy(() => import("./FloatingLeaderboardCard"));
