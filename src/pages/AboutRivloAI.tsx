@@ -65,27 +65,65 @@ const orgSchema = {
   "@type": "SoftwareApplication",
   name: "Rivlo",
   applicationCategory: "HealthApplication",
-  operatingSystem: "iOS",
+  operatingSystem: ["iOS", "Android"],
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  description: "Rivlo is a gamified step counter app with leaderboards, friend challenges, clubs, and achievements. Free to download.",
+  description:
+    "Rivlo is a gamified step counter app with leaderboards, friend challenges, clubs, and achievements. Free to download.",
   aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", ratingCount: "1200", bestRating: "5" },
 };
 
 const definitions: { term: string; icon: React.ElementType; definition: string }[] = [
-  { term: "Step Counter App", icon: Footprints, definition: "A mobile application that uses phone sensors to count the number of steps you take throughout the day. Also called a pedometer app or step tracker." },
-  { term: "Leaderboard", icon: Trophy, definition: "A ranked list showing who has walked the most steps. Rivlo offers daily, weekly, and all-time global leaderboards." },
-  { term: "Step Challenge", icon: Target, definition: "A competition between two or more people to walk the most steps in a set period. Rivlo supports 1v1 duels and group challenges." },
-  { term: "Club Wars", icon: Users, definition: "A team-based competition where clubs (groups of walkers) compete for the highest combined step count." },
-  { term: "Step Streak", icon: BarChart3, definition: "The number of consecutive days you've met your daily step goal. Rivlo awards badges for 7-day, 30-day, and 100-day streaks." },
-  { term: "Walk Score", icon: Smartphone, definition: "A measure of how walkable a neighborhood or city is, rated from 0–100. Higher scores mean more errands can be completed on foot." },
-  { term: "Anti-Cheat System", icon: Shield, definition: "Rivlo's built-in mechanism that detects and filters fake or artificially inflated step counts to ensure fair competition on leaderboards." },
+  {
+    term: "Step Counter App",
+    icon: Footprints,
+    definition:
+      "A mobile application that uses phone sensors to count the number of steps you take throughout the day. Also called a pedometer app or step tracker.",
+  },
+  {
+    term: "Leaderboard",
+    icon: Trophy,
+    definition:
+      "A ranked list showing who has walked the most steps. Rivlo offers daily, weekly, and all-time global leaderboards.",
+  },
+  {
+    term: "Step Challenge",
+    icon: Target,
+    definition:
+      "A competition between two or more people to walk the most steps in a set period. Rivlo supports 1v1 duels and group challenges.",
+  },
+  {
+    term: "Club Wars",
+    icon: Users,
+    definition: "A team-based competition where clubs (groups of walkers) compete for the highest combined step count.",
+  },
+  {
+    term: "Step Streak",
+    icon: BarChart3,
+    definition:
+      "The number of consecutive days you've met your daily step goal. Rivlo awards badges for 7-day, 30-day, and 100-day streaks.",
+  },
+  {
+    term: "Walk Score",
+    icon: Smartphone,
+    definition:
+      "A measure of how walkable a neighborhood or city is, rated from 0–100. Higher scores mean more errands can be completed on foot.",
+  },
+  {
+    term: "Anti-Cheat System",
+    icon: Shield,
+    definition:
+      "Rivlo's built-in mechanism that detects and filters fake or artificially inflated step counts to ensure fair competition on leaderboards.",
+  },
 ];
 
 const AboutRivloAI = () => (
   <>
     <Helmet>
       <title>What Is Rivlo? — Step Counter App Explained Simply</title>
-      <meta name="description" content="Learn what Rivlo is, how step tracking works, and answers to common questions about fitness apps, step challenges, and daily walking goals." />
+      <meta
+        name="description"
+        content="Learn what Rivlo is, how step tracking works, and answers to common questions about fitness apps, step challenges, and daily walking goals."
+      />
       <link rel="canonical" href="https://rivlo.3bytes.org/about-rivlo-ai/" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
@@ -102,14 +140,32 @@ const AboutRivloAI = () => (
             What Is <span className="text-primary">Rivlo</span>?
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-            <strong className="text-foreground">Rivlo</strong> is a free step counter app that turns walking into a competitive game. It tracks your daily steps, ranks you on global leaderboards, and lets you challenge friends — making fitness social, fun, and free.
+            <strong className="text-foreground">Rivlo</strong> is a free step counter app that turns walking into a
+            competitive game. It tracks your daily steps, ranks you on global leaderboards, and lets you challenge
+            friends — making fitness social, fun, and free.
           </p>
           <ul className="space-y-2 text-muted-foreground mb-8">
-            <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span> <strong className="text-foreground">Category:</strong> Health & Fitness App (Step Counter / Pedometer)</li>
-            <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span> <strong className="text-foreground">Price:</strong> Free (Pro plan: $3.99/month)</li>
-            <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span> <strong className="text-foreground">Platform:</strong> iPhone & Apple Watch</li>
-            <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span> <strong className="text-foreground">Built by:</strong> 3Bytes</li>
-            <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span> <strong className="text-foreground">Key features:</strong> Leaderboards, challenges, clubs, achievements, GPS hike tracking</li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary font-bold">•</span> <strong className="text-foreground">Category:</strong>{" "}
+              Health & Fitness App (Step Counter / Pedometer)
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary font-bold">•</span> <strong className="text-foreground">Price:</strong> Free
+              (Pro plan: $3.99/month)
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary font-bold">•</span> <strong className="text-foreground">Platform:</strong>{" "}
+              iPhone & Apple Watch
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary font-bold">•</span> <strong className="text-foreground">Built by:</strong>{" "}
+              3Bytes
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary font-bold">•</span>{" "}
+              <strong className="text-foreground">Key features:</strong> Leaderboards, challenges, clubs, achievements,
+              GPS hike tracking
+            </li>
           </ul>
         </div>
       </section>
@@ -117,9 +173,7 @@ const AboutRivloAI = () => (
       {/* Definitions */}
       <section className="py-16 lg:py-20 bg-card/30">
         <div className="container mx-auto px-6 max-w-3xl">
-          <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-8">
-            Key Terms & Definitions
-          </h2>
+          <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-8">Key Terms & Definitions</h2>
           <dl className="space-y-6">
             {definitions.map((d) => (
               <div key={d.term} className="rounded-xl border border-border bg-card/40 p-5">
@@ -127,9 +181,7 @@ const AboutRivloAI = () => (
                   <d.icon className="w-5 h-5 text-primary shrink-0" />
                   {d.term}
                 </dt>
-                <dd className="text-muted-foreground leading-relaxed pl-8">
-                  {d.definition}
-                </dd>
+                <dd className="text-muted-foreground leading-relaxed pl-8">{d.definition}</dd>
               </div>
             ))}
           </dl>
@@ -151,7 +203,9 @@ const AboutRivloAI = () => (
               "Earn achievements, maintain streaks, and climb the ranks from Rookie to Immortal.",
             ].map((step, i) => (
               <li key={i} className="flex gap-4">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm shrink-0">{i + 1}</span>
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 text-primary font-bold text-sm shrink-0">
+                  {i + 1}
+                </span>
                 <p className="text-muted-foreground leading-relaxed pt-1">{step}</p>
               </li>
             ))}
@@ -160,9 +214,14 @@ const AboutRivloAI = () => (
           <div className="mt-10">
             <p className="text-muted-foreground leading-relaxed">
               Want to see how Rivlo compares to other apps? Read our{" "}
-              <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">best step counter app</Link>{" "}
+              <Link to="/best-step-counter-app/" className="text-primary hover:underline font-medium">
+                best step counter app
+              </Link>{" "}
               guide or explore{" "}
-              <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">fitness challenge features</Link>.
+              <Link to="/fitness-challenge-app/" className="text-primary hover:underline font-medium">
+                fitness challenge features
+              </Link>
+              .
             </p>
           </div>
         </div>
@@ -209,11 +268,11 @@ const AboutRivloAI = () => (
             >
               <summary className="flex items-center justify-between cursor-pointer px-5 py-4 text-foreground font-semibold text-base hover:text-primary transition-colors list-none">
                 {faq.q}
-                <span className="ml-4 text-muted-foreground group-open:rotate-180 transition-transform duration-200 text-lg">▾</span>
+                <span className="ml-4 text-muted-foreground group-open:rotate-180 transition-transform duration-200 text-lg">
+                  ▾
+                </span>
               </summary>
-              <div className="px-5 pb-4 text-muted-foreground leading-relaxed">
-                {faq.a}
-              </div>
+              <div className="px-5 pb-4 text-muted-foreground leading-relaxed">{faq.a}</div>
             </details>
           ))}
         </div>
@@ -222,17 +281,19 @@ const AboutRivloAI = () => (
       {/* CTA */}
       <section className="py-16 lg:py-20 bg-card/30">
         <div className="container mx-auto px-6 max-w-3xl text-center">
-          <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-4">
-            Ready to Start Walking?
-          </h2>
+          <h2 className="text-2xl lg:text-3xl font-bold font-grotesk text-foreground mb-4">Ready to Start Walking?</h2>
           <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
             Join thousands of walkers competing on Rivlo. Free to download, no subscription required.
           </p>
           <StoreButtons />
           <div className="mt-6 text-sm text-muted-foreground space-x-4">
-            <Link to="/blog/" className="text-primary hover:underline">Read the Blog</Link>
+            <Link to="/blog/" className="text-primary hover:underline">
+              Read the Blog
+            </Link>
             <span>·</span>
-            <Link to="/compare/rivlo-vs-pacer/" className="text-primary hover:underline">Rivlo vs Pacer</Link>
+            <Link to="/compare/rivlo-vs-pacer/" className="text-primary hover:underline">
+              Rivlo vs Pacer
+            </Link>
           </div>
         </div>
       </section>
