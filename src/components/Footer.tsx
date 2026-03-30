@@ -6,7 +6,8 @@ const footerLinks = {
     { label: "Features", href: "#features" },
     { label: "How It Works", href: "#how-it-works" },
     { label: "Pricing", href: "#pricing" },
-    { label: "Download", href: "https://apps.apple.com/app/rivlo-steps-runs-hikes/id6756506796", external: true },
+    { label: "App Store (iOS)", href: "https://apps.apple.com/app/rivlo-steps-runs-hikes/id6756506796", external: true },
+    { label: "Google Play (Android)", href: "https://play.google.com/store/apps/details?id=com.rivlo.app", external: true },
   ],
   Resources: [
     { label: "Best Step Counter App", href: "/best-step-counter-app" },
