@@ -60,10 +60,10 @@ const BestStepCounterApp = () => {
   return (
     <>
       <Helmet>
-        <title>Best Step Counter App (2026) — Free Pedometer | Rivlo</title>
+        <title>Best Step Counter App 2026 — Rivlo vs Pacer vs StepsApp Compared</title>
         <meta
           name="description"
-          content="Looking for the best step counter app? Rivlo is a free pedometer with leaderboards, challenges, clubs, and achievements. Compare top step trackers."
+          content="Looking for the best step counter app? We compare Rivlo, Pacer, StepsApp, and more. See which free pedometer app has the best leaderboards, challenges, and accuracy."
         />
         <link rel="canonical" href="https://rivlo.3bytes.org/best-step-counter-app/" />
         <meta property="og:title" content="Best Step Counter App (2026) | Rivlo" />
