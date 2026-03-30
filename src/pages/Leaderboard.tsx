@@ -44,6 +44,8 @@ const Leaderboard = () => {
         <meta property="og:title" content="Fitness Leaderboard App — Compete & Track Steps | Rivlo" />
         <meta property="og:description" content="Rivlo is the #1 fitness leaderboard app. Track steps, compete on global rankings, and stay motivated." />
         <meta property="og:url" content="https://rivlo.3bytes.org/leaderboard/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
