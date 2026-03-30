@@ -81,10 +81,10 @@ const RivloVsPacer = () => {
   return (
     <>
       <Helmet>
-        <title>Rivlo vs Pacer: Best Step Counter App (2026)</title>
+        <title>Rivlo vs Pacer: Which Step Counter App Is Better? (2026 Comparison)</title>
         <meta
           name="description"
-          content="Rivlo vs Pacer — detailed comparison of features, gamification, social tools, and pricing. See why Rivlo is the better step counter app."
+          content="Rivlo vs Pacer head-to-head: leaderboards, challenges, accuracy, price, and features compared. Find out which pedometer app wins for competitive walkers."
         />
         <link rel="canonical" href="https://rivlo.3bytes.org/compare/rivlo-vs-pacer/" />
         <meta property="og:title" content="Rivlo vs Pacer: Best Step Counter App (2026)" />
