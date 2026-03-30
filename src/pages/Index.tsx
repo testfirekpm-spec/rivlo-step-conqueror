@@ -26,8 +26,10 @@ const Index = () => {
   return (
     <main className="bg-background">
       <Helmet>
-        <title>Rivlo — Step Counter App with Leaderboards</title>
-        <meta name="description" content="Rivlo is the #1 gamified step counter app. Compete on leaderboards, challenge friends, track hikes & runs, and unlock achievements — all free." />
+        <title>Rivlo — Free Step Counter App with Leaderboards & Challenges | iOS & Android</title>
+        <meta name="description" content="Rivlo is the free gamified step counter and pedometer app for iOS and Android. Track your daily steps, compete on global leaderboards, challenge friends, and earn achievements — no subscription needed." />
+        <meta name="keywords" content="step counter app, pedometer app, best step counter, free step tracker, walking challenge app, fitness leaderboard, step counter android, step counter iphone" />
+        <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Rivlo — Step Counter App with Leaderboards" />
         <meta property="og:description" content="Compete on leaderboards, challenge friends, and unlock achievements with the best free step counter app." />
         <meta property="og:url" content="https://rivlo.3bytes.org/" />
