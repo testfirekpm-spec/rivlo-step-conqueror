@@ -24,11 +24,39 @@ const testimonials = [
   },
 ];
 
+const reviewSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Rivlo",
+  "review": [
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Sarah K." },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Rivlo turned my boring commute into a daily competition. I've walked 3x more since I started using it."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "James T." },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "The club feature is genius. My office team competes every week and it's become our favourite thing."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Priya M." },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "I love the achievements system. Unlocking badges gives me real motivation to hit my step goals daily."
+    }
+  ]
+};
+
 const TestimonialsSection = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal();
 
   return (
-    <section id="testimonials" className="relative py-32 lg:py-40 bg-background">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }} />
+      <section id="testimonials" className="relative py-32 lg:py-40 bg-background">
       <div className="container mx-auto px-6">
         {/* Featured quote — Jitter-style big quote */}
         <div
@@ -89,6 +117,7 @@ const TestimonialsSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
