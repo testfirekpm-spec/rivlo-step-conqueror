@@ -114,10 +114,10 @@ export default defineConfig(({ mode }) => ({
     noExternal: ['react-helmet-async'],
   },
   resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-      // Prevent lucide-react barrel import — only direct path imports allowed
-      "lucide-react": path.resolve(__dirname, "node_modules/lucide-react/dist/esm/icons"),
-    },
+    alias: [
+      { find: "@", replacement: path.resolve(__dirname, "./src") },
+      // Block the lucide-react barrel — redirect to just createLucideIcon (no icons)
+      { find: /^lucide-react$/, replacement: path.resolve(__dirname, "node_modules/lucide-react/dist/esm/createLucideIcon.js") },
+    ],
   },
 }));
