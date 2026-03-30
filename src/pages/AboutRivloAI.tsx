@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Download, Footprints, Trophy, Users, Target, BarChart3, Smartphone, Shield } from "lucide-react";
 import { redirectToStore } from "@/lib/store-redirect";
+import StoreButtons from "@/components/StoreButtons";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
