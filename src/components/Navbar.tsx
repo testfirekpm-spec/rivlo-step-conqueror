@@ -13,14 +13,14 @@ const sectionLinks = [
 ];
 
 const pageLinks = [
-  { label: "Best Step Counter App", href: "/best-step-counter-app" },
-  { label: "Fitness Challenge App", href: "/fitness-challenge-app" },
-  { label: "Fitness Leaderboard", href: "/leaderboard" },
-  { label: "Step Goals & Milestones", href: "/milestones" },
-  { label: "Rivlo vs Pacer", href: "/compare/rivlo-vs-pacer" },
-  { label: "Blog", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Best Step Counter App", href: "/best-step-counter-app/" },
+  { label: "Fitness Challenge App", href: "/fitness-challenge-app/" },
+  { label: "Fitness Leaderboard", href: "/leaderboard/" },
+  { label: "Step Goals & Milestones", href: "/milestones/" },
+  { label: "Rivlo vs Pacer", href: "/compare/rivlo-vs-pacer/" },
+  { label: "Blog", href: "/blog/" },
+  { label: "About", href: "/about/" },
+  { label: "Contact", href: "/contact/" },
 ];
 
 const Navbar = () => {
