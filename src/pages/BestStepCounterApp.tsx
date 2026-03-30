@@ -1,6 +1,15 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Trophy, Check, X, Download, Star, Footprints, Target, Users, BarChart3, Smartphone } from "lucide-react";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import Check from "lucide-react/dist/esm/icons/check";
+import X from "lucide-react/dist/esm/icons/x";
+import Download from "lucide-react/dist/esm/icons/download";
+import Star from "lucide-react/dist/esm/icons/star";
+import Footprints from "lucide-react/dist/esm/icons/footprints";
+import Target from "lucide-react/dist/esm/icons/target";
+import Users from "lucide-react/dist/esm/icons/users";
+import BarChart3 from "lucide-react/dist/esm/icons/bar-chart-3";
+import Smartphone from "lucide-react/dist/esm/icons/smartphone";
 import { redirectToStore } from "@/lib/store-redirect";
 import StoreButtons from "@/components/StoreButtons";
 import Navbar from "@/components/Navbar";

@@ -1,4 +1,7 @@
-import { Star, Users, Shield, Award } from "lucide-react";
+import Star from "lucide-react/dist/esm/icons/star";
+import Users from "lucide-react/dist/esm/icons/users";
+import Shield from "lucide-react/dist/esm/icons/shield";
+import Award from "lucide-react/dist/esm/icons/award";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const trustItems = [

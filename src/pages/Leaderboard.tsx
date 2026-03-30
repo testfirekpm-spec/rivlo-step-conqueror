@@ -1,6 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Palette, Trophy, TrendingUp, Users, Target, Zap, BarChart3 } from "lucide-react";
+import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
+import Palette from "lucide-react/dist/esm/icons/palette";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import TrendingUp from "lucide-react/dist/esm/icons/trending-up";
+import Users from "lucide-react/dist/esm/icons/users";
+import Target from "lucide-react/dist/esm/icons/target";
+import Zap from "lucide-react/dist/esm/icons/zap";
+import BarChart3 from "lucide-react/dist/esm/icons/bar-chart-3";
 import { useState } from "react";
 import { LeaderboardPoster, type LeaderboardTheme } from "@/components/leaderboard/LeaderboardPoster";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";

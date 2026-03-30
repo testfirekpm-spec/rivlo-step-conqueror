@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import { Mail } from "lucide-react";
+import Mail from "lucide-react/dist/esm/icons/mail";
 
 const Contact = () => {
   return (

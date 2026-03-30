@@ -1,4 +1,6 @@
-import { Download, Footprints, Trophy } from "lucide-react";
+import Download from "lucide-react/dist/esm/icons/download";
+import Footprints from "lucide-react/dist/esm/icons/footprints";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const steps = [

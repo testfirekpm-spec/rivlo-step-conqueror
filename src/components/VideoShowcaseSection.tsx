@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { Play, Pause } from "lucide-react";
+import Play from "lucide-react/dist/esm/icons/play";
+import Pause from "lucide-react/dist/esm/icons/pause";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const VideoShowcaseSection = () => {

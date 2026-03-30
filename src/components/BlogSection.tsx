@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { ArrowRight, Clock } from "lucide-react";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import Clock from "lucide-react/dist/esm/icons/clock";
 
 const posts = [
   {

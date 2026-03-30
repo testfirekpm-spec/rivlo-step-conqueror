@@ -1,6 +1,12 @@
 import { Helmet } from "react-helmet-async";
 import { Link, useParams, Navigate } from "react-router-dom";
-import { Download, MapPin, Trophy, Users, TrendingUp, Footprints, Compass } from "lucide-react";
+import Download from "lucide-react/dist/esm/icons/download";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import Users from "lucide-react/dist/esm/icons/users";
+import TrendingUp from "lucide-react/dist/esm/icons/trending-up";
+import Footprints from "lucide-react/dist/esm/icons/footprints";
+import Compass from "lucide-react/dist/esm/icons/compass";
 import { redirectToStore } from "@/lib/store-redirect";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 import { getCityBySlug, getOtherCities } from "@/data/city-challenges";

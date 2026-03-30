@@ -1,6 +1,14 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Trophy, Users, Flame, Timer, Target, Medal, Download, Swords, BarChart3 } from "lucide-react";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
+import Users from "lucide-react/dist/esm/icons/users";
+import Flame from "lucide-react/dist/esm/icons/flame";
+import Timer from "lucide-react/dist/esm/icons/timer";
+import Target from "lucide-react/dist/esm/icons/target";
+import Medal from "lucide-react/dist/esm/icons/medal";
+import Download from "lucide-react/dist/esm/icons/download";
+import Swords from "lucide-react/dist/esm/icons/swords";
+import BarChart3 from "lucide-react/dist/esm/icons/bar-chart-3";
 import { redirectToStore } from "@/lib/store-redirect";
 import StoreButtons from "@/components/StoreButtons";
 import Navbar from "@/components/Navbar";

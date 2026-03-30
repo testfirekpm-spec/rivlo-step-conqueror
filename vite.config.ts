@@ -101,6 +101,7 @@ export default defineConfig(({ mode }) => ({
           if (id.includes('node_modules/react-router')) return 'router';
           if (id.includes('node_modules/framer-motion')) return 'framer';
           if (id.includes('node_modules/sonner')) return 'ui-feedback';
+          if (id.includes('node_modules/lucide-react')) return 'lucide';
           if (id.includes('node_modules/@radix-ui')) return 'radix';
           if (id.includes('node_modules/class-variance-authority') || 
               id.includes('node_modules/clsx') || 

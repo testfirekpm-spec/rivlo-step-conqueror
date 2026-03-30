@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
-import { Download } from "lucide-react";
+import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
+import Calendar from "lucide-react/dist/esm/icons/calendar";
+import Clock from "lucide-react/dist/esm/icons/clock";
+import Download from "lucide-react/dist/esm/icons/download";
 import { redirectToStore } from "@/lib/store-redirect";
 import StoreButtons from "@/components/StoreButtons";
 import { BlogPost, getRelatedPosts } from "@/data/blog-posts";

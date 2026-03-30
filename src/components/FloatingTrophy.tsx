@@ -1,4 +1,4 @@
-import { Trophy } from "lucide-react";
+import Trophy from "lucide-react/dist/esm/icons/trophy";
 
 const FloatingTrophy = () => {
   return (
