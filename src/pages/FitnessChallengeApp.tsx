@@ -451,14 +451,8 @@ const FitnessChallengeApp = () => {
             <p className="mt-6 text-muted-foreground text-lg max-w-md mx-auto">
               Download Rivlo, challenge a friend, and see who takes more steps this week. It's free.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
-              <button
-                onClick={redirectToStore}
-                className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-              >
-              <Swords className="w-5 h-5" />
-                Join a Live Step Challenge with Rivlo
-              </button>
+            <div className="mt-10 flex flex-col items-center gap-5">
+              <StoreButtons />
               <p className="text-sm text-muted-foreground">
                 Free on iOS & Android · No subscription required
               </p>

@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Trophy, Check, X, Download, Star, Footprints, Target, Users, BarChart3, Smartphone } from "lucide-react";
 import { redirectToStore } from "@/lib/store-redirect";
+import StoreButtons from "@/components/StoreButtons";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
@@ -90,14 +91,8 @@ const BestStepCounterApp = () => {
               accurate step tracking with social competition. We tested and compared the top pedometer
               apps of 2026 so you don't have to.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <button
-                onClick={redirectToStore}
-                className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-              >
-                <Download className="w-5 h-5" />
-                Download Rivlo Free
-              </button>
+            <div className="mt-8">
+              <StoreButtons />
             </div>
           </div>
         </section>
@@ -407,14 +402,8 @@ const BestStepCounterApp = () => {
             <p className="mt-6 text-muted-foreground text-lg max-w-md mx-auto">
               Join thousands of walkers already competing, tracking, and achieving more with Rivlo.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
-              <button
-                onClick={redirectToStore}
-                className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-gold text-gold-foreground font-bold text-base transition-all duration-300 hover:scale-105 hover:shadow-[var(--shadow-gold)]"
-              >
-                <Download className="w-5 h-5" />
-                Download Rivlo Free
-              </button>
+            <div className="mt-10 flex flex-col items-center gap-5">
+              <StoreButtons />
               <p className="text-sm text-muted-foreground">
                 Free on iOS & Android · No credit card required
               </p>

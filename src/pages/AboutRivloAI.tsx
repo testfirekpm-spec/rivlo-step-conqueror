@@ -227,13 +227,7 @@ const AboutRivloAI = () => (
           <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
             Join thousands of walkers competing on Rivlo. Free to download, no subscription required.
           </p>
-          <button
-            onClick={redirectToStore}
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm transition-all duration-300 hover:scale-105"
-          >
-            <Download className="w-4 h-4" />
-            Download Rivlo Free
-          </button>
+          <StoreButtons />
           <div className="mt-6 text-sm text-muted-foreground space-x-4">
             <Link to="/blog/" className="text-primary hover:underline">Read the Blog</Link>
             <span>·</span>
