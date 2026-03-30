@@ -10,20 +10,20 @@ const footerLinks = {
     { label: "Google Play (Android)", href: "https://play.google.com/store/apps/details?id=com.rivlo.app", external: true },
   ],
   Resources: [
-    { label: "Best Step Counter App", href: "/best-step-counter-app" },
-    { label: "Fitness Challenge App", href: "/fitness-challenge-app" },
-    { label: "Fitness Leaderboard", href: "/leaderboard" },
-    { label: "Step Goals & Milestones", href: "/milestones" },
-    { label: "Rivlo vs Pacer", href: "/compare/rivlo-vs-pacer" },
-    { label: "Blog", href: "/blog" },
+    { label: "Best Step Counter App", href: "/best-step-counter-app/" },
+    { label: "Fitness Challenge App", href: "/fitness-challenge-app/" },
+    { label: "Fitness Leaderboard", href: "/leaderboard/" },
+    { label: "Step Goals & Milestones", href: "/milestones/" },
+    { label: "Rivlo vs Pacer", href: "/compare/rivlo-vs-pacer/" },
+    { label: "Blog", href: "/blog/" },
   ],
   Company: [
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
+    { label: "About", href: "/about/" },
+    { label: "Contact", href: "/contact/" },
   ],
   Legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
+    { label: "Privacy Policy", href: "/privacy/" },
+    { label: "Terms of Service", href: "/terms/" },
   ],
 };
 
