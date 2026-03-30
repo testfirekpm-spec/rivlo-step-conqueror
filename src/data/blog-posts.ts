@@ -18,7 +18,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "12 min read",
     date: "2026-01-15",
     excerpt: "Hitting 10,000 steps sounds daunting — until you break it down. Here's a practical, science-backed guide to making it a daily habit.",
-    image: "/blog-10000-steps.jpg",
+    image: "/blog-10000-steps.webp",
   },
   {
     slug: "walking-for-weight-loss",
@@ -28,7 +28,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min read",
     date: "2026-03-08",
     excerpt: "Walking is the most underrated weight loss exercise. Here's exactly how many steps you need — and how to stay consistent.",
-    image: "/blog-walking-weight-loss.jpg",
+    image: "/blog-walking-weight-loss.webp",
   },
   {
     slug: "best-walking-challenges-for-groups",
@@ -38,7 +38,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     date: "2026-02-28",
     excerpt: "Group walking challenges are the secret weapon for workplace wellness and friend-group fitness. Here are the best formats to try.",
-    image: "/blog-group-challenges.jpg",
+    image: "/blog-group-challenges.webp",
   },
 ];
 
