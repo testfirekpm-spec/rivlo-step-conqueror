@@ -14,8 +14,7 @@ import CheckCircle from "lucide-react/dist/esm/icons/check-circle";
 import BarChart3 from "lucide-react/dist/esm/icons/bar-chart-3";
 import Footer from "@/components/Footer";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 /* ─── Data ─── */
 interface MilestoneData {
@@ -65,108 +64,93 @@ const tierColors: Record<string, { accent: string; glow: string; bg: string; tex
   },
 };
 
-/* ─── 3D Tilt Card ─── */
+/* ─── Simple Tilt Card (CSS only) ─── */
 const TiltCard = ({ children, className }: { children: React.ReactNode; className?: string }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const rotateX = useSpring(useTransform(y, [-150, 150], [6, -6]), { stiffness: 300, damping: 30 });
-  const rotateY = useSpring(useTransform(x, [-150, 150], [-6, 6]), { stiffness: 300, damping: 30 });
-
   return (
-    <motion.div
-      className={className}
-      style={{ rotateX, rotateY, transformPerspective: 1000 }}
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        x.set(e.clientX - rect.left - rect.width / 2);
-        y.set(e.clientY - rect.top - rect.height / 2);
-      }}
-      onMouseLeave={() => { x.set(0); y.set(0); }}
-    >
+    <div className={`transition-transform duration-300 hover:scale-[1.02] ${className}`}>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
-/* ─── Floating Orbs (ambient background) ─── */
+/* ─── Floating Orbs (ambient background, CSS animation) ─── */
 const AmbientOrbs = ({ color }: { color: string }) => (
   <div className="pointer-events-none absolute inset-0 overflow-hidden">
     {[0, 1, 2].map((i) => (
-      <motion.div
+      <div
         key={i}
-        className="absolute rounded-full blur-3xl opacity-30"
+        className="absolute rounded-full blur-3xl opacity-30 animate-pulse"
         style={{
           background: color,
           width: `${300 + i * 100}px`,
           height: `${300 + i * 100}px`,
           left: `${15 + i * 25}%`,
           top: `${20 + i * 15}%`,
+          animationDuration: `${8 + i * 2}s`,
         }}
-        animate={{
-          x: [0, 30 * (i % 2 === 0 ? 1 : -1), 0],
-          y: [0, -20 + i * 10, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{ duration: 8 + i * 2, repeat: Infinity, ease: "easeInOut" }}
       />
     ))}
   </div>
 );
 
-/* ─── Legendary Particles ─── */
+/* ─── Legendary Particles (CSS animation) ─── */
 const LegendaryParticles = () => (
   <div className="pointer-events-none absolute inset-0 overflow-hidden">
     {Array.from({ length: 20 }).map((_, i) => (
-      <motion.div
+      <div
         key={i}
-        className="absolute h-1 w-1 rounded-full bg-yellow-400"
+        className="absolute h-1 w-1 rounded-full bg-yellow-400 animate-pulse"
         style={{
           left: `${Math.random() * 100}%`,
           top: `${Math.random() * 100}%`,
-        }}
-        animate={{
-          y: [0, -60 - Math.random() * 80, 0],
-          x: [0, (Math.random() - 0.5) * 40, 0],
-          opacity: [0, 0.8, 0],
-          scale: [0, 1 + Math.random(), 0],
-        }}
-        transition={{
-          duration: 3 + Math.random() * 3,
-          repeat: Infinity,
-          delay: Math.random() * 4,
-          ease: "easeInOut",
+          animationDelay: `${Math.random() * 4}s`,
+          animationDuration: `${3 + Math.random() * 3}s`,
         }}
       />
     ))}
   </div>
 );
 
-/* ─── Word-by-word quote reveal ─── */
+/* ─── Quote reveal with CSS animation ─── */
 const QuoteReveal = ({ text, className }: { text: string; className?: string }) => {
   const words = text.split(" ");
   return (
-    <motion.p className={className}>
+    <p className={className}>
       {words.map((word, i) => (
-        <motion.span
+        <span
           key={i}
           className="inline-block mr-[0.3em]"
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 + i * 0.08, duration: 0.4 }}
+          style={{
+            animation: `fade-in-up 0.4s ease-out ${0.6 + i * 0.08}s backwards`,
+          }}
         >
           {word}
-        </motion.span>
+        </span>
       ))}
-    </motion.p>
+    </p>
   );
+};
+
+/* ─── Scroll reveal hook ─── */
+const useScrollReveal = (ref: React.RefObject<HTMLElement | null>) => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { rootMargin: "-80px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [ref]);
+  return visible;
 };
 
 /* ─── Regular Milestone Section ─── */
 const MilestoneSection = ({ data, index }: { data: MilestoneData; index: number }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const visible = useScrollReveal(ref);
   const tier = tierColors[data.tier];
   const Icon = data.icon;
   const isEven = index % 2 === 1;
@@ -178,19 +162,21 @@ const MilestoneSection = ({ data, index }: { data: MilestoneData; index: number 
 
       <div className="container relative mx-auto px-6 py-20 lg:py-0">
         <div className={`flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-20 ${isEven ? "lg:flex-row-reverse" : ""}`}>
-          <motion.div className="flex-1" style={{ y: parallaxY }}>
-            <motion.div
-              initial={{ opacity: 0, x: isEven ? 80 : -80, scale: 0.9 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ type: "spring", stiffness: 50, damping: 20, duration: 0.8 }}
+          <div className="flex-1">
+            <div
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? "translateX(0) scale(1)" : `translateX(${isEven ? 80 : -80}px) scale(0.9)`,
+                transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
+              }}
             >
-              <motion.div
+              <div
                 className={`mb-4 flex items-center gap-2 ${tier.text}`}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
+                style={{
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? "translateY(0)" : "translateY(10px)",
+                  transition: "opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s",
+                }}
               >
                 <div className={`flex h-8 w-8 items-center justify-center rounded-lg border ${tier.iconBg}`}>
                   <Icon className="h-4 w-4" />
@@ -198,7 +184,7 @@ const MilestoneSection = ({ data, index }: { data: MilestoneData; index: number 
                 <span className="text-xs font-semibold tracking-[0.2em] uppercase">
                   {data.tier === "bronze" ? "First Steps" : data.tier === "silver" ? "Rising Star" : data.tier === "gold" ? "Legend" : "Mythic"}
                 </span>
-              </motion.div>
+              </div>
 
               <h3 className="relative">
                 <span
@@ -215,15 +201,16 @@ const MilestoneSection = ({ data, index }: { data: MilestoneData; index: number 
                   steps
                 </span>
               </h3>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div
+          <div
             className="flex-shrink-0 lg:w-[380px]"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ delay: 0.3, type: "spring", stiffness: 60, damping: 20 }}
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(40px)",
+              transition: "opacity 0.7s ease-out 0.3s, transform 0.7s ease-out 0.3s",
+            }}
           >
             <TiltCard className="relative rounded-2xl border border-border/40 bg-card/60 backdrop-blur-xl p-8">
               <div
@@ -257,7 +244,7 @@ const MilestoneSection = ({ data, index }: { data: MilestoneData; index: number 
                 <QuoteReveal text={data.quote} className="text-sm italic leading-relaxed text-muted-foreground" />
               </div>
             </TiltCard>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -267,9 +254,7 @@ const MilestoneSection = ({ data, index }: { data: MilestoneData; index: number 
 /* ─── Legendary Section ─── */
 const LegendarySection = ({ data }: { data: MilestoneData }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
-  const ringScale = useSpring(useTransform(scrollYProgress, [0, 1], [0.5, 1]), { stiffness: 60, damping: 20 });
-  const ringOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.5, 1]);
+  const visible = useScrollReveal(ref);
   const tier = tierColors.legendary;
 
   return (
@@ -277,56 +262,60 @@ const LegendarySection = ({ data }: { data: MilestoneData }) => {
       <div className="absolute inset-0" style={{ background: tier.bg }} />
       <LegendaryParticles />
 
-      <motion.div
+      <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
-        style={{ opacity: ringOpacity }}
+        style={{ opacity: visible ? 1 : 0, transition: "opacity 0.8s ease-out" }}
       >
         {[0, 1, 2].map((i) => (
-          <motion.div
+          <div
             key={i}
-            className="absolute rounded-full border border-yellow-400/20"
-            style={{ width: `${300 + i * 200}px`, height: `${300 + i * 200}px`, scale: ringScale }}
-            animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.1, 0.3] }}
-            transition={{ duration: 3 + i, repeat: Infinity, delay: i * 0.5 }}
+            className="absolute rounded-full border border-yellow-400/20 animate-pulse"
+            style={{
+              width: `${300 + i * 200}px`,
+              height: `${300 + i * 200}px`,
+              transform: visible ? "scale(1)" : "scale(0.5)",
+              transition: `transform 0.8s ease-out ${i * 0.2}s`,
+              animationDuration: `${3 + i}s`,
+              animationDelay: `${i * 0.5}s`,
+            }}
           />
         ))}
-      </motion.div>
+      </div>
 
       <div className="container relative mx-auto px-6 py-20 text-center">
-        <motion.div
+        <div
           className="mx-auto mb-8"
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 80, damping: 15 }}
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "scale(1)" : "scale(0)",
+            transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+          }}
         >
-          <motion.div
-            className="relative mx-auto flex h-24 w-24 items-center justify-center"
-            animate={{ y: [0, -8, 0], rotate: [0, 2, -2, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
+          <div className="relative mx-auto flex h-24 w-24 items-center justify-center animate-bounce" style={{ animationDuration: "4s" }}>
             <div className="absolute inset-0 rounded-full bg-yellow-400/20 blur-xl" />
             <div className="absolute inset-2 rounded-full bg-yellow-400/10 blur-md" />
             <Swords className="relative h-12 w-12 text-yellow-400 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
-        <motion.div
+        <div
           className="mb-6 inline-flex items-center gap-2 rounded-full border border-yellow-400/30 bg-yellow-400/5 px-5 py-2"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s",
+          }}
         >
           <div className="h-1.5 w-1.5 rounded-full bg-yellow-400 animate-pulse" />
           <span className="text-xs font-bold tracking-[0.25em] uppercase text-yellow-300">Legendary Achievement</span>
-        </motion.div>
+        </div>
 
-        <motion.h3
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 40, damping: 15, delay: 0.3 }}
+        <h3
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "scale(1)" : "scale(0.8)",
+            transition: "opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s",
+          }}
         >
           <span
             className="block text-[3rem] sm:text-[6rem] lg:text-[12rem] font-black leading-[0.85] tracking-tighter"
@@ -340,25 +329,17 @@ const LegendarySection = ({ data }: { data: MilestoneData }) => {
             1,000,000
           </span>
           <span className="mt-2 block text-sm font-medium tracking-[0.4em] uppercase text-yellow-400/60">steps</span>
-        </motion.h3>
+        </h3>
 
-        <motion.div
+        <div
           className="mx-auto mt-12 max-w-md"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, type: "spring", stiffness: 60, damping: 20 }}
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(40px)",
+            transition: "opacity 0.7s ease-out 0.5s, transform 0.7s ease-out 0.5s",
+          }}
         >
           <TiltCard className="relative rounded-2xl border border-yellow-400/20 bg-card/60 backdrop-blur-xl p-8 shadow-[0_0_60px_rgba(250,204,21,0.1)]">
-            <motion.div
-              className="absolute inset-0 rounded-2xl"
-              style={{
-                background: "linear-gradient(90deg, transparent, rgba(250,204,21,0.1), transparent)",
-                backgroundSize: "200% 100%",
-              }}
-              animate={{ backgroundPosition: ["200% 0", "-200% 0"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            />
             <div className="relative">
               <div className="flex items-center justify-center gap-4 mb-5">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-muted/50 ring-2 ring-yellow-400/20">
@@ -389,7 +370,7 @@ const LegendarySection = ({ data }: { data: MilestoneData }) => {
               </div>
             </div>
           </TiltCard>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -429,11 +410,31 @@ const faqSchema = {
   })),
 };
 
+/* ─── Scroll Progress Hook ─── */
+const useScrollProgress = () => {
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        setProgress(docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0);
+      });
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  return progress;
+};
+
 /* ─── Main Page ─── */
 const Milestones = () => {
   const pageRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ container: undefined });
-  const progressHeight = useSpring(useTransform(scrollYProgress, [0, 1], ["0%", "100%"]), { stiffness: 50, damping: 20 });
+  const progress = useScrollProgress();
 
   const regularMilestones = milestones.slice(0, 3);
   const legendary = milestones[3];
@@ -454,9 +455,9 @@ const Milestones = () => {
 
       {/* Scroll progress line */}
       <div className="fixed left-0 top-0 bottom-0 z-50 w-px bg-border/10 ml-3 hidden lg:block">
-        <motion.div
-          className="w-full bg-gradient-to-b from-primary via-primary/60 to-yellow-400"
-          style={{ height: progressHeight }}
+        <div
+          className="w-full bg-gradient-to-b from-primary via-primary/60 to-yellow-400 transition-[height] duration-100"
+          style={{ height: `${progress * 100}%` }}
         />
       </div>
 
@@ -476,60 +477,49 @@ const Milestones = () => {
       <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-6">
         <AmbientOrbs color="rgba(100,130,255,0.08)" />
 
-        <motion.div
+        <div
           className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
+          style={{ animation: "fade-in-up 0.6s ease-out backwards" }}
         >
           <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
           <span className="text-xs font-semibold tracking-[0.2em] uppercase text-primary">Fitness Goals App</span>
-        </motion.div>
+        </div>
 
         <h1 className="text-center">
           {"Step Goals".split("").map((char, i) => (
-            <motion.span
+            <span
               key={i}
               className="inline-block text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-foreground"
-              initial={{ opacity: 0, y: 50, rotateX: -90 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{ delay: 0.3 + i * 0.05, type: "spring", stiffness: 120, damping: 14 }}
+              style={{
+                animation: `fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${0.3 + i * 0.05}s backwards`,
+              }}
             >
               {char === " " ? "\u00A0" : char}
-            </motion.span>
+            </span>
           ))}
         </h1>
 
-        <motion.p
+        <p
           className="mx-auto mt-6 max-w-lg text-center text-base text-muted-foreground leading-relaxed"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.6 }}
+          style={{ animation: "fade-in-up 0.6s ease-out 0.9s backwards" }}
         >
           Set meaningful fitness goals, track every step, and celebrate milestones that keep you moving. Rivlo is the step goals tracker that turns daily walks into lifetime achievements.
-        </motion.p>
+        </p>
 
-        <motion.div
+        <div
           className="absolute bottom-10 flex flex-col items-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.4 }}
+          style={{ animation: "fade-in-up 0.6s ease-out 1.4s backwards" }}
         >
           <span className="text-[10px] font-medium tracking-[0.3em] uppercase text-muted-foreground/50">Scroll</span>
-          <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+          <div className="animate-bounce">
             <ChevronDown className="h-4 w-4 text-muted-foreground/40" />
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* ─── SEO Content: Setting Step Goals ─── */}
       <section className="container mx-auto px-6 py-20 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <ScrollRevealDiv>
           <div className="flex items-center gap-3 mb-6">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 border border-primary/20">
               <Target className="h-5 w-5 text-primary" />
@@ -558,17 +548,12 @@ const Milestones = () => {
               The best <strong>step goals tracker</strong> doesn't just record numbers — it creates a sense of progression. When you can see yourself moving from bronze to silver tier, every walk feels purposeful. That's the difference between a basic pedometer and a true fitness goals app.
             </p>
           </div>
-        </motion.div>
+        </ScrollRevealDiv>
       </section>
 
       {/* ─── SEO Content: Tracking Progress ─── */}
       <section className="container mx-auto px-6 py-20 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <ScrollRevealDiv>
           <div className="flex items-center gap-3 mb-6">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 border border-primary/20">
               <BarChart3 className="h-5 w-5 text-primary" />
@@ -606,17 +591,12 @@ const Milestones = () => {
               According to a study published in the <em>Journal of Medical Internet Research</em>, people who use fitness tracking apps with goal visualization are 27% more likely to maintain physical activity over six months. A <strong>fitness goals app</strong> with structured milestones outperforms simple step counting every time.
             </p>
           </div>
-        </motion.div>
+        </ScrollRevealDiv>
       </section>
 
       {/* ─── SEO Content: Benefits of Milestones ─── */}
       <section className="container mx-auto px-6 py-20 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <ScrollRevealDiv>
           <div className="flex items-center gap-3 mb-6">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 border border-primary/20">
               <Trophy className="h-5 w-5 text-primary" />
@@ -647,7 +627,7 @@ const Milestones = () => {
               Ready to see what structured step goals can do for your fitness? Explore Rivlo's achievement tiers below, or learn more about <Link to="/blog/how-to-walk-10000-steps-a-day/" className="text-primary hover:underline">how to walk 10,000 steps a day</Link> to start your journey toward the first milestone.
             </p>
           </div>
-        </motion.div>
+        </ScrollRevealDiv>
       </section>
 
       {/* ─── Visual Milestone Sections ─── */}
@@ -669,17 +649,12 @@ const Milestones = () => {
         <h2 className="text-3xl font-bold text-foreground text-center mb-10">Frequently Asked Questions</h2>
         <div className="space-y-6">
           {faqs.map((faq, i) => (
-            <motion.div
-              key={i}
-              className="rounded-xl border border-border/40 bg-card/40 p-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <h3 className="text-base font-semibold text-foreground mb-2">{faq.q}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
-            </motion.div>
+            <ScrollRevealDiv key={i}>
+              <div className="rounded-xl border border-border/40 bg-card/40 p-6">
+                <h3 className="text-base font-semibold text-foreground mb-2">{faq.q}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+              </div>
+            </ScrollRevealDiv>
           ))}
         </div>
       </section>
@@ -687,36 +662,50 @@ const Milestones = () => {
       {/* CTA Footer */}
       <section className="relative py-32 text-center overflow-hidden">
         <AmbientOrbs color="rgba(100,130,255,0.05)" />
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <h3 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-            Start Tracking Your Step Goals Today
-          </h3>
-          <p className="text-muted-foreground mb-8 text-sm max-w-md mx-auto">
-            Join thousands of walkers using Rivlo to set fitness goals, track progress, and unlock milestones.
-          </p>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(100,130,255,0.3)]"
-          >
-            Get Started with Rivlo
-          </Link>
-          <div className="mt-6 text-xs text-muted-foreground space-x-3">
-            <Link to="/best-step-counter-app/" className="text-primary hover:underline">Best Step Counter App</Link>
-            <span>·</span>
-            <Link to="/fitness-challenge-app/" className="text-primary hover:underline">Fitness Challenges</Link>
-            <span>·</span>
-            <Link to="/blog/" className="text-primary hover:underline">Blog</Link>
+        <ScrollRevealDiv>
+          <div className="relative">
+            <h3 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+              Start Tracking Your Step Goals Today
+            </h3>
+            <p className="text-muted-foreground mb-8 text-sm max-w-md mx-auto">
+              Join thousands of walkers using Rivlo to set fitness goals, track progress, and unlock milestones.
+            </p>
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(100,130,255,0.3)]"
+            >
+              Get Started with Rivlo
+            </Link>
+            <div className="mt-6 text-xs text-muted-foreground space-x-3">
+              <Link to="/best-step-counter-app/" className="text-primary hover:underline">Best Step Counter App</Link>
+              <span>·</span>
+              <Link to="/fitness-challenge-app/" className="text-primary hover:underline">Fitness Challenges</Link>
+              <span>·</span>
+              <Link to="/blog/" className="text-primary hover:underline">Blog</Link>
+            </div>
           </div>
-        </motion.div>
+        </ScrollRevealDiv>
       </section>
       <Footer />
     </main>
+  );
+};
+
+/* ─── Helper: scroll-reveal wrapper ─── */
+const ScrollRevealDiv = ({ children }: { children: React.ReactNode }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useScrollReveal(ref);
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(30px)",
+        transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+      }}
+    >
+      {children}
+    </div>
   );
 };
 

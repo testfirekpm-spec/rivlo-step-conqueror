@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+
 import rivloLogo from "@/assets/logo-rivlo.webp";
 import { useCountUp } from "@/hooks/use-count-up";
 import EsportsBackground from "./EsportsBackground";
@@ -126,7 +126,6 @@ const leaderboardData = [
 const top3 = leaderboardData.slice(0, 3);
 const rest = leaderboardData.slice(3);
 const podiumOrder = [top3[1], top3[0], top3[2]];
-const podiumAnimOrder = [0, 2, 1];
 
 const podiumStyles: Record<number, {
   barH: string; avatarSize: string; glow: string; border: string;
@@ -200,7 +199,6 @@ const CountedTrophies = ({ trophies, rank }: { trophies: number; rank: number })
 
 const StaticTrophies = ({ trophies }: { trophies: number }) => <>{trophies.toLocaleString()}</>;
 
-/* Sparkle dots around the #1 crown */
 const SparkleParticles = ({ exportMode = false }: { exportMode?: boolean }) => {
   if (exportMode) return null;
   const particles = [
@@ -242,13 +240,10 @@ const BackgroundRenderer = ({ theme, exportMode }: { theme: LeaderboardTheme; ex
 };
 
 export const LeaderboardPoster = ({ animated = true, exportMode = false, theme = "esports" }: LeaderboardPosterProps) => {
-  const Wrap = animated ? motion.div : "div";
-
   return (
     <div className={`relative overflow-hidden bg-background ${exportMode ? "mx-auto h-[960px] w-[540px]" : ""}`}>
       <BackgroundRenderer theme={theme} exportMode={exportMode} />
 
-      {/* Spotlight beam on #1 — only for esports & aurora themes */}
       {theme !== "minimal" && (
         <div
           className="absolute left-1/2 -translate-x-1/2 top-0 pointer-events-none"
@@ -260,7 +255,6 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
         />
       )}
 
-      {/* Abstract mascot shapes — positioned to not overlap content */}
       <DiamondWarrior className="absolute top-[3%] left-[3%] w-10 h-14 opacity-40" delay={0.3} />
       <HexShield className="absolute top-[2%] right-[3%] w-10 h-12 opacity-30" delay={0.5} />
       <TriangleSentinel className="absolute bottom-[8%] left-[4%] w-8 h-12 opacity-25" delay={0.7} />
@@ -269,14 +263,7 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
 
       <div className={`relative px-5 pt-8 ${exportMode ? "flex h-full flex-col pb-8" : "pb-10"}`}>
         {/* Header */}
-        <Wrap
-          className="mb-6 text-center"
-          {...(animated && {
-            initial: { opacity: 0, y: -20 },
-            animate: { opacity: 1, y: 0 },
-            transition: { duration: 0.7, ease: "easeOut" },
-          })}
-        >
+        <div className="mb-6 text-center">
           <div className="mb-3 flex items-center justify-center">
             <img src={rivloLogo} alt="Rivlo" className="h-8 w-8 rounded-lg" crossOrigin="anonymous" loading="eager" />
           </div>
@@ -289,56 +276,30 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
             <div className="h-px w-8" style={{ background: "linear-gradient(90deg, hsl(196 80% 55% / 0.5), transparent)" }} />
           </div>
 
-          {animated ? (
-            <motion.h1
-              className="text-4xl font-black leading-[0.9] text-foreground sm:text-5xl"
-              style={{ letterSpacing: "-0.04em", textShadow: "0 0 40px hsl(230 75% 52% / 0.3)" }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            >
-              THE WINTER ARC
-            </motion.h1>
-          ) : (
-            <h1
-              className="text-4xl font-black leading-[0.9] text-foreground sm:text-5xl"
-              style={{ letterSpacing: "-0.04em", textShadow: "0 0 40px hsl(230 75% 52% / 0.3)" }}
-            >
-              THE WINTER ARC
-            </h1>
-          )}
+          <h1
+            className="text-4xl font-black leading-[0.9] text-foreground sm:text-5xl"
+            style={{ letterSpacing: "-0.04em", textShadow: "0 0 40px hsl(230 75% 52% / 0.3)" }}
+          >
+            THE WINTER ARC
+          </h1>
 
-          {/* Neon underline */}
           <div className="relative mx-auto mt-3 w-20">
             <div className="h-[2px]" style={{ background: "linear-gradient(90deg, transparent, hsl(196 80% 55%), hsl(270 60% 55%), transparent)" }} />
             <div className="absolute inset-0 h-[2px] blur-[6px]" style={{ background: "linear-gradient(90deg, transparent, hsl(196 80% 55% / 0.5), hsl(270 60% 55% / 0.5), transparent)" }} />
           </div>
-        </Wrap>
+        </div>
 
         {/* Podium */}
         <div className={`mx-auto max-w-sm ${exportMode ? "mb-0" : "mb-2"}`}>
           <div className="flex items-end justify-center gap-2 sm:gap-3">
-            {podiumOrder.map((player, visualIdx) => {
+            {podiumOrder.map((player) => {
               const styles = podiumStyles[player.rank];
-              const animIdx = podiumAnimOrder[visualIdx];
 
               const crownElement = player.rank === 1 && (
                 <div className="relative mb-0.5">
-                  {animated ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0, rotate: 180 }}
-                      animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                      transition={{ duration: 0.6, delay: 0.8, type: "spring", stiffness: 200 }}
-                    >
-                      <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-yellow-400" style={{ filter: "drop-shadow(0 0 6px rgba(234,179,8,0.6))" }}>
-                        <path d="M2 18L4 8L8.5 12L12 4L15.5 12L20 8L22 18H2Z" fill="currentColor" />
-                      </svg>
-                    </motion.div>
-                  ) : (
-                    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-yellow-400" style={{ filter: "drop-shadow(0 0 6px rgba(234,179,8,0.6))" }}>
-                      <path d="M2 18L4 8L8.5 12L12 4L15.5 12L20 8L22 18H2Z" fill="currentColor" />
-                    </svg>
-                  )}
+                  <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-yellow-400" style={{ filter: "drop-shadow(0 0 6px rgba(234,179,8,0.6))" }}>
+                    <path d="M2 18L4 8L8.5 12L12 4L15.5 12L20 8L22 18H2Z" fill="currentColor" />
+                  </svg>
                   <SparkleParticles exportMode={exportMode} />
                 </div>
               );
@@ -375,66 +336,18 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
                 </div>
               );
 
-              const content = (
-                <div className={`relative rounded-xl border border-white/[0.08] ${styles.glassBg} ${styles.glassGlow} backdrop-blur-xl p-3 pt-4 flex flex-col items-center overflow-hidden`}>
-                  {/* Top accent line */}
-                  <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.7), transparent)` }} />
-                  {crownElement}
-
-                  {animated ? (
-                    <motion.div
-                      className="flex flex-col items-center"
-                      initial={{ opacity: 0, y: -30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + animIdx * 0.15, type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      {avatarElement}
-                    </motion.div>
-                  ) : avatarElement}
-
-                  <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
-                    {player.name}
-                  </p>
-
-                  {animated ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.9 + animIdx * 0.15, duration: 0.4, ease: "easeOut" }}
-                    >
-                      {trophiesElement}
-                    </motion.div>
-                  ) : trophiesElement}
-
-                  
-
-                  {animated ? (
-                    <motion.div
-                      className="w-full"
-                      initial={{ scaleY: 0 }}
-                      animate={{ scaleY: 1 }}
-                      transition={{ delay: 0.3 + animIdx * 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                      style={{ transformOrigin: "bottom" }}
-                    >
-                      {barElement}
-                    </motion.div>
-                  ) : barElement}
-                </div>
-              );
-
-              return animated ? (
-                <motion.div
-                  key={player.rank}
-                  className="flex max-w-[130px] flex-1 flex-col items-center"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 + animIdx * 0.2, ease: "easeOut" }}
-                >
-                  {content}
-                </motion.div>
-              ) : (
+              return (
                 <div key={player.rank} className="flex max-w-[130px] flex-1 flex-col items-center">
-                  {content}
+                  <div className={`relative rounded-xl border border-white/[0.08] ${styles.glassBg} ${styles.glassGlow} backdrop-blur-xl p-3 pt-4 flex flex-col items-center overflow-hidden`}>
+                    <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, hsl(${styles.neonColor} / 0.7), transparent)` }} />
+                    {crownElement}
+                    {avatarElement}
+                    <p className={`mt-0.5 max-w-full px-1 text-center font-bold leading-tight text-foreground ${styles.nameSize}`}>
+                      {player.name}
+                    </p>
+                    {trophiesElement}
+                    {barElement}
+                  </div>
                 </div>
               );
             })}
@@ -449,65 +362,48 @@ export const LeaderboardPoster = ({ animated = true, exportMode = false, theme =
 
         {/* Player rows — ranks 4-100 */}
         <div className={`mx-auto max-w-sm space-y-1.5 ${exportMode ? "mt-4" : "mt-1"}`}>
-          {rest.map((player, index) => {
-            const accentOpacity = Math.max(0.05, 0.4 - index * 0.004);
-            const row = (
-              <>
-                <div
-                  className="absolute bottom-0 left-0 top-0 w-[2px] rounded-l-lg"
-                  style={{
-                    background: `linear-gradient(to bottom, hsl(196 80% 55% / ${accentOpacity}), transparent)`,
-                  }}
-                />
-                <span className="inline-grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted/60 text-[11px] font-bold leading-none text-muted-foreground">
-                  <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
-                </span>
-                <div className="grid h-7 w-5 shrink-0 place-items-center">
-                  {player.flag ? (
-                    <img
-                      src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
-                      alt={player.flag}
-                      className="h-3.5 w-5 rounded-[2px] object-cover"
-                      crossOrigin="anonymous"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="h-3.5 w-5 rounded-[2px] bg-muted/40" />
-                  )}
-                </div>
-                <div className="min-w-0 flex-1 pr-2">
-                  <p className="text-sm font-semibold leading-tight text-foreground break-words truncate">
-                    {player.name}
-                  </p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <p className="text-sm font-black tabular-nums text-foreground flex items-center gap-1 justify-end">
-                    <span className="text-xs">🏆</span>
-                    {animated && player.rank <= 5 ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
-                  </p>
-                  <p className="text-[10px] tabular-nums text-muted-foreground">
-                    {player.steps.toLocaleString()} steps
-                  </p>
-                </div>
-              </>
-            );
-
+          {rest.map((player) => {
+            const accentOpacity = Math.max(0.05, 0.4 - (player.rank - 4) * 0.004);
             return (
               <div key={player.rank}>
-                {animated && index < 10 ? (
-                  <motion.div
-                    className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3 py-2.5 backdrop-blur-sm"
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1 + index * 0.08, type: "spring", stiffness: 200, damping: 25 }}
-                  >
-                    {row}
-                  </motion.div>
-                ) : (
-                  <div className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3 py-2.5">
-                    {row}
+                <div className="relative grid grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 overflow-hidden rounded-lg border border-border/20 bg-card/30 px-3 py-2.5">
+                  <div
+                    className="absolute bottom-0 left-0 top-0 w-[2px] rounded-l-lg"
+                    style={{
+                      background: `linear-gradient(to bottom, hsl(196 80% 55% / ${accentOpacity}), transparent)`,
+                    }}
+                  />
+                  <span className="inline-grid h-7 w-7 shrink-0 place-items-center rounded-md bg-muted/60 text-[11px] font-bold leading-none text-muted-foreground">
+                    <span className="relative -translate-y-[0.5px] leading-none">{player.rank}</span>
+                  </span>
+                  <div className="grid h-7 w-5 shrink-0 place-items-center">
+                    {player.flag ? (
+                      <img
+                        src={`https://flagcdn.com/w80/${player.flag.toLowerCase()}.png`}
+                        alt={player.flag}
+                        className="h-3.5 w-5 rounded-[2px] object-cover"
+                        crossOrigin="anonymous"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="h-3.5 w-5 rounded-[2px] bg-muted/40" />
+                    )}
                   </div>
-                )}
+                  <div className="min-w-0 flex-1 pr-2">
+                    <p className="text-sm font-semibold leading-tight text-foreground break-words truncate">
+                      {player.name}
+                    </p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <p className="text-sm font-black tabular-nums text-foreground flex items-center gap-1 justify-end">
+                      <span className="text-xs">🏆</span>
+                      {animated && player.rank <= 5 ? <CountedTrophies trophies={player.trophies} rank={player.rank} /> : <StaticTrophies trophies={player.trophies} />}
+                    </p>
+                    <p className="text-[10px] tabular-nums text-muted-foreground">
+                      {player.steps.toLocaleString()} steps
+                    </p>
+                  </div>
+                </div>
               </div>
             );
           })}
