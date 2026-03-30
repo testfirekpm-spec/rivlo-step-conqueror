@@ -125,6 +125,11 @@ const AboutRivloAI = () => (
         content="Learn what Rivlo is, how step tracking works, and answers to common questions about fitness apps, step challenges, and daily walking goals."
       />
       <link rel="canonical" href="https://rivlo.3bytes.org/about-rivlo-ai/" />
+      <meta property="og:title" content="What Is Rivlo? — Step Counter App Explained Simply" />
+      <meta property="og:description" content="Learn what Rivlo is, how step tracking works, and answers to common questions about fitness apps, step challenges, and daily walking goals." />
+      <meta property="og:url" content="https://rivlo.3bytes.org/about-rivlo-ai/" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
     </Helmet>

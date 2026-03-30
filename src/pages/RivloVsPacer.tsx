@@ -91,6 +91,8 @@ const RivloVsPacer = () => {
         <meta property="og:title" content="Rivlo vs Pacer: Best Step Counter App (2026)" />
         <meta property="og:description" content="Feature-by-feature comparison of Rivlo and Pacer step counter apps. See which wins for competitions." />
         <meta property="og:url" content="https://rivlo.3bytes.org/compare/rivlo-vs-pacer/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

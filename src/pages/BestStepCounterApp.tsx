@@ -70,6 +70,8 @@ const BestStepCounterApp = () => {
         <meta property="og:title" content="Best Step Counter App (2026) | Rivlo" />
         <meta property="og:description" content="Free pedometer with leaderboards, challenges, and achievements. Compare top step tracker apps." />
         <meta property="og:url" content="https://rivlo.3bytes.org/best-step-counter-app/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 

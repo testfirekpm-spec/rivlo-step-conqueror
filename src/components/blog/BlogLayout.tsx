@@ -28,6 +28,8 @@ const BlogLayout = ({ post, faqSchema, articleSchema, children }: BlogLayoutProp
         <meta property="og:title" content={`${post.title} | Rivlo`} />
         <meta property="og:description" content={post.metaDescription} />
         <meta property="og:url" content={`https://rivlo.3bytes.org/blog/${post.slug}/`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={`https://rivlo.3bytes.org${post.image}`} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         {articleSchema ? (
           <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
