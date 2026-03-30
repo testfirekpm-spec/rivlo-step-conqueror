@@ -15,6 +15,8 @@ const Contact = () => {
         <meta property="og:title" content="Contact Rivlo — Get in Touch" />
         <meta property="og:description" content="Have a question or partnership idea? Contact the Rivlo team." />
         <meta property="og:url" content="https://rivlo.3bytes.org/contact/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
       </Helmet>
       <Navbar />
 

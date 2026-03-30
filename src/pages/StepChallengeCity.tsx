@@ -64,6 +64,8 @@ const StepChallengeCity = () => {
         <meta property="og:title" content={`Step Challenge in ${cityData.name} | Rivlo`} />
         <meta property="og:description" content={`Join step challenges in ${cityData.name}. Compete with local walkers on real-time leaderboards.`} />
         <meta property="og:url" content={`https://rivlo.3bytes.org/step-challenge/${cityData.slug}/`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faq)}</script>
       </Helmet>
 

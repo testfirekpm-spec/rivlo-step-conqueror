@@ -42,6 +42,8 @@ const About = () => {
         <meta property="og:title" content="About Rivlo — The Gamified Step Counter App" />
         <meta property="og:description" content="Rivlo is more than a pedometer — it's a global arena where every step earns rank, trophies, and glory." />
         <meta property="og:url" content="https://rivlo.3bytes.org/about/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://rivlo.3bytes.org/og-image.png" />
       </Helmet>
       <Navbar />
 
