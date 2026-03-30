@@ -13,6 +13,7 @@ const Privacy = () => {
         <link rel="canonical" href="https://rivlo.3bytes.org/privacy/" />
         <meta property="og:title" content="Privacy Policy — Rivlo" />
         <meta property="og:url" content="https://rivlo.3bytes.org/privacy/" />
+        <meta name="robots" content="noindex, follow" />
       </Helmet>
       <Navbar />
 

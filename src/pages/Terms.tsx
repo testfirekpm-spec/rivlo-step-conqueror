@@ -13,6 +13,7 @@ const Terms = () => {
         <link rel="canonical" href="https://rivlo.3bytes.org/terms/" />
         <meta property="og:title" content="Terms of Service — Rivlo" />
         <meta property="og:url" content="https://rivlo.3bytes.org/terms/" />
+        <meta name="robots" content="noindex, follow" />
       </Helmet>
       <Navbar />
 
