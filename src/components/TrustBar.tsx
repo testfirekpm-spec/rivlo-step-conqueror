@@ -5,7 +5,7 @@ const trustItems = [
   { icon: Star, text: "4.9★ App Store", highlight: true },
   { icon: Users, text: "50K+ Active Users", highlight: false },
   { icon: Shield, text: "Privacy First", highlight: false },
-  { icon: Award, text: "App of the Day", highlight: true },
+  { icon: Award, text: "No Subscription Required", highlight: true },
 ];
 
 const TrustBar = () => {
