@@ -1,13 +1,12 @@
 const logos = [
-  "Google", "Apple", "Nike", "Strava", "Fitbit",
-  "Samsung", "Garmin", "Peloton", "Headspace", "Calm",
+  "Apple Health", "Google Fit", "Apple Watch", "Garmin", "Fitbit",
 ];
 
 const LogoMarquee = () => {
   return (
     <section className="py-16 border-b border-border bg-background overflow-hidden">
       <p className="text-center text-sm text-muted-foreground mb-10">
-        Trusted by <span className="text-foreground font-semibold">50,000+</span> active users worldwide
+        Works with your <span className="text-foreground font-semibold">favorite apps</span>
       </p>
       <div className="relative">
         {/* Fade edges */}
