@@ -135,7 +135,7 @@ const BlogPostGroupChallenges = () => (
       , clear rules, and a simple prize structure. Here's a step-by-step setup guide:
     </p>
     <ol>
-      <li><strong>Choose your app:</strong> Pick one that all participants can use. Rivlo works on iOS with Android coming soon, offers free group challenges, and requires zero setup.</li>
+      <li><strong>Choose your app:</strong> Pick one that all participants can use. Rivlo works on both iOS and Android, offers free group challenges, and requires zero setup.</li>
       <li><strong>Set the rules:</strong> Define duration, individual vs. team, minimum daily steps, and how ties are broken.</li>
       <li><strong>Establish stakes:</strong> Challenges with real consequences (even small ones) see 2x higher completion rates.</li>
       <li><strong>Create the challenge:</strong> In Rivlo, tap "Challenge" → select participants → set duration → go.</li>
