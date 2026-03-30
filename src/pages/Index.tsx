@@ -44,7 +44,8 @@ const Index = () => {
             logo: "https://rivlo.3bytes.org/logo-rivlo.webp",
             description: "Rivlo is a gamified step counter app where walking becomes a global challenge. Compete with friends, climb leaderboards, and unlock achievements.",
             sameAs: [
-              "https://apps.apple.com/app/rivlo-steps-runs-hikes/id6756506796"
+              "https://apps.apple.com/app/rivlo-steps-runs-hikes/id6756506796",
+              "https://play.google.com/store/apps/details?id=com.rivlo.app"
             ],
             founder: { "@type": "Organization", name: "3Bytes" },
           })}
