@@ -22,6 +22,7 @@ import BlogPostWeightLoss from "./pages/blog/WalkingForWeightLoss";
 import BlogPostGroupChallenges from "./pages/blog/BestWalkingChallenges";
 import StepChallengeCity from "./pages/StepChallengeCity";
 import AboutRivloAI from "./pages/AboutRivloAI";
+import Clubs from "./pages/Clubs";
 
 export function render(url: string) {
   const helmetContext: { helmet?: HelmetServerState } = {};
@@ -47,6 +48,8 @@ export function render(url: string) {
             <Route path="/blog/best-walking-challenges-for-groups/" element={<BlogPostGroupChallenges />} />
             <Route path="/step-challenge/:city/" element={<StepChallengeCity />} />
             <Route path="/about-rivlo-ai/" element={<AboutRivloAI />} />
+            <Route path="/clubs" element={<Clubs />} />
+            <Route path="/clubs/*" element={<Clubs />} />
           </Routes>
         </StaticRouter>
       </TooltipProvider>

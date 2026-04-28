@@ -25,6 +25,7 @@ const routes = [
   "/about/",
   "/about-rivlo-ai/",
   "/contact/",
+  "/clubs",
   "/step-challenge/new-york/",
   "/step-challenge/los-angeles/",
   "/step-challenge/chicago/",
