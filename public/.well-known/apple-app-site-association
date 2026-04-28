@@ -2,7 +2,7 @@
   "applinks": {
     "details": [
       {
-        "appID": "YOUR_TEAM_ID.meet.Rivlo",
+        "appID": "936Q5WRA62.meet.Rivlo",
         "paths": ["/clubs", "/clubs/*"]
       }
     ]
